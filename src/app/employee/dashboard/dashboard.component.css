@@ -1,0 +1,27 @@
+.modal{
+    display: block;
+}
+.addEmployeeStyling{
+    
+    width:90px;
+    height:30px
+    
+}
+.employeeTableFeild{
+    width:180px;
+}
+.table{
+   padding:20px
+    
+}
+.bi-arrow-down{
+display: block;
+}
+.optionsFeild{
+    width:300px
+}
+.addEmployeeButton{
+    height: 50px;
+    width: 150px;
+
+}

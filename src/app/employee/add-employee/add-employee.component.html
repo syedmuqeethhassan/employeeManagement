@@ -1,0 +1,124 @@
+<div>
+    <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
+        
+        <div>
+            <label for="userName">username </label>
+            <input type="text" class="form-control" name="userName" formControlName="userName">
+        </div>
+
+        <div
+            *ngIf="addEmployeeForm.get('userName')?.touched && addEmployeeForm.get('userName')?.hasError('required')">
+            this feild is required
+        </div>
+
+        <div *ngIf="addEmployeeForm.get('userName')?.hasError('pattern')">
+            invalid name
+        </div>
+
+
+
+
+
+        <div>
+            <label for="name">Name </label>
+            <input type="text" class="form-control" name="name" formControlName="name">
+        </div>
+
+        <div *ngIf="addEmployeeForm.get('name')?.touched && addEmployeeForm.get('name')?.hasError('required')">
+            this feild is required
+        </div>
+
+        <div *ngIf="addEmployeeForm.get('name')?.hasError('pattern')">
+            invalid name
+        </div>
+
+
+        <div>
+            <label for="age">age </label>
+            <input type="text" class="form-control" name="age" formControlName="age">
+
+
+            <div *ngIf="addEmployeeForm.get('age')?.touched && addEmployeeForm.get('age')?.hasError('required')">
+                this is required feild
+            </div>
+            <div *ngIf="addEmployeeForm.get('age')?.hasError('pattern')">
+                invalid number
+            </div>
+            <div *ngIf="addEmployeeForm.get('age')?.hasError('maxlength')">
+                length is high
+            </div>
+            <div *ngIf="addEmployeeForm.get('age')?.hasError('minlength')">
+                length is low
+            </div>
+        </div>
+
+        <div class="form-control">
+            <label for="gender">gender</label><br>
+            <input type="radio" name='gender' value='Male' formControlName='gender'>Male
+            <input type="radio" name='gender' value='Female' formControlName='gender'>Female
+        </div>
+
+        <!-- <div *ngIf="submitted==true"> -->
+            <div *ngIf="addEmployeeForm.get('gender').touched && addEmployeeForm.get('gender')?.hasError('required')">
+                this is required feild
+            </div>
+        <!-- </div> -->
+
+        <div>
+            <label for="password">password </label>
+            <input type="password" class="form-control" name="password" formControlName="password">
+        </div>
+
+        <div *ngIf="addEmployeeForm.get('password')?.touched && addEmployeeForm.get('password')?.hasError('required')">
+            this feild is required
+        </div>
+
+        <div *ngIf="addEmployeeForm.get('password')?.hasError('pattern')">
+            invalid name
+        </div>
+
+
+        <div>
+            <label for="phoneNumber">phoneNumber </label>
+            <input type="text" class="form-control" name="phoneNumber" formControlName="phoneNumber">
+
+
+            <div
+                *ngIf="addEmployeeForm.get('phoneNumber')?.touched && addEmployeeForm.get('phoneNumber')?.hasError('required')">
+                this is required feild
+            </div>
+            <div *ngIf="addEmployeeForm.get('phoneNumber')?.hasError('pattern')">
+                invalid number
+            </div>
+            <div *ngIf="addEmployeeForm.get('phoneNumber')?.hasError('maxlength')">
+                length is high
+            </div>
+            <div *ngIf="addEmployeeForm.get('phoneNumber')?.hasError('minlength')">
+                length is low
+            </div>
+
+
+          
+                <label for="city">role</label><br>
+                <select class="form-control" formControlName="role" name="role">
+                    <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+                </select>
+                <!-- <div *ngFor="let role of roles">
+                    <input type="checkbox" (change)="onChange(roles.name, $event.target.checked)" />
+                    {{ cartoon.name }}
+                </div> -->
+            
+
+
+            
+
+        </div>
+
+        <div>
+            <button class="btn btn-outline-secondary">submit</button>
+        </div>
+        <div>
+            <a routerLink="/login">registered user?</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,13 @@
+.loginFormStyling{
+    height:300px;
+    width: 300px;
+    margin-left: 500px;
+    margin-top: 150px;
+}
+.form-control{
+    margin-top: 10px;
+}
+.submitLoginForm{
+    margin:10px;
+    margin-left: 0px;
+}

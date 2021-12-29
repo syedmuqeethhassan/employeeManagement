@@ -1,0 +1,149 @@
+<div style="display: flex;margin-left: 20px;margin-top: 30px;"> 
+<div style="float: right;">
+<button class="addEmployeeButton form-control" (click)="addEmployeeModal()">add employee</button>
+
+</div>
+</div>
+
+<ng-container  *ngIf="data?.data">
+   
+<div style="margin-right: 30px;margin-left: 30px;margin-top: 20px;" >
+    <table class="table" >
+        <thead>
+          <tr>
+            <!-- <th scope="col">#</th> -->
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">age</th>
+            <th scope="col">gender</th>
+            <th scope="col">phone number</th>
+            <th scope="col">role</th>
+            <th scope="col">username</th>
+            <th scope="col">options</th>
+          </tr>
+        </thead>
+        <tbody  *ngFor="let employee of data?.data" >
+          <tr>
+            <!-- <th scope="row">1</th> -->
+            <td class="employeeTableFeild">{{employee.id}}</td>
+            <td class="employeeTableFeild">{{employee.name}}</td>
+            <td class="employeeTableFeild">{{employee.age}}</td>
+            <td class="employeeTableFeild">{{employee.gender}}</td>
+            <td class="employeeTableFeild" >{{employee.phoneNumber}}</td>
+            <td class="employeeTableFeild">{{employee.role}}</td>
+            <td class="employeeTableFeild">{{employee.userName}}</td>
+            <td class="optionsFeild">
+                <button class="optionsStyling btn btn-outline-secondary" (click)="viewEmployee(employee)"><i class="bi-person-fill">view</i></button>
+                <button class="optionsStyling btn btn-outline-secondary" (click)="editEmployee(employee)" ><i class="bi-person-lines-fill">edit</i></button>
+                <button class="optionsStyling btn btn-outline-danger" (click)="deleteEmployee(employee.id) "><i class="bi-person-x">delete</i></button>
+            </td>
+            
+            
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div *ngIf="addEmployeeModalDisplay">
+    <div class="modal " tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        (click)="closeAddEmployeeModalDisplay()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                     
+                        <app-add-employee ></app-add-employee>
+                        
+                     
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showViewEmployeeModal">
+    <div class="modal " tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">User data</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        (click)=" closeViewEmployeeModalDisplay()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <table class="table" >
+                            <thead>
+                              <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">name</th>
+                                <th scope="col">age</th>
+                                <th scope="col">gender</th>
+                                <th scope="col">phone number</th>
+                                <th scope="col">role</th>
+                                <th scope="col">username</th>
+                              </tr>
+                            </thead>
+                            <tbody >
+                              <tr>
+                                <td class="employeeTableFeild">{{id}}</td>
+                                <td class="employeeTableFeild">{{name}}</td>
+                                <td class="employeeTableFeild">{{age}}</td>
+                                <td class="employeeTableFeild">{{gender}}</td>
+                                <td class="employeeTableFeild" >{{phonenumber}}</td>
+                                <td class="employeeTableFeild">{{role}}</td>
+                                <td class="employeeTableFeild">{{username}}</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showEditEmployeeModal">
+<div class="modal " tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">edit User data</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    (click)="closeEditEmployeeModalDisplay()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                  
+                    
+                    <app-edit-employee [editEmployeeFormData]="editEmployeeFormdata"></app-edit-employee>
+                 
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
