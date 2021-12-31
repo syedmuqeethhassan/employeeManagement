@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormGroup}  from '@angular/forms';
+import { FormGroup,FormArray,FormControl}  from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ApiCallsService } from 'src/app/api-calls.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
@@ -14,7 +14,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent implements OnInit {
-  roles=['admin','manager','developer']
+  
+  roles: Array<any> = [
+    { name: 'admin', value: 'Admin' },
+    { name: 'manager', value: 'Manager' },
+    { name: 'developer', value: 'Developer' }
+    
+  ];
   
   addEmployeeForm: FormGroup;
   addEmployeeFormData:any
@@ -30,7 +36,8 @@ export class AddEmployeeComponent implements OnInit {
       gender:['',[Validators.required]],
       id: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
       age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
-      role:['',[Validators.required]]
+      // role:['',[Validators.required]]
+      rolesArray: this.formbuilder.array([])
     })
 
 
@@ -55,6 +62,25 @@ onSubmit(){
     })
     
 }
+onCheckboxChange(e) {
+  const rolesArray: FormArray = this.addEmployeeForm.get('rolesArray') as FormArray;
+
+  if (e.target.checked) {
+    rolesArray.push(new FormControl(e.target.value));
+  } else {
+    let i: number = 0;
+    rolesArray.controls.forEach((item: FormControl) => {
+      if (item.value == e.target.value) {
+        rolesArray.removeAt(i);
+        return;
+      }
+      i++;
+    });
+  }
+}
+
+
+
 alertConfirmationAdd(addEmployeeForm){
   Swal.fire({
     title: 'Are you sure?',

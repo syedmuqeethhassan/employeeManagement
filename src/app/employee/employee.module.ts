@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EditEmployeeComponent } from '../edit-employee/edit-employee.component';
 import { ApiCallsService } from '../api-calls.service';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 const routes: Routes = [
   {path:'', component:EmployeeComponent},
@@ -27,7 +28,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxDatatableModule
   ],
   exports: [AddEmployeeComponent,DashboardComponent],
   providers: [ApiCallsService]

@@ -7,7 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeModule } from './employee/employee.module';
-
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ApiCallsService } from './api-calls.service';
 import { DashboardComponent } from './employee/dashboard/dashboard.component';
 
@@ -24,6 +24,7 @@ import { DashboardComponent } from './employee/dashboard/dashboard.component';
     FormsModule, ReactiveFormsModule,
      RouterModule,
      HttpClientModule,EmployeeModule,
+     NgxDatatableModule
     
   ],
   providers: [ApiCallsService,DashboardComponent],

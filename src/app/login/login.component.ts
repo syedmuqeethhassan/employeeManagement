@@ -5,6 +5,7 @@ import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { DashboardComponent } from '../employee/dashboard/dashboard.component';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   userName:string
   password:string
-  constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient) {
+  userLogged:string='userLogged'
+  constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public dashboardcomponent:DashboardComponent) {
 
     this.loginForm = this.formbuilder.group({
       userName: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
@@ -36,6 +38,8 @@ export class LoginComponent implements OnInit {
         return a.userName === this.loginForm.value.userName && a.password === this.loginForm.value.password
       })
       if(user){
+        // this.dashboardcomponent.checkDesignation()
+        sessionStorage.setItem(this.userLogged, JSON.stringify(user));
         Swal.fire("logged in")
         this.router.navigate(['/employee/dashboard']);
         this.loginForm.reset()

@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  rows:any
+  columns = [{ prop: 'userName' ,}, { prop: 'password' }, { prop: 'phoneNumber' },{ prop: 'name' },{ prop: 'gender' },{ prop: 'id' },{ prop: 'age' },{ prop: 'rolesArray' }];
   addEmployeeModalDisplay:boolean=false
   jsonServerData:any
   data:any
@@ -17,7 +19,7 @@ export class DashboardComponent implements OnInit {
   name:any
   age:any
   gender:any
-  role:any
+  rolesArray:any
   username:any
   phonenumber:any
   allDataSubject = new Subject<any>();
@@ -25,16 +27,52 @@ export class DashboardComponent implements OnInit {
   closeViewEmployeeModal=false
   showEditEmployeeModal=false
   editEmployeeFormdata:any
+  Manager:boolean=false
+  Developer:boolean=false
+  Admin:boolean=false
+  adminData:any
+  managerData:any
+  developerData:any
+
   constructor(public apicallservice:ApiCallsService) { }
+
+  
 
   ngOnInit(): void {
     this.apicallservice.getAllData()
     this.apicallservice.allDatatosubject()
     this.apicallservice.allDataAsObservable()
     this.apicallservice.allDataSubject.subscribe((receivedData)=>{
-      this.data=receivedData
+      console.log(receivedData)
+      let userLoggedData = JSON.parse(sessionStorage.getItem('userLogged'))
+      if(userLoggedData.rolesArray.includes('Admin')){
+        this.data=receivedData.data
+        console.log('admin')
+        this.Admin=true
+        this.rows=this.data
+        console.log(this.rows)
+        console.log(this.data)
+        
+
+      }
+      else if(userLoggedData.rolesArray.includes('Manager')){
+        const managerData = receivedData.data.filter(x => (x.rolesArray.includes('Developer') || x.rolesArray.includes('Manager')) && !x.rolesArray.includes('Admin'))
+        
+        console.log("is this working", managerData)
+          this.data=managerData
+          this.rows=this.data
+          console.log(' is this it')
+      }
+        
+      else if(userLoggedData.rolesArray.includes('Developer')){
+          this.data=[userLoggedData]
+          this.rows=this.data
+          console.log('only developer')
+        }
+      
     }
     )
+    this.checkDesignation()
    }
    loadData(){
     this.apicallservice.getAllData()
@@ -77,13 +115,13 @@ export class DashboardComponent implements OnInit {
         this.apicallservice.deletePost(employeeid)
         Swal.fire(
           'Removed!',
-          'Product removed successfully.',
+          'Employee removed successfully.',
           'success'
         )
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
-          'Product still in our database.)',
+          'Employee still in our database.)',
           'error'
         )
       }
@@ -99,7 +137,7 @@ export class DashboardComponent implements OnInit {
     this.name=employeeobject.name
     this.age=employeeobject.age    
     this.gender=employeeobject.gender 
-    this.role=employeeobject.role 
+    this.rolesArray=employeeobject.rolesArray 
     this.username=employeeobject.userName
     this.phonenumber=employeeobject.phoneNumber
     // this.username=employeeobject.username
@@ -121,6 +159,20 @@ export class DashboardComponent implements OnInit {
   closeEditEmployeeModalDisplay(){
     this.showEditEmployeeModal=false
    
+  }
+  checkDesignation(){
+    if(this.data?.data?.rolesArray.includes('Admin')){
+      this.Admin=true
+    }
+    else{
+      if(this.data?.data?.rolesArray.includes('Manager') && !(this.data.data.rolesArray.includes('Admin'))){
+        this.Manager=true
+      }
+      else{
+        this.Developer=true
+      }
+    }
+
   }
   
 }

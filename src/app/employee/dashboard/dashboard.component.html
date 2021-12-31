@@ -1,17 +1,26 @@
 <div style="display: flex;margin-left: 20px;margin-top: 30px;"> 
 <div style="float: right;">
-<button class="addEmployeeButton form-control" (click)="addEmployeeModal()">add employee</button>
+    
+<button *ngIf="Admin==true" class="addEmployeeButton form-control" (click)="addEmployeeModal()">add employee</button>
 
 </div>
 </div>
+<div style="border:solid grey 2px;margin-top:10px;margin-bottom:20px;">
+    <ngx-datatable 
+    [rows]="rows" 
+    [columns]="columns"
+    [count]=8
+  
+    >
+        
+    </ngx-datatable>
+  </div>
 
-<ng-container  *ngIf="data?.data">
-   
+
 <div style="margin-right: 30px;margin-left: 30px;margin-top: 20px;" >
     <table class="table" >
         <thead>
           <tr>
-            <!-- <th scope="col">#</th> -->
             <th scope="col">id</th>
             <th scope="col">name</th>
             <th scope="col">age</th>
@@ -22,27 +31,36 @@
             <th scope="col">options</th>
           </tr>
         </thead>
-        <tbody  *ngFor="let employee of data?.data" >
+
+        <tbody  *ngFor="let employee of data" >
+            
           <tr>
-            <!-- <th scope="row">1</th> -->
             <td class="employeeTableFeild">{{employee.id}}</td>
             <td class="employeeTableFeild">{{employee.name}}</td>
             <td class="employeeTableFeild">{{employee.age}}</td>
             <td class="employeeTableFeild">{{employee.gender}}</td>
             <td class="employeeTableFeild" >{{employee.phoneNumber}}</td>
-            <td class="employeeTableFeild">{{employee.role}}</td>
+            <td class="employeeTableFeild">{{employee.rolesArray}}</td>
             <td class="employeeTableFeild">{{employee.userName}}</td>
             <td class="optionsFeild">
                 <button class="optionsStyling btn btn-outline-secondary" (click)="viewEmployee(employee)"><i class="bi-person-fill">view</i></button>
                 <button class="optionsStyling btn btn-outline-secondary" (click)="editEmployee(employee)" ><i class="bi-person-lines-fill">edit</i></button>
                 <button class="optionsStyling btn btn-outline-danger" (click)="deleteEmployee(employee.id) "><i class="bi-person-x">delete</i></button>
-            </td>
-            
-            
+            </td> 
           </tr>
+       
         </tbody>
     </table>
 </div>
+
+
+
+
+
+
+
+
+
 
 
 <div *ngIf="addEmployeeModalDisplay">
@@ -105,7 +123,7 @@
                                 <td class="employeeTableFeild">{{age}}</td>
                                 <td class="employeeTableFeild">{{gender}}</td>
                                 <td class="employeeTableFeild" >{{phonenumber}}</td>
-                                <td class="employeeTableFeild">{{role}}</td>
+                                <td class="employeeTableFeild">{{rolesArray}}</td>
                                 <td class="employeeTableFeild">{{username}}</td>
                               </tr>
                             </tbody>

@@ -99,14 +99,16 @@
 
 
           
-                <label for="city">role</label><br>
+                <!-- <label for="city">role</label><br>
                 <select class="form-control" formControlName="role" name="role">
                     <option *ngFor="let role of roles" [value]="role">{{role}}</option>
-                </select>
-                <!-- <div *ngFor="let role of roles">
-                    <input type="checkbox" (change)="onChange(roles.name, $event.target.checked)" />
-                    {{ cartoon.name }}
-                </div> -->
+                </select> -->
+                <div *ngFor="let role of roles; let i=index">
+                    <label>
+                      <input type="checkbox" [value]="role.value" (change)="onCheckboxChange($event)" />
+                      {{role.name}}
+                    </label>
+                  </div>
             
 
 
