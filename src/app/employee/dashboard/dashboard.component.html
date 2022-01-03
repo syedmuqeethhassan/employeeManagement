@@ -5,15 +5,223 @@
 
 </div>
 </div>
-<div style="border:solid grey 2px;margin-top:10px;margin-bottom:20px;">
+<div style="border:solid grey 2px;margin-top:10px;margin-bottom:20px">
+    
     <ngx-datatable 
-    [rows]="rows" 
     [columns]="columns"
+    [rows]="rows" 
     [count]=8
-  
+    [limit]="7"
+    [footerHeight]="50"
+    [sortType]="SortType.multi"
+    [columnMode]="ColumnMode.force"
+    [selected]="selected"
+          [selectionType]="SelectionType.checkbox"
+          [selectAllRowsOnPage]="false"
+          [displayCheck]="displayCheck"
+          (activate)="onActivate($event)"
+          (select)="onSelect($event)"
     >
+    <ngx-datatable-column
+        [width]="30"
+       
+        [canAutoResize]="false"
+        [draggable]="false"
+        [resizeable]="false"
+        [headerCheckboxable]="true"
+        [checkboxable]="true"> </ngx-datatable-column>
+        <ngx-datatable-column name="userName" [sortable]="true"></ngx-datatable-column>
+        <ngx-datatable-column name="password"></ngx-datatable-column>
+        <ngx-datatable-column name="phoneNumber"></ngx-datatable-column>
+        <ngx-datatable-column name="name" [sortable]="true"></ngx-datatable-column>
+        <ngx-datatable-column name="gender"></ngx-datatable-column>
+        <ngx-datatable-column name="id" [sortable]="true"></ngx-datatable-column>
+        <ngx-datatable-column name="age" [sortable]="true"></ngx-datatable-column>
+        <ngx-datatable-column name="rolesArray"></ngx-datatable-column>
+        <!-- <ngx-datatable-column name="userName">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+          <span
+            title="Double click to edit"
+            (dblclick)="editing[rowIndex + '-userName'] = true"
+            *ngIf="!editing[rowIndex + '-userName']"
+          >
+            {{ value }}
+          </span>
+          <input
+            autofocus
+            
+            *ngIf="editing[rowIndex + '-userName']"
+            type="text"
+            [value]="value"
+          />
+        </ng-template>
+     </ngx-datatable-column>
+        <ngx-datatable-column name="password">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+              <span
+                title="Double click to edit"
+                (dblclick)="editing[rowIndex + '-password'] = true"
+                *ngIf="!editing[rowIndex + '-password']"
+              >
+                {{ value }}
+              </span>
+              <input
+                autofocus
+                
+                *ngIf="editing[rowIndex + '-password']"
+                type="text"
+                [value]="value"
+              />
+            </ng-template>
+        </ngx-datatable-column>
+            <ngx-datatable-column name="phoneNumber">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                  <span
+                    title="Double click to edit"
+                    (dblclick)="editing[rowIndex + '-phoneNumber'] = true"
+                    *ngIf="!editing[rowIndex + '-phoneNumber']"
+                  >
+                    {{ value }}
+                  </span>
+                  <input
+                    autofocus
+                    
+                    *ngIf="editing[rowIndex + '-phoneNumber']"
+                    type="text"
+                    [value]="value"
+                  />
+                </ng-template>
+            </ngx-datatable-column>
+                <ngx-datatable-column name="gender">
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+            <span
+              title="Double click to edit"
+              (dblclick)="editing[rowIndex + '-gender'] = true"
+              *ngIf="!editing[rowIndex + '-gender']"
+            >
+              {{ value }}
+            </span>
+            <select
+              *ngIf="editing[rowIndex + '-gender']"
+              (blur)="editing[rowIndex + '-gender'] = false"
+              
+              [value]="value"
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </ng-template>
+        </ngx-datatable-column>
+                    <ngx-datatable-column name="id">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                          <span
+                            title="Double click to edit"
+                            (dblclick)="editing[rowIndex + '-name'] = true"
+                            *ngIf="!editing[rowIndex + '-name']"
+                          >
+                            {{ value }}
+                          </span>
+                          <input
+                            autofocus
+                            
+                            *ngIf="editing[rowIndex + '-name']"
+                            type="text"
+                            [value]="value"
+                          />
+                        </ng-template>
+                    </ngx-datatable-column>
+                        <ngx-datatable-column name="age">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                              <span
+                                title="Double click to edit"
+                                (dblclick)="editing[rowIndex + '-age'] = true"
+                                *ngIf="!editing[rowIndex + '-age']"
+                              >
+                                {{ value }}
+                              </span>
+                              <input
+                                autofocus
+                                
+                                *ngIf="editing[rowIndex + '-age']"
+                                type="text"
+                                [value]="value"
+                              />
+                            </ng-template>
+                        </ngx-datatable-column>
+                        
+                            <ngx-datatable-column name="rolesArray">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                  <span
+                                    title="Double click to edit"
+                                    (dblclick)="editing[rowIndex + '-rolesArray'] = true"
+                                    *ngIf="!editing[rowIndex + '-rolesArray']"
+                                  >
+                                    {{ value }}
+                                  </span>
+                                  <input
+                                    autofocus
+                                    
+                                    *ngIf="editing[rowIndex + '-rolesArray']"
+                                    type="text"
+                                    [value]="value"
+                                  />
+                                </ng-template>
+                            </ngx-datatable-column> --> 
         
-    </ngx-datatable>
+                            
+
+    
+    <ngx-datatable-footer>
+        <ng-template 
+          ngx-datatable-footer-template
+          let-rowCount="rowCount"
+          let-pageSize="pageSize"
+          let-selectedCount="selectedCount"
+          let-curPage="curPage"
+          let-offset="offset"
+          let-isVisible="isVisible">
+          <div>
+            Rows: {{rowCount}} |
+            Size: {{pageSize}} |
+            Current: {{curPage}} |
+            Offset: {{offset}}  |
+            Selected: {{selectedCount}}
+          </div>
+            <datatable-pager 
+                [pagerLeftArrowIcon]="'datatable-icon-left'"
+                [pagerRightArrowIcon]="'datatable-icon-right'"
+                [pagerPreviousIcon]="'datatable-icon-prev'"
+                [pagerNextIcon]="'datatable-icon-skip'"
+                [page]="curPage"
+                [size]="pageSize"
+                [count]="rowCount"
+                [hidden]="!((rowCount / pageSize) > 1)"
+                >
+            </datatable-pager>
+        </ng-template>
+      </ngx-datatable-footer>
+    <!-- [selected]="selected"
+    [selectionType]="SelectionType.checkbox"
+    [selectAllRowsOnPage]="false"
+    [displayCheck]="displayCheck"
+    (activate)="onActivate($event)"
+    (select)="onSelect($event)" -->
+        
+ </ngx-datatable>
+    
+                                    
+    <div class="selected-column">
+        <h4>
+          Selections <small>({{ selected?.length }})</small>
+        </h4>
+        <ul>
+          <li *ngFor="let sel of selected">
+            {{ sel.name }}
+          </li>
+          <li *ngIf="!selected?.length">No Selections</li>
+        </ul>
+      </div>
+    
   </div>
 
 

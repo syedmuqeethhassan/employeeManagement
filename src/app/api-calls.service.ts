@@ -35,9 +35,7 @@ singleEmployeeSubject=new Subject<any>()
   public deletePost(id) {
     let employeeid=id
     let url='http://localhost:3000/employees/'+employeeid
-    this.http.delete(url).subscribe(data => {
-      console.log(data);
-    });
+    return this.http.delete(url)
   }
   putEmployeeFormData(editEmployeeFormData,id){
     let url='http://localhost:3000/employees/'+id

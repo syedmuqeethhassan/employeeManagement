@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild  } from '@angular/core';
 import { ApiCallsService } from 'src/app/api-calls.service';
 import { from, Observable, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
+import { SortType, SelectionType  } from '@swimlane/ngx-datatable'
+import{ColumnMode} from '@swimlane/ngx-datatable'
+
 
 
 @Component({
@@ -10,8 +13,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  SelectionType = SelectionType;
+  SortType = SortType;
+  ColumnMode = ColumnMode;
   rows:any
-  columns = [{ prop: 'userName' ,}, { prop: 'password' }, { prop: 'phoneNumber' },{ prop: 'name' },{ prop: 'gender' },{ prop: 'id' },{ prop: 'age' },{ prop: 'rolesArray' }];
+  selected = [];
+  editing = {};
+  columns = [{ name: 'userName' ,}, { prop: 'password' }, { prop: 'phoneNumber' },{ prop: 'name' },{ prop: 'gender' },{ prop: 'id' },{ prop: 'age' },{ prop: 'rolesArray' }];
   addEmployeeModalDisplay:boolean=false
   jsonServerData:any
   data:any
@@ -23,6 +31,7 @@ export class DashboardComponent implements OnInit {
   username:any
   phonenumber:any
   allDataSubject = new Subject<any>();
+  changeDataSubject = new Subject<any>();
   showViewEmployeeModal=false
   closeViewEmployeeModal=false
   showEditEmployeeModal=false
@@ -33,6 +42,41 @@ export class DashboardComponent implements OnInit {
   adminData:any
   managerData:any
   developerData:any
+
+  add() {
+    this.selected.push(this.rows[1], this.rows[3]);
+  }
+
+  update() {
+    this.selected = [this.rows[1], this.rows[3]];
+  }
+
+  remove() {
+    this.selected = [];
+  }
+
+
+  onSelect({ selected }) {
+    console.log('Select Event', selected, this.selected);
+
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
+  }
+
+  onActivate(event) {
+    console.log('Activate Event', event);
+  }
+  displayCheck(row) {
+    return row.name !== 'Ethel Price';
+  }
+  // updateValue(event, cell, rowIndex) {
+  //   console.log('inline editing rowIndex', rowIndex);
+  //   this.editing[rowIndex + '-' + cell] = false;
+  //   this.rows[rowIndex][cell] = event.target.value;
+  //   this.rows = [...this.rows];
+  //   console.log('UPDATED!', this.rows[rowIndex][cell]);
+  // }
+
 
   constructor(public apicallservice:ApiCallsService) { }
 
@@ -75,13 +119,15 @@ export class DashboardComponent implements OnInit {
     this.checkDesignation()
    }
    loadData(){
-    this.apicallservice.getAllData()
-    this.apicallservice.allDatatosubject()
-    this.apicallservice.allDataAsObservable()
-    this.apicallservice.allDataSubject.subscribe((receivedData)=>{
-      this.data=receivedData
-    }
-    )
+    this.apicallservice.getAllData().subscribe(() => {
+      this.apicallservice.allDatatosubject()
+      
+    })
+    // this.apicallservice.allDataAsObservable()
+    // this.apicallservice.allDataSubject.subscribe((receivedData)=>{
+    //   this.data=receivedData
+    // }
+    // )
    }
   addEmployeeModal(){
     this.addEmployeeModalDisplay=true
@@ -97,7 +143,9 @@ export class DashboardComponent implements OnInit {
   deleteEmployee(id){
     let employeeid=id
     this.alertConfirmation(employeeid)
-    this.loadData()
+    // this.loadData()
+    // this.changeDataSubject.subscribe((receivedData)=>
+    // this.data=receivedData)
     
    
     
@@ -112,7 +160,10 @@ export class DashboardComponent implements OnInit {
       cancelButtonText: 'No, let me think'
     }).then((result) => {
       if (result.value) {
-        this.apicallservice.deletePost(employeeid)
+        this.apicallservice.deletePost(employeeid).subscribe(() => {
+          this.loadData()
+        })
+        
         Swal.fire(
           'Removed!',
           'Employee removed successfully.',
