@@ -5,13 +5,16 @@
 
 </div>
 </div>
-<div style="border:solid grey 2px;margin-top:10px;margin-bottom:20px">
+<div style="margin-top:10px;margin-bottom:20px;">
     
     <ngx-datatable 
+    class="material container"
     [columns]="columns"
     [rows]="rows" 
     [count]=8
     [limit]="7"
+    [headerHeight]="60"
+    [rowHeight]="50"
     [footerHeight]="50"
     [sortType]="SortType.multi"
     [columnMode]="ColumnMode.force"
@@ -22,23 +25,9 @@
           (activate)="onActivate($event)"
           (select)="onSelect($event)"
     >
-    <ngx-datatable-column
-        [width]="30"
-       
-        [canAutoResize]="false"
-        [draggable]="false"
-        [resizeable]="false"
-        [headerCheckboxable]="true"
-        [checkboxable]="true"> </ngx-datatable-column>
-        <ngx-datatable-column name="userName" [sortable]="true"></ngx-datatable-column>
-        <ngx-datatable-column name="password"></ngx-datatable-column>
-        <ngx-datatable-column name="phoneNumber"></ngx-datatable-column>
-        <ngx-datatable-column name="name" [sortable]="true"></ngx-datatable-column>
-        <ngx-datatable-column name="gender"></ngx-datatable-column>
-        <ngx-datatable-column name="id" [sortable]="true"></ngx-datatable-column>
-        <ngx-datatable-column name="age" [sortable]="true"></ngx-datatable-column>
-        <ngx-datatable-column name="rolesArray"></ngx-datatable-column>
-        <!-- <ngx-datatable-column name="userName">
+    
+         <ngx-datatable-column name="userName" [headerCheckboxable]="true"
+         [checkboxable]="true">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
           <span
             title="Double click to edit"
@@ -49,7 +38,7 @@
           </span>
           <input
             autofocus
-            
+            (blur)="updateValue($event, 'userName', rowIndex)"
             *ngIf="editing[rowIndex + '-userName']"
             type="text"
             [value]="value"
@@ -67,7 +56,7 @@
               </span>
               <input
                 autofocus
-                
+                (blur)="updateValue($event, 'password', rowIndex)"
                 *ngIf="editing[rowIndex + '-password']"
                 type="text"
                 [value]="value"
@@ -85,7 +74,7 @@
                   </span>
                   <input
                     autofocus
-                    
+                    (blur)="updateValue($event, 'phoneNumber', rowIndex)"
                     *ngIf="editing[rowIndex + '-phoneNumber']"
                     type="text"
                     [value]="value"
@@ -104,7 +93,7 @@
             <select
               *ngIf="editing[rowIndex + '-gender']"
               (blur)="editing[rowIndex + '-gender'] = false"
-              
+              (change)="updateValue($event, 'gender', rowIndex)"
               [value]="value"
             >
               <option value="male">Male</option>
@@ -123,7 +112,7 @@
                           </span>
                           <input
                             autofocus
-                            
+                            (blur)="updateValue($event, 'name', rowIndex)"
                             *ngIf="editing[rowIndex + '-name']"
                             type="text"
                             [value]="value"
@@ -141,7 +130,7 @@
                               </span>
                               <input
                                 autofocus
-                                
+                                (blur)="updateValue($event, 'age', rowIndex)"
                                 *ngIf="editing[rowIndex + '-age']"
                                 type="text"
                                 [value]="value"
@@ -160,60 +149,27 @@
                                   </span>
                                   <input
                                     autofocus
-                                    
+                                    (blur)="updateValue($event, 'rolesArray', rowIndex)"
                                     *ngIf="editing[rowIndex + '-rolesArray']"
                                     type="text"
                                     [value]="value"
                                   />
                                 </ng-template>
-                            </ngx-datatable-column> --> 
+                            </ngx-datatable-column> 
         
                             
 
     
-    <ngx-datatable-footer>
-        <ng-template 
-          ngx-datatable-footer-template
-          let-rowCount="rowCount"
-          let-pageSize="pageSize"
-          let-selectedCount="selectedCount"
-          let-curPage="curPage"
-          let-offset="offset"
-          let-isVisible="isVisible">
-          <div>
-            Rows: {{rowCount}} |
-            Size: {{pageSize}} |
-            Current: {{curPage}} |
-            Offset: {{offset}}  |
-            Selected: {{selectedCount}}
-          </div>
-            <datatable-pager 
-                [pagerLeftArrowIcon]="'datatable-icon-left'"
-                [pagerRightArrowIcon]="'datatable-icon-right'"
-                [pagerPreviousIcon]="'datatable-icon-prev'"
-                [pagerNextIcon]="'datatable-icon-skip'"
-                [page]="curPage"
-                [size]="pageSize"
-                [count]="rowCount"
-                [hidden]="!((rowCount / pageSize) > 1)"
-                >
-            </datatable-pager>
-        </ng-template>
-      </ngx-datatable-footer>
-    <!-- [selected]="selected"
-    [selectionType]="SelectionType.checkbox"
-    [selectAllRowsOnPage]="false"
-    [displayCheck]="displayCheck"
-    (activate)="onActivate($event)"
-    (select)="onSelect($event)" -->
+    
+    
         
  </ngx-datatable>
     
                                     
-    <div class="selected-column">
-        <h4>
+    <div class="selected-column" style="margin-top: 30px;margin-left: 110px;">
+        <h5>
           Selections <small>({{ selected?.length }})</small>
-        </h4>
+        </h5>
         <ul>
           <li *ngFor="let sel of selected">
             {{ sel.name }}
@@ -225,7 +181,7 @@
   </div>
 
 
-<div style="margin-right: 30px;margin-left: 30px;margin-top: 20px;" >
+<!-- <div style="margin-right: 30px;margin-left: 30px;margin-top: 20px;" >
     <table class="table" >
         <thead>
           <tr>
@@ -259,7 +215,7 @@
        
         </tbody>
     </table>
-</div>
+</div> -->
 
 
 

@@ -6,12 +6,13 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiCallsService {
+  baseurl='http://localhost:3000/employees/'
 allData:any
 allDataSubject = new Subject<any>();
 singleEmployeeSubject=new Subject<any>()
   constructor(private http:HttpClient) { }
   getAllData() {
-    return this.http.get('http://localhost:3000/employees')
+    return this.http.get(this.baseurl)
   }
   allDatatosubject(){
     this.getAllData().subscribe(
@@ -23,7 +24,7 @@ singleEmployeeSubject=new Subject<any>()
   }
   postAddEmployeeFormData(receivedForm:any){
     console.log("post form data is executing")
-    return this.http.post<any>('http://localhost:3000/employees',receivedForm).subscribe(
+    return this.http.post<any>(this.baseurl,receivedForm).subscribe(
       data => {
         console.log('POST Request is successful ', data);
       },
@@ -34,11 +35,11 @@ singleEmployeeSubject=new Subject<any>()
   }
   public deletePost(id) {
     let employeeid=id
-    let url='http://localhost:3000/employees/'+employeeid
+    let url=this.baseurl+employeeid
     return this.http.delete(url)
   }
   putEmployeeFormData(editEmployeeFormData,id){
-    let url='http://localhost:3000/employees/'+id
+    let url=this.baseurl+id
     return this.http.put<any>(url,editEmployeeFormData).subscribe(
       data => {
         console.log('POST Request is successful ', data);
@@ -47,6 +48,19 @@ singleEmployeeSubject=new Subject<any>()
         console.log('Error', error);
       }
     );
+  }
+  UpdateEmployeeData(id,dataObject){
+    const employeeId=id
+    let url=this.baseurl+employeeId
+    this.http.put(url,dataObject)
+        .subscribe(
+          data => {
+            console.log('Update Request is successful ', data);
+          },
+          error => {
+            console.log('Error', error);
+          }
+        );
   }
   // viewEmployee(id){
   //   let employeeid=id

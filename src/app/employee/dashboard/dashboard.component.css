@@ -1,3 +1,10 @@
+@import "~node_modules/@swimlane/ngx-datatable/index";
+@import "~node_modules/@swimlane/ngx-datatable/themes/material";
+@import "~node_modules/@swimlane/ngx-datatable/themes/bootstrap";
+@import "~node_modules/@swimlane/ngx-datatable/assets/icons";
+
+
+
 .modal{
     display: block;
 }
@@ -24,4 +31,8 @@ display: block;
     height: 50px;
     width: 150px;
 
+}
+.selected-column{
+    margin-left: 200px;
+    margin-top:50px;
 }

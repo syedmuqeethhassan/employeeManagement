@@ -10,7 +10,8 @@ import{ColumnMode} from '@swimlane/ngx-datatable'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: [
+]
 })
 export class DashboardComponent implements OnInit {
   SelectionType = SelectionType;
@@ -58,9 +59,11 @@ export class DashboardComponent implements OnInit {
 
   onSelect({ selected }) {
     console.log('Select Event', selected, this.selected);
-
-    this.selected.splice(0, this.selected.length);
+    if(selected!=undefined){
+      this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
+    }
+    
   }
 
   onActivate(event) {
@@ -69,13 +72,17 @@ export class DashboardComponent implements OnInit {
   displayCheck(row) {
     return row.name !== 'Ethel Price';
   }
-  // updateValue(event, cell, rowIndex) {
-  //   console.log('inline editing rowIndex', rowIndex);
-  //   this.editing[rowIndex + '-' + cell] = false;
-  //   this.rows[rowIndex][cell] = event.target.value;
-  //   this.rows = [...this.rows];
-  //   console.log('UPDATED!', this.rows[rowIndex][cell]);
-  // }
+  updateValue(event, cell, rowIndex) {
+    console.log('inline editing rowIndex', rowIndex);
+    this.editing[rowIndex + '-' + cell] = false;
+    this.rows[rowIndex][cell] = event.target.value;
+    console.log(this.rows[rowIndex],'is this row object')
+    console.log(this.rows[rowIndex].id)
+    this.rows = [...this.rows];
+    console.log(this.rows,'this.rows')
+    console.log('UPDATED!', this.rows[rowIndex][cell]);
+    this.apicallservice.UpdateEmployeeData(this.rows[rowIndex].id,this.rows[rowIndex])
+  }
 
 
   constructor(public apicallservice:ApiCallsService) { }
@@ -123,11 +130,7 @@ export class DashboardComponent implements OnInit {
       this.apicallservice.allDatatosubject()
       
     })
-    // this.apicallservice.allDataAsObservable()
-    // this.apicallservice.allDataSubject.subscribe((receivedData)=>{
-    //   this.data=receivedData
-    // }
-    // )
+    
    }
   addEmployeeModal(){
     this.addEmployeeModalDisplay=true
@@ -143,9 +146,7 @@ export class DashboardComponent implements OnInit {
   deleteEmployee(id){
     let employeeid=id
     this.alertConfirmation(employeeid)
-    // this.loadData()
-    // this.changeDataSubject.subscribe((receivedData)=>
-    // this.data=receivedData)
+    
     
    
     
