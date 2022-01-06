@@ -1,4 +1,14 @@
-@import "~node_modules/@swimlane/ngx-datatable/index";
-@import "~node_modules/@swimlane/ngx-datatable/themes/material";
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.css';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
 
-@import "~node_modules/@swimlane/ngx-datatable/assets/icons";
+/* .ngx-datatable .datatable-header {
+   
+   font-size: large !important;
+  } */
+  .datatable-header-cell{
+    font-size: large !important;
+    color: rgb(54, 38, 148)  !important;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+}

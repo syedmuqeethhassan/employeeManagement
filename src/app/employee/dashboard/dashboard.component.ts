@@ -11,13 +11,15 @@ import{ColumnMode} from '@swimlane/ngx-datatable'
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: [
-]
+],
+encapsulation: ViewEncapsulation.None,
 })
 export class DashboardComponent implements OnInit {
   SelectionType = SelectionType;
   SortType = SortType;
   ColumnMode = ColumnMode;
   rows:any
+  select:any
   selected = [];
   editing = {};
   columns = [{ name: 'userName' ,}, { prop: 'password' }, { prop: 'phoneNumber' },{ prop: 'name' },{ prop: 'gender' },{ prop: 'id' },{ prop: 'age' },{ prop: 'rolesArray' }];
@@ -60,8 +62,12 @@ export class DashboardComponent implements OnInit {
   onSelect({ selected }) {
     console.log('Select Event', selected, this.selected);
     if(selected!=undefined){
-      this.selected.splice(0, this.selected.length);
+      this.select=selected
+    this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
+    if(!selected.length){
+      this.select=null
+    }
     }
     
   }
@@ -99,6 +105,9 @@ export class DashboardComponent implements OnInit {
       if(userLoggedData.rolesArray.includes('Admin')){
         this.data=receivedData.data
         console.log('admin')
+        for(let i=0;i<this.data.length;i++){
+          delete(this.data[i].password)
+        }
         this.Admin=true
         this.rows=this.data
         console.log(this.rows)
@@ -183,7 +192,7 @@ export class DashboardComponent implements OnInit {
   viewEmployee(employeeobject){
     
     let employeedata=employeeobject
-    // this.apicallservice.viewEmployee(employeeid)
+    
     this.showViewEmployeeModal=true
     this.id=employeeobject.id
     this.name=employeeobject.name
