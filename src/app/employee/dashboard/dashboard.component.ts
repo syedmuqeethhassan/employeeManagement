@@ -47,7 +47,12 @@ export class DashboardComponent implements OnInit {
   managerData:any
   developerData:any
   editRow:any
+  retrievedData:any
+  constructor(public apicallservice: ApiCallsService, private zone: NgZone) { }
 
+  ngOnInit(): void {
+    this.loadData()
+  }
   onSelect({ selected }) {
     console.log('Select Event', selected, this.selected);
     if (selected != undefined) {
@@ -84,20 +89,16 @@ export class DashboardComponent implements OnInit {
       Swal.fire("enter valid value")
     }
   }
-  constructor(public apicallservice: ApiCallsService, private zone: NgZone) { }
-
-  ngOnInit(): void {
-    this.loadData()
-  }
   loadData() {
     this.apicallservice.getAllData()
     this.apicallservice.getAllData().subscribe((receivedData) => {
+      this.retrievedData=receivedData
       console.log(receivedData)
       let fetchedData = sessionStorage.getItem('userLogged')
       let userLoggedData = JSON.parse(atob(fetchedData));
       console.log(userLoggedData);
       if (userLoggedData.rolesArray?.includes('Admin')) {
-        this.data = receivedData
+        this.data = this.retrievedData
         console.log('admin')
         console.log(this.data.length)
         for (let i = 0; i < this.data.length; i++) {
@@ -105,14 +106,13 @@ export class DashboardComponent implements OnInit {
         }
         this.Admin = true
         this.rows = this.data
-        console.log(this.rows)
         console.log(this.data)
       }
       else if (userLoggedData.rolesArray?.includes('Manager')) {
-        const managerData = receivedData.data.filter(x => (x.rolesArray.includes('Developer') || x.rolesArray.includes('Manager')) && !x.rolesArray.includes('Admin'))
+        const managerData = this.retrievedData?.filter(x => (x.rolesArray.includes('Developer') || x.rolesArray.includes('Manager')) && !x.rolesArray.includes('Admin'))
         console.log("is this working", managerData)
         this.data = managerData
-        for (let i = 0; i < this.data.length; i++) {
+        for (let i = 0; i < this.data?.length; i++) {
           delete (this.data[i].password)
         }
         this.rows = this.data

@@ -51,7 +51,7 @@ async onSubmit (){
         Swal.fire("username already exists") 
       }
       else{
-        await this.alertConfirmationAdd(this.addEmployeeForm.value)
+        this.alertConfirmationAdd(this.addEmployeeForm.value)
         
       }
     })
