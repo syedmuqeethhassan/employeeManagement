@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ApiCallsService } from '../api-calls.service';
@@ -13,10 +13,12 @@ import { DashboardComponent } from '../employee/dashboard/dashboard.component';
 })
 export class EditEmployeeComponent implements OnInit {
   @Input() editEmployeeFormData: any
-  roles=['admin','manager','developer']
+  roles: Array<any> = [
+    { name: 'admin', value: 'Admin' },
+    { name: 'manager', value: 'Manager' },
+    { name: 'developer', value: 'Developer' }
+  ];
   editEmployeeForm: FormGroup;
-  // userName:string
-  // password:string
   constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public apicallservice:ApiCallsService,public dashboardcomponent:DashboardComponent) {
 
     this.editEmployeeForm = this.formbuilder.group({
@@ -27,28 +29,19 @@ export class EditEmployeeComponent implements OnInit {
       gender:['',[Validators.required]],
       id: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
       age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
-      role:['',[Validators.required]]
+      rolesArray: this.formbuilder.array([])
     })
-
-
    }
-
   ngOnInit(): void {
     this.editEmployeeForm.patchValue(
       {
-        id:this.editEmployeeFormData.id,
+        userName: this.editEmployeeFormData.userName,
+         id:this.editEmployeeFormData.id,
         name:this.editEmployeeFormData.name,
         age:this.editEmployeeFormData.age,
         gender:this.editEmployeeFormData.gender,
-        password: this.editEmployeeFormData.userName,
         phoneNumber: this.editEmployeeFormData.phoneNumber,
-        role:this.editEmployeeFormData.role,
-        userName: this.editEmployeeFormData.userName,
-
     })
-  
-    this.editEmployeeForm.controls['userName'].disable();
-
   }
 onSubmit(){
   console.log("Edit EMPLOYEE OWRKING")
@@ -58,10 +51,20 @@ onSubmit(){
   this.dashboardcomponent.showEditEmployeeModal=false
   Swal.fire('Employee Edited')
 }
-assigndata(employeeobject){
-  this.editEmployeeForm.controls['name']=employeeobject.name
-  console.log("data assignment in edit is working")
+onCheckboxChange(e) {
+  const rolesArray: FormArray = this.editEmployeeForm.get('rolesArray') as FormArray;
 
+  if (e.target.checked) {
+    rolesArray.push(new FormControl(e.target.value));
+  } else {
+    let i: number = 0;
+    rolesArray.controls.forEach((item: FormControl) => {
+      if (item.value == e.target.value) {
+        rolesArray.removeAt(i);
+        return;
+      }
+      i++;
+    });
+  }
 }
-
 }

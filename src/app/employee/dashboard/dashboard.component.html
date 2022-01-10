@@ -5,6 +5,7 @@
       employee</button>
 
   </div>
+  
 </div>
 <div style="margin-top:10px;margin-bottom:20px;">
   <div class="prefix-css">
@@ -12,14 +13,15 @@
     [rowHeight]="50" [footerHeight]="50" [sortType]="SortType.multi" [columnMode]="ColumnMode.force"
     [selected]="selected" [selectionType]="SelectionType.checkbox" [selectAllRowsOnPage]="false"
     [displayCheck]="displayCheck" (activate)="onActivate($event)" (select)="onSelect($event)">
-
-    <ngx-datatable-column name="id" [width]="50" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+    
+    <ngx-datatable-column  name="id" [width]="50" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true"
-          *ngIf="!editing[rowIndex + '-name']">
+        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-id'] = true"
+          *ngIf="!editing[rowIndex + '-id']">
           {{ value }}
+         
         </span>
-        <input autofocus (blur)="updateValue($event, 'name', rowIndex)" *ngIf="editing[rowIndex + '-name']" type="text"
+        <input autofocus (blur)="updateValue($event, 'id', rowIndex)" *ngIf="editing[rowIndex + '-id']" type="text"
           [value]="value" />
       </ng-template>
     </ngx-datatable-column>
@@ -29,7 +31,7 @@
           *ngIf="!editing[rowIndex + '-userName']">
           {{ value }}
         </span>
-        <input autofocus (blur)="updateValue($event, 'userName', rowIndex)" *ngIf="editing[rowIndex + '-userName']"
+        <input  autofocus (blur)="updateValue($event, 'userName', rowIndex)" *ngIf="editing[rowIndex + '-userName']"
           type="text" [value]="value" />
       </ng-template>
     </ngx-datatable-column>
@@ -40,7 +42,7 @@
           *ngIf="!editing[rowIndex + '-phoneNumber']">
           {{ value }}
         </span>
-        <input autofocus (blur)="updateValue($event, 'phoneNumber', rowIndex)"
+        <input style="width: 120px;" autofocus (blur)="updateValue($event, 'phoneNumber', rowIndex)"
           *ngIf="editing[rowIndex + '-phoneNumber']" type="text" [value]="value" />
         </ng-template>
     </ngx-datatable-column>
@@ -57,14 +59,14 @@
         </select>
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="age" [width]="200" [resizeable]="false">
+    <ngx-datatable-column  name="age" [width]="200" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
         <span title="Double click to edit" (dblclick)="editing[rowIndex + '-age'] = true"
           *ngIf="!editing[rowIndex + '-age']">
           {{ value }}
         </span>
-        <input autofocus (blur)="updateValue($event, 'age', rowIndex)" *ngIf="editing[rowIndex + '-age']" type="text"
-          [value]="value" />
+        <input style="width: 60px;" autofocus (blur)="updateValue($event, 'age', rowIndex)" *ngIf="editing[rowIndex + '-age']" type="text"
+        [value]="value" />
       </ng-template>
     </ngx-datatable-column>
 
@@ -81,38 +83,31 @@
        
 
     <ngx-datatable-column name="Actions" [width]="200" [resizeable]="false">
-      <ng-template ngx-datatable-cell-template>
-        <button class="btn btn-outline-secondary" ><i class="bi-person-lines-fill">edit</i></button>
-        <button class="btn btn-outline-danger" ><i class="bi-person-x">delete</i></button>
+      <ng-template ngx-datatable-cell-template let-row="row">
+        <button class="btn btn-outline-secondary" (click)="editEmployee(row)" ><i class="bi-person-lines-fill">edit</i></button>
+        <button class="btn btn-outline-danger"  (click)="deleteEmployee(row.id)"><i class="bi-person-x">delete</i></button>
       </ng-template>
     </ngx-datatable-column>
-
-
-
   </ngx-datatable>
   </div>
 
   <div class="selected-column" style="margin-top: 30px;margin-left: 110px;">
-    <!-- <h5>
-      Selections <small>({{ selected?.length }})</small>
-    </h5> -->
     <div style="display: flex;">
     <div *ngIf="select!=null || select!=undefined ">
-      <button class="btn btn-outline-danger" ><i class="bi-person-x">delete</i></button>
+      <button class="btn btn-outline-danger" (click)="deleteSelected()" ><i class="bi-person-x">delete</i></button>
     </div>
     <ul style="margin-left: 200px;">
       <li *ngFor="let sel of selected">
         {{ sel.name }}
       </li>
-      <!-- <li *ngIf="!selected?.length">No Selections</li> -->
     </ul>
   </div>
   </div>
 
 </div>
 
-<div *ngIf="addEmployeeModalDisplay">
-  <div class="modal " tabindex="-1" role="dialog">
+<div *ngIf="addEmployeeModalDisplay" >
+  <div class="modal showmodal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -138,56 +133,8 @@
     </div>
   </div>
 </div>
-
-<div *ngIf="showViewEmployeeModal">
-  <div class="modal " tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">User data</h5>
-          <button type="button" class="close" data-dismiss="modal" (click)=" closeViewEmployeeModalDisplay()"
-            aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">id</th>
-                  <th scope="col">name</th>
-                  <th scope="col">age</th>
-                  <th scope="col">gender</th>
-                  <th scope="col">phone number</th>
-                  <th scope="col">role</th>
-                  <th scope="col">username</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="employeeTableFeild">{{id}}</td>
-                  <td class="employeeTableFeild">{{name}}</td>
-                  <td class="employeeTableFeild">{{age}}</td>
-                  <td class="employeeTableFeild">{{gender}}</td>
-                  <td class="employeeTableFeild">{{phonenumber}}</td>
-                  <td class="employeeTableFeild">{{rolesArray}}</td>
-                  <td class="employeeTableFeild">{{username}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="modal-footer">
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="showEditEmployeeModal">
-  <div class="modal " tabindex="-1" role="dialog">
+<div *ngIf="showEditEmployeeModal" style="display: block;">
+  <div class="modal showmodal editEmployeeStyling " data-focus="true" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">

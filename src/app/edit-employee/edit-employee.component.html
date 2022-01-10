@@ -1,41 +1,19 @@
 <div>
     <form [formGroup]="editEmployeeForm" (ngSubmit)="onSubmit()">
-
-
-
-        <div>
-            <label for="userName">username </label>
-            <input type="text" class="form-control" name="userName"  formControlName="userName" >
-        </div>
-
-        <div
-            *ngIf="editEmployeeForm.get('userName')?.touched && editEmployeeForm.get('userName')?.hasError('required')">
-            this feild is required
-        </div>
-
-        <div *ngIf="editEmployeeForm.get('userName')?.hasError('pattern')">
-            invalid name
-        </div>
-
+        <h6>For Username : {{editEmployeeFormData.userName}}</h6>
         <div>
             <label for="name">Name </label>
             <input type="text" class="form-control" name="name" formControlName="name">
         </div>
-
         <div *ngIf="editEmployeeForm.get('name')?.touched && editEmployeeForm.get('name')?.hasError('required')">
             this feild is required
         </div>
-
         <div *ngIf="editEmployeeForm.get('name')?.hasError('pattern')">
             invalid name
         </div>
-
-
         <div>
             <label for="age">age </label>
             <input type="text" class="form-control" name="age" formControlName="age">
-
-
             <div *ngIf="editEmployeeForm.get('age')?.touched && editEmployeeForm.get('age')?.hasError('required')">
                 this is required feild
             </div>
@@ -55,32 +33,24 @@
             <input type="radio" name='gender' value='Male' formControlName='gender'>Male
             <input type="radio" name='gender' value='Female' formControlName='gender'>Female
         </div>
-
-        <!-- <div *ngIf="submitted==true"> -->
-            <div *ngIf="editEmployeeForm.get('gender')?.hasError('required')">
-                this is required feild
-            </div>
-        <!-- </div> -->
-
+        <div *ngIf="editEmployeeForm.get('gender')?.hasError('required')">
+            this is required feild
+        </div>
         <div>
             <label for="password">password </label>
             <input type="password" class="form-control" name="password" formControlName="password">
         </div>
-
-        <div *ngIf="editEmployeeForm.get('password')?.touched && editEmployeeForm.get('password')?.hasError('required')">
+        <div
+            *ngIf="editEmployeeForm.get('password')?.touched && editEmployeeForm.get('password')?.hasError('required')">
             this feild is required
         </div>
 
         <div *ngIf="editEmployeeForm.get('password')?.hasError('pattern')">
             invalid name
         </div>
-
-
         <div>
             <label for="phoneNumber">phoneNumber </label>
             <input type="text" class="form-control" name="phoneNumber" formControlName="phoneNumber">
-
-
             <div
                 *ngIf="editEmployeeForm.get('phoneNumber')?.touched && editEmployeeForm.get('phoneNumber')?.hasError('required')">
                 this is required feild
@@ -94,20 +64,18 @@
             <div *ngIf="editEmployeeForm.get('phoneNumber')?.hasError('minlength')">
                 length is low
             </div>
-
-
-            <div class="form-control" style="width:30%;">
-                <label for="city">role</label><br>
-                <select class="form-control" formControlName="role" name="role">
-                    <option *ngFor="let role of roles" [value]="role">{{role}}</option>
-                </select>
+            <div>
+                <h6>
+                    Current Roles: {{editEmployeeFormData.rolesArray}}
+                </h6>
             </div>
-
-
-           
-
+            <div *ngFor="let role of roles; let i=index">
+                <label>
+                    <input type="checkbox" [value]="role.value" (change)="onCheckboxChange($event)" />
+                    {{role.name}}
+                </label>
+            </div>
         </div>
-
         <div>
             <button>submit</button>
         </div>

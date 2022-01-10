@@ -3,10 +3,26 @@
 @import "~node_modules/@swimlane/ngx-datatable/themes/bootstrap";
 @import "~node_modules/@swimlane/ngx-datatable/assets/icons";
 
-
-
-.modal{
+.addEmployeeButton{
+    width: 500px;
+}
+.addEmployeeModal{
     display: block;
+}
+.datatable-header-cell{
+    font-size: large !important;
+    color: rgb(54, 38, 148)  !important;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+}
+.editEmployeeStyling{
+    border:2px solid grey;
+    height: 200px;
+    width: 300px;
+    
+}
+.modal{
+    display: block ;
 }
 .addEmployeeStyling{
     
@@ -35,4 +51,7 @@ display: block;
 .selected-column{
     margin-left: 200px;
     margin-top:50px;
+}
+.showmodal {
+    display: block !important;
 }

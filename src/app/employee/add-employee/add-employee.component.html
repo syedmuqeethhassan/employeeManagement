@@ -1,13 +1,12 @@
 <div>
     <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
-        
+
         <div>
             <label for="userName">username </label>
             <input type="text" class="form-control" name="userName" formControlName="userName">
         </div>
 
-        <div
-            *ngIf="addEmployeeForm.get('userName')?.touched && addEmployeeForm.get('userName')?.hasError('required')">
+        <div *ngIf="addEmployeeForm.get('userName')?.touched && addEmployeeForm.get('userName')?.hasError('required')">
             this feild is required
         </div>
 
@@ -58,11 +57,11 @@
             <input type="radio" name='gender' value='Female' formControlName='gender'>Female
         </div>
 
-        <!-- <div *ngIf="submitted==true"> -->
-            <div *ngIf="addEmployeeForm.get('gender').touched && addEmployeeForm.get('gender')?.hasError('required')">
-                this is required feild
-            </div>
-        <!-- </div> -->
+
+        <div *ngIf="addEmployeeForm.get('gender').touched && addEmployeeForm.get('gender')?.hasError('required')">
+            this is required feild
+        </div>
+
 
         <div>
             <label for="password">password </label>
@@ -76,13 +75,9 @@
         <div *ngIf="addEmployeeForm.get('password')?.hasError('pattern')">
             invalid name
         </div>
-
-
         <div>
             <label for="phoneNumber">phoneNumber </label>
             <input type="text" class="form-control" name="phoneNumber" formControlName="phoneNumber">
-
-
             <div
                 *ngIf="addEmployeeForm.get('phoneNumber')?.touched && addEmployeeForm.get('phoneNumber')?.hasError('required')">
                 this is required feild
@@ -96,26 +91,13 @@
             <div *ngIf="addEmployeeForm.get('phoneNumber')?.hasError('minlength')">
                 length is low
             </div>
-
-
-          
-                <!-- <label for="city">role</label><br>
-                <select class="form-control" formControlName="role" name="role">
-                    <option *ngFor="let role of roles" [value]="role">{{role}}</option>
-                </select> -->
-                <div *ngFor="let role of roles; let i=index">
-                    <label>
-                      <input type="checkbox" [value]="role.value" (change)="onCheckboxChange($event)" />
-                      {{role.name}}
-                    </label>
-                  </div>
-            
-
-
-            
-
+            <div *ngFor="let role of roles; let i=index">
+                <label>
+                    <input type="checkbox" [value]="role.value" (change)="onCheckboxChange($event)" />
+                    {{role.name}}
+                </label>
+            </div>
         </div>
-
         <div>
             <button class="btn btn-outline-secondary">submit</button>
         </div>

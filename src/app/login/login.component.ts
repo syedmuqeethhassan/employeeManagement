@@ -39,8 +39,13 @@ export class LoginComponent implements OnInit {
       })
       if(user){
         // this.dashboardcomponent.checkDesignation()
-        delete(user.password)
-        sessionStorage.setItem(this.userLogged, JSON.stringify(user));
+        delete(user.password);
+        let encodedStr = btoa(JSON.stringify(user));
+
+        sessionStorage.setItem(this.userLogged, encodedStr);
+        // const userEncodedData=window.btoa(user)
+       
+        // sessionStorage.setItem(this.userLogged, JSON.stringify(user));
         Swal.fire("logged in")
         this.router.navigate(['/employee/dashboard']);
         this.loginForm.reset()

@@ -39,24 +39,19 @@ export class AddEmployeeComponent implements OnInit {
       // role:['',[Validators.required]]
       rolesArray: this.formbuilder.array([])
     })
-
-
    }
-
   ngOnInit(): void {
   }
-onSubmit(){
-  this.http.get<any>('http://localhost:3000/employees').subscribe(result=>{
+async onSubmit (){
+  this.http.get<any>('http://localhost:3000/employees').subscribe(async result=>{
       const user=result.find((a:any)=>{
         return a.userName === this.addEmployeeForm.value.userName
       })
       if(user){
-        Swal.fire("username already exists")
-        
+        Swal.fire("username already exists") 
       }
       else{
-        this.alertConfirmationAdd(this.addEmployeeForm.value)
-        this.dashboardcomponent.loadData()
+        await this.alertConfirmationAdd(this.addEmployeeForm.value)
         
       }
     })
@@ -95,7 +90,7 @@ alertConfirmationAdd(addEmployeeForm){
         console.log(this.addEmployeeFormData)
         this.apicallservice.postAddEmployeeFormData(this.addEmployeeFormData)
         this.dashboardcomponent.addEmployeeModalDisplay=false
-       this.router.navigateByUrl('/login')
+       
     if (result.value) {
       Swal.fire(
         'done!',

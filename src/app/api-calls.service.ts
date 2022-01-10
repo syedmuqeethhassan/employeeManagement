@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
-
+import { Observable, Subject } from 'rxjs';
+import { NgZone } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,17 +11,18 @@ allData:any
 allDataSubject = new Subject<any>();
 singleEmployeeSubject=new Subject<any>()
   constructor(private http:HttpClient) { }
-  getAllData() {
+  getAllData() : Observable<any>{
     return this.http.get(this.baseurl)
   }
-  allDatatosubject(){
-    this.getAllData().subscribe(
-      data=>this.allDataSubject.next({data:data})
-    )
-  }
-  allDataAsObservable(){
-    return this.allDataSubject.asObservable
-  }
+  
+  // allDatatosubject(){
+  //   this.getAllData().subscribe(
+  //     data=>this.allDataSubject.next({data:data})
+  //   )
+  // }
+  // allDataAsObservable(){
+  //   return this.allDataSubject.asObservable
+  // }
   postAddEmployeeFormData(receivedForm:any){
     console.log("post form data is executing")
     return this.http.post<any>(this.baseurl,receivedForm).subscribe(
@@ -33,11 +34,12 @@ singleEmployeeSubject=new Subject<any>()
       }
     );
   }
-  public deletePost(id) {
+  deletePost(id) {
     let employeeid=id
     let url=this.baseurl+employeeid
     return this.http.delete(url)
   }
+  
   putEmployeeFormData(editEmployeeFormData,id){
     let url=this.baseurl+id
     return this.http.put<any>(url,editEmployeeFormData).subscribe(
