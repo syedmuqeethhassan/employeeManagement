@@ -1,0 +1,26 @@
+.side-bar ul {
+    list-style-type: none;
+   
+}
+
+.side-bar ul li {
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px 0px;
+    line-height: 25px;
+    color: var(--lightblack);
+}
+.side-bar ul li a {
+    color: var(--lightblack);
+}
+.side-bar ul li a:hover {
+    text-decoration: none;
+}
+
+.side-bar ul li:hover {
+    color: var(--blue);
+}
+
+.side-bar ul li a.active-link {
+    color: var(--blue);
+}

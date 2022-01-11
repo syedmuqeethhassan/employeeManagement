@@ -26,8 +26,13 @@ export class AddEmployeeComponent implements OnInit {
   addEmployeeFormData:any
   userName:string
   password:string
+  url='http://localhost:3000/employees'
   constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public apicallservice:ApiCallsService,public dashboardcomponent:DashboardComponent) {
-
+    this.createForm()
+   }
+  ngOnInit(): void {
+  }
+  createForm(){
     this.addEmployeeForm = this.formbuilder.group({
       userName: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
       password:  ['', [Validators.required]],
@@ -36,14 +41,11 @@ export class AddEmployeeComponent implements OnInit {
       gender:['',[Validators.required]],
       id: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
       age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
-      // role:['',[Validators.required]]
       rolesArray: this.formbuilder.array([])
     })
-   }
-  ngOnInit(): void {
   }
 async onSubmit (){
-  this.http.get<any>('http://localhost:3000/employees').subscribe(async result=>{
+  this.http.get<any>(this.url).subscribe(async result=>{
       const user=result.find((a:any)=>{
         return a.userName === this.addEmployeeForm.value.userName
       })
@@ -84,11 +86,12 @@ alertConfirmationAdd(addEmployeeForm){
     showCancelButton: true,
     confirmButtonText: 'Yes, go ahead.',
     cancelButtonText: 'No, let me think'
-  }).then((result) => {
+  }).then(async(result) => {
     console.log("ADD EMPLOYEE OWRKING")
         this.addEmployeeFormData = {...this.addEmployeeForm.value}
         console.log(this.addEmployeeFormData)
-        this.apicallservice.postAddEmployeeFormData(this.addEmployeeFormData)
+        await this.apicallservice.postAddEmployeeFormData(this.addEmployeeFormData)
+        this.dashboardcomponent.loadData()
         this.dashboardcomponent.addEmployeeModalDisplay=false
        
     if (result.value) {

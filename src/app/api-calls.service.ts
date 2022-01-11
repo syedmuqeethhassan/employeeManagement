@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { NgZone } from '@angular/core';
+import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiCallsService {
-  baseurl='http://localhost:3000/employees/'
+ baseurl='http://localhost:3000/employees/'
 allData:any
 allDataSubject = new Subject<any>();
 singleEmployeeSubject=new Subject<any>()
@@ -15,22 +16,16 @@ singleEmployeeSubject=new Subject<any>()
     return this.http.get(this.baseurl)
   }
   
-  // allDatatosubject(){
-  //   this.getAllData().subscribe(
-  //     data=>this.allDataSubject.next({data:data})
-  //   )
-  // }
-  // allDataAsObservable(){
-  //   return this.allDataSubject.asObservable
-  // }
   postAddEmployeeFormData(receivedForm:any){
     console.log("post form data is executing")
     return this.http.post<any>(this.baseurl,receivedForm).subscribe(
       data => {
         console.log('POST Request is successful ', data);
+        Swal.fire('successful')
       },
       error => {
         console.log('Error', error);
+        Swal.fire('unsuccessful')
       }
     );
   }
@@ -45,9 +40,11 @@ singleEmployeeSubject=new Subject<any>()
     return this.http.put<any>(url,editEmployeeFormData).subscribe(
       data => {
         console.log('POST Request is successful ', data);
+        Swal.fire('successful')
       },
       error => {
         console.log('Error', error);
+        Swal.fire('unsuccessful')
       }
     );
   }
@@ -58,20 +55,13 @@ singleEmployeeSubject=new Subject<any>()
         .subscribe(
           data => {
             console.log('Update Request is successful ', data);
+            Swal.fire('update successful')
           },
           error => {
             console.log('Error', error);
+            Swal.fire('update unsuccessful')
           }
         );
   }
-  // viewEmployee(id){
-  //   let employeeid=id
-  //   let url='http://localhost:3000/employees/'+employeeid
-  //   return this.http.get(url)
-  // }
-  // singleEmployeeViewSubject(){
-  //   this.viewEmployee().subscribe(
-  //     data=>this.singleEmployeeSubject.next({data:data})
-  //   )
-  // }
+  
 }

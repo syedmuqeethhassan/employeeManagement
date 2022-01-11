@@ -1,16 +1,18 @@
-<div style="display: flex;margin-left: 20px;margin-top: 30px;">
-  <div style="float: right;">
 
-    <button *ngIf="Admin==true" class="addEmployeeButton form-control" (click)="addEmployeeModal()">add
-      employee</button>
 
-  </div>
-  
+<div style="display: flex;">
+
+
 </div>
-<div style="margin-top:10px;margin-bottom:20px;">
-  <div class="prefix-css">
+
+<div style="margin-bottom:20px;width: 100%;border: 2px solid grey;">
+  <div style="margin-left: 45px;height: 30px;margin-bottom: 30px;margin-right: 45px;">
+  <button *ngIf="Admin==true" class="addEmployeeButton form-control" (click)="addEmployeeModal()">add
+    employee</button>
+  </div>
+  <div class="prefix-css" style="width: 100%;">
   <ngx-datatable class="material container" [columns]="columns" [rows]="rows" [count]=8 [limit]="7" [headerHeight]="60"
-    [rowHeight]="50" [footerHeight]="50" [sortType]="SortType.multi" [columnMode]="ColumnMode.force"
+    [rowHeight]="50"  [footerHeight]="50" [sortType]="SortType.multi" [columnMode]="ColumnMode.force"
     [selected]="selected" [selectionType]="SelectionType.checkbox" [selectAllRowsOnPage]="false"
     [displayCheck]="displayCheck" (activate)="onActivate($event)" (select)="onSelect($event)">
     
@@ -89,7 +91,7 @@
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>
-  </div>
+  
 
   <div class="selected-column" style="margin-top: 30px;margin-left: 110px;">
     <div style="display: flex;">
@@ -159,4 +161,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

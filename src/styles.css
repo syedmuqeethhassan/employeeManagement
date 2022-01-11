@@ -2,3 +2,29 @@
 .modal{
     display: block;
 }
+.icon{
+    height: 10px !important;
+    width: 10px !important;
+    display:block !important;
+}
+.sidenav{
+    border:2px solid grey;
+    width: 150px;
+    height: 100vh;
+}
+.prefix-css{
+    width:100%;
+}
+.headerContent{
+    align-content: center;
+    height: 50px;
+    width: 100%;
+    border: 2px solid grey;
+    margin-bottom: 10px;
+}
+.active{
+    color: grey;
+}
+.header{
+    width: 100%;
+}

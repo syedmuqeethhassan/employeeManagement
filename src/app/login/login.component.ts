@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   userName:string
   password:string
+  url='http://localhost:3000/employees'
   userLogged:string='userLogged'
   constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public dashboardcomponent:DashboardComponent) {
 
@@ -31,9 +32,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     
   }
+ 
   
   onSubmit(){
-    this.http.get<any>('http://localhost:3000/employees').subscribe(result=>{
+    this.http.get<any>(this.url).subscribe(result=>{
       const user=result.find((a:any)=>{
         return a.userName === this.loginForm.value.userName && a.password === this.loginForm.value.password
       })

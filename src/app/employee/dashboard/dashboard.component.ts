@@ -90,7 +90,6 @@ export class DashboardComponent implements OnInit {
     }
   }
   loadData() {
-    this.apicallservice.getAllData()
     this.apicallservice.getAllData().subscribe((receivedData) => {
       this.retrievedData=receivedData
       console.log(receivedData)

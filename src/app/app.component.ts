@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,5 +6,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
+  isLogin:boolean
   title = 'employeeManagement';
+  constructor(){}
+  
 }

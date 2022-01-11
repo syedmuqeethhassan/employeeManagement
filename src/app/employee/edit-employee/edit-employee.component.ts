@@ -3,8 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { ApiCallsService } from '../api-calls.service';
-import { DashboardComponent } from '../employee/dashboard/dashboard.component';
+import { ApiCallsService } from '../../api-calls.service';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-edit-employee',
@@ -20,17 +20,7 @@ export class EditEmployeeComponent implements OnInit {
   ];
   editEmployeeForm: FormGroup;
   constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public apicallservice:ApiCallsService,public dashboardcomponent:DashboardComponent) {
-
-    this.editEmployeeForm = this.formbuilder.group({
-      userName: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
-      password:  ['', [Validators.required]],
-      phoneNumber:['',[Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern("[0-9]*")]],
-      name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
-      gender:['',[Validators.required]],
-      id: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
-      age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
-      rolesArray: this.formbuilder.array([])
-    })
+    this.createForm()
    }
   ngOnInit(): void {
     this.editEmployeeForm.patchValue(
@@ -41,6 +31,18 @@ export class EditEmployeeComponent implements OnInit {
         age:this.editEmployeeFormData.age,
         gender:this.editEmployeeFormData.gender,
         phoneNumber: this.editEmployeeFormData.phoneNumber,
+    })
+  }
+  createForm(){
+    this.editEmployeeForm = this.formbuilder.group({
+      userName: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
+      password:  ['', [Validators.required]],
+      phoneNumber:['',[Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern("[0-9]*")]],
+      name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
+      gender:['',[Validators.required]],
+      id: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
+      age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
+      rolesArray: this.formbuilder.array([])
     })
   }
 onSubmit(){
