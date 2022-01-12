@@ -13,7 +13,7 @@ userLogged:any
 
   ngOnInit(): void {
     console.log('inside inde compo')
-    this.userLogged=this.dashboard.loggedPerson
+    this.userLogged=this.dashboard?.loggedPerson?.userName
   }
 
   onRouteChange() {
