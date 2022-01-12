@@ -11,13 +11,14 @@ import { ApiCallsService } from '../api-calls.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { HeaderComponent } from './header/header.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { EmployeeRoutingModule } from './employee-routing.module';
 
 
-const routes: Routes = [
-  {path:'feature', component:FeatureComponent},
-  {path:'add-employee', component:AddEmployeeComponent},
-  {path:'dashboard',component:DashboardComponent}
-];
+// const routes: Routes = [
+//   {path:'feature', component:FeatureComponent},
+//   {path:'add-employee', component:AddEmployeeComponent},
+//   {path:'dashboard',component:DashboardComponent}
+// ];
 
 
 @NgModule({
@@ -34,7 +35,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     NgxDatatableModule,
-    RouterModule.forChild(routes)
+    EmployeeRoutingModule
+    // RouterModule.forChild(routes)
   ],
   exports: [],
   providers: [ApiCallsService]
