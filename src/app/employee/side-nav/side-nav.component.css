@@ -6,9 +6,9 @@
 .side-bar ul li {
     cursor: pointer;
     font-size: 15px;
-    padding: 10px 0px;
     line-height: 25px;
     color: var(--lightblack);
+    margin: 5px;
 }
 .side-bar ul li a {
     color: var(--lightblack);
