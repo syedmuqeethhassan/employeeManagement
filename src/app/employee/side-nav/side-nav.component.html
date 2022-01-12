@@ -1,14 +1,14 @@
-<div class="side-bar">
+<div class="side-bar" style="border-right: 2px solid grey;border-bottom: 2px solid grey;width: 200px;height: 100;">
     <!-- <ul >
         <li><a [routerLink]="" routerLinkActive="active-link">Dashboard</a></li>
         <li><a [routerLink]="" routerLinkActive="active-link">Tasks</a></li>
     </ul> -->
     <ul class="nav flex-column nav-tabs ">
         <li class="nav-item" >
-          <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+          <a class="nav-link active" routerLink="/employee/dashboard" aria-current="page" href="#">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Tasks</a>
+          <a class="nav-link active" routerLink="/employee/tasks">Tasks</a>
         </li>
         
       </ul>

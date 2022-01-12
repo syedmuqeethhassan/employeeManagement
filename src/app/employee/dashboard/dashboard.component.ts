@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   SelectionType = SelectionType;
   SortType = SortType;
   ColumnMode = ColumnMode;
+  loggedPerson:any
   rows:any
   select:any
   selected = [];
@@ -95,7 +96,8 @@ export class DashboardComponent implements OnInit {
       console.log(receivedData)
       let fetchedData = sessionStorage.getItem('userLogged')
       let userLoggedData = JSON.parse(atob(fetchedData));
-      console.log(userLoggedData);
+      this.loggedPerson=userLoggedData
+      console.log(userLoggedData,'this is userlogged data');
       if (userLoggedData.rolesArray?.includes('Admin')) {
         this.data = this.retrievedData
         console.log('admin')

@@ -7,7 +7,10 @@ import { RouterModule } from '@angular/router';
 })
 export class FeatureComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    console.log('test')
+
+   }
 
   ngOnInit(): void {
    

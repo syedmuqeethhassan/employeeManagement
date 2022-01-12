@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
-
+  showProfileOptions:boolean=false
+  constructor(public dashboard:DashboardComponent) {
+    this.userLogged=this.dashboard.loggedPerson?.userName
+    console.log(this.dashboard.loggedPerson?.userName,"is this received")
+   }
+  userLogged:any
+  @Input() username: any
   ngOnInit(): void {
+    
   }
-
+  profileOptions(){
+    this.showProfileOptions=!this.showProfileOptions
+  }
 }

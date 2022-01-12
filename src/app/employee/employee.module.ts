@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -12,6 +12,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { HeaderComponent } from './header/header.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { EmployeeRoutingModule } from './employee-routing.module';
+import { EmployeeComponent } from './employee.component';
 
 
 // const routes: Routes = [
@@ -28,7 +29,9 @@ import { EmployeeRoutingModule } from './employee-routing.module';
     FeatureComponent,
     HeaderComponent,
     SideNavComponent,
-    EditEmployeeComponent
+    EditEmployeeComponent,
+    
+    EmployeeComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +42,7 @@ import { EmployeeRoutingModule } from './employee-routing.module';
     // RouterModule.forChild(routes)
   ],
   exports: [],
-  providers: [ApiCallsService]
-
+  providers: [ApiCallsService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EmployeeModule { }

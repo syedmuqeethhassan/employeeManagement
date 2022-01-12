@@ -1,0 +1,19 @@
+.headerContent{
+    display: flex;
+    justify-content: end;
+    height: 110px;
+    align-items: baseline;
+    border: 2px solid grey;
+    
+}
+.profilePic{
+    margin-top: 3px;
+    height:inherit;
+    width: 100px;
+}
+.dropdown-menu{
+    display: block;
+}
+.pictureDiv{
+    margin-right: 200px;
+}
