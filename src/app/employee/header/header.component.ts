@@ -23,4 +23,7 @@ export class HeaderComponent implements OnInit {
   logout(){
     sessionStorage.clear()
   }
+  changePassword(){
+    
+  }
 }

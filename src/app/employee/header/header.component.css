@@ -10,6 +10,7 @@
     margin-top: 3px;
     height:inherit;
     width: 100px;
+    border-radius: 50%;
 }
 .dropdown-menu{
     display: block;

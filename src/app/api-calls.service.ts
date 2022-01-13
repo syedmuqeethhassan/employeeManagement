@@ -15,6 +15,10 @@ singleEmployeeSubject=new Subject<any>()
   getAllData() : Observable<any>{
     return this.http.get(this.baseurl)
   }
+
+  getLoggedData(id): Observable<any>{
+    return this.http.get(this.baseurl+id)
+  }
   
   postAddEmployeeFormData(receivedForm:any){
     console.log("post form data is executing")

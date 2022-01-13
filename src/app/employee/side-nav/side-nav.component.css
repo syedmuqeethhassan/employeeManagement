@@ -15,7 +15,7 @@
     margin: 5px;
 }
 .side-bar ul li a {
-    color: var(--lightblack);
+    color: var(black);
 }
 .side-bar ul li a:hover {
     text-decoration: none;
@@ -26,5 +26,8 @@
 }
 
 .side-bar ul li a.active-link {
-    color: var(--blue);
+    color: black;
+}
+.active-link{
+ background-color:lightgrey;  
 }
