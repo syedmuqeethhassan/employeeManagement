@@ -3,7 +3,7 @@
     justify-content: end;
     height: 110px;
     align-items: baseline;
-    border: 2px solid grey;
+    border-bottom:2px solid grey
     
 }
 .profilePic{
@@ -15,5 +15,5 @@
     display: block;
 }
 .pictureDiv{
-    margin-right: 200px;
+    
 }

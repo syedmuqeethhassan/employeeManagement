@@ -32,6 +32,8 @@ export class EditEmployeeComponent implements OnInit {
         gender:this.editEmployeeFormData.gender,
         phoneNumber: this.editEmployeeFormData.phoneNumber,
     })
+    console.log(this.editEmployeeFormData.password)
+    console.log(this.editEmployeeFormData.userName)
   }
   createForm(){
     this.editEmployeeForm = this.formbuilder.group({

@@ -3,6 +3,10 @@
 @import "~node_modules/@swimlane/ngx-datatable/themes/bootstrap";
 @import "~node_modules/@swimlane/ngx-datatable/assets/icons";
 
+.icon{
+    height:50px;
+    width:50px
+}
 .addEmployeeButton{
     width: 500px;
 }

@@ -207,6 +207,7 @@ export class DashboardComponent implements OnInit {
     this.showEditEmployeeModal = true
     console.log(row.id)
     this.loadData()
+    console.log(this.editEmployeeFormdata)
   }
   closeEditEmployeeModalDisplay() {
     this.showEditEmployeeModal = false

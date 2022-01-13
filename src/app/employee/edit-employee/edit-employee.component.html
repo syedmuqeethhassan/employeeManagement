@@ -1,6 +1,6 @@
 <div>
     <form [formGroup]="editEmployeeForm" (ngSubmit)="onSubmit()">
-        <h6>For Username : {{editEmployeeFormData.userName}}</h6>
+        
         <div>
             <label for="name">Name </label>
             <input type="text" class="form-control" name="name" formControlName="name">
@@ -36,7 +36,7 @@
         <div *ngIf="editEmployeeForm.get('gender')?.hasError('required')">
             this is required feild
         </div>
-        <div>
+        <!-- <div>
             <label for="password">password </label>
             <input type="password" class="form-control" name="password" formControlName="password">
         </div>
@@ -47,7 +47,7 @@
 
         <div *ngIf="editEmployeeForm.get('password')?.hasError('pattern')">
             invalid name
-        </div>
+        </div> -->
         <div>
             <label for="phoneNumber">phoneNumber </label>
             <input type="text" class="form-control" name="phoneNumber" formControlName="phoneNumber">

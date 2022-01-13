@@ -14,7 +14,6 @@ const routes: Routes = [
       path: '',
       component: EmployeeComponent,
       children: [
-        {path:'add-employee', component:AddEmployeeComponent},
         {path:'dashboard',component:DashboardComponent},
         {path:'tasks',loadChildren: () => import('src/app/employee/task/task.module').then(m => m.TaskModule)},
       ]

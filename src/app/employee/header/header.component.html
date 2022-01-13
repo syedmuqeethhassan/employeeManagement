@@ -1,17 +1,14 @@
 <div class="headerContent"  >
-    <div style="justify-self: center;margin-right: 200px;">
-       <h5>Dashboard</h5>
-    
-    </div>
+   
     <div style="align-content: center;margin-right: 50px;">
         <h6>{{userLogged}}</h6>
-        
-     </div>
+    </div>
     <div (click)="profileOptions()" style="display: block;" class="dropdown show pictureDiv" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <img class="profilePic"  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png">
     <div *ngIf="showProfileOptions" >
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Logout</a>
+            <a class="dropdown-item" routerLink="/login" (click)="logout()">Logout</a>
+            <a class="dropdown-item" href="#">My Profile</a>
             
           </div>
     </div>

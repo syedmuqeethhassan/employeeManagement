@@ -1,6 +1,10 @@
 .side-bar ul {
     list-style-type: none;
-   height: 100vh;
+   height:100%;
+   border-right: 2px solid grey;
+   border-bottom: 2px solid grey;
+   width: 200px;
+   height: 100%;
 }
 
 .side-bar ul li {

@@ -3,9 +3,9 @@
 
 
 <div style="margin-bottom:20px;border-right: 2px solid grey;border-bottom: 2px solid grey;">
-  <div style="margin-left:20px;height: 30px;margin-bottom: 30px;margin-right: 45px;height: 10px;width: 200px;">
-  <button *ngIf="Admin==true" class="addEmployeeButton form-control" (click)="addEmployeeModal()">add
-    employee</button>
+  <div style="margin-left:20px;height: 30px;margin-bottom: 30px;height: 10px;width: 200px;float:right">
+  <button *ngIf="Admin==true" class="addEmployeeButton form-control" (click)="addEmployeeModal()">Add
+    Employee</button>
   </div>
   <div class="prefix-css" style="width: 100%;">
   <ngx-datatable class="material container" [columns]="columns" [rows]="rows" [count]=8 [limit]="7" [headerHeight]="60"
@@ -83,8 +83,14 @@
 
     <ngx-datatable-column name="Actions" [width]="200" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-row="row">
-        <button class="btn btn-outline-secondary" (click)="editEmployee(row)" ><i class="bi-person-lines-fill">edit</i></button>
-        <button class="btn btn-outline-danger"  (click)="deleteEmployee(row.id)"><i class="bi-person-x">delete</i></button>
+        <div style="display:flex;margin:2px">
+        <div style="height:20px;width:20px;margin:2px">
+        <i class="bi-person-lines-fill" style="font-size: 2rem;margin:80px" (click)="editEmployee(row)" ></i>
+        </div>
+        <div>
+       <i class="bi-person-x icon" style="font-size: 2rem;" (click)="deleteEmployee(row.id)"></i>
+        </div>
+        </div>
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>
@@ -137,7 +143,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">edit User data</h5>
+          <h5 class="modal-title" id="exampleModalLabel"> User : {{editEmployeeFormdata.userName}}</h5>
           <button type="button" class="close" data-dismiss="modal" (click)="closeEditEmployeeModalDisplay()"
             aria-label="Close">
             <span aria-hidden="true">&times;</span>

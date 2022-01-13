@@ -20,4 +20,7 @@ export class HeaderComponent implements OnInit {
   profileOptions(){
     this.showProfileOptions=!this.showProfileOptions
   }
+  logout(){
+    sessionStorage.clear()
+  }
 }
