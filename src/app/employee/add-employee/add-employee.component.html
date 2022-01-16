@@ -2,15 +2,15 @@
     <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
 
         <div>
-            <label for="userName">username </label>
-            <input type="text" class="form-control" name="userName" formControlName="userName">
+            <label for="username">username </label>
+            <input type="text" class="form-control" name="username" formControlName="username">
         </div>
 
-        <div *ngIf="addEmployeeForm.get('userName')?.touched && addEmployeeForm.get('userName')?.hasError('required')">
+        <div *ngIf="addEmployeeForm.get('username')?.touched && addEmployeeForm.get('username')?.hasError('required')">
             this feild is required
         </div>
 
-        <div *ngIf="addEmployeeForm.get('userName')?.hasError('pattern')">
+        <div *ngIf="addEmployeeForm.get('username')?.hasError('pattern')">
             invalid name
         </div>
 
@@ -76,22 +76,22 @@
             invalid name
         </div>
         <div>
-            <label for="phoneNumber">phoneNumber </label>
-            <input type="text" class="form-control" name="phoneNumber" formControlName="phoneNumber">
+            <label for="phonenumber">phonenumber </label>
+            <input type="text" class="form-control" name="phonenumber" formControlName="phonenumber">
             <div
-                *ngIf="addEmployeeForm.get('phoneNumber')?.touched && addEmployeeForm.get('phoneNumber')?.hasError('required')">
+                *ngIf="addEmployeeForm.get('phonenumber')?.touched && addEmployeeForm.get('phonenumber')?.hasError('required')">
                 this is required feild
             </div>
-            <div *ngIf="addEmployeeForm.get('phoneNumber')?.hasError('pattern')">
+            <div *ngIf="addEmployeeForm.get('phonenumber')?.hasError('pattern')">
                 invalid number
             </div>
-            <div *ngIf="addEmployeeForm.get('phoneNumber')?.hasError('maxlength')">
+            <div *ngIf="addEmployeeForm.get('phonenumber')?.hasError('maxlength')">
                 length is high
             </div>
-            <div *ngIf="addEmployeeForm.get('phoneNumber')?.hasError('minlength')">
+            <div *ngIf="addEmployeeForm.get('phonenumber')?.hasError('minlength')">
                 length is low
             </div>
-            <div *ngFor="let role of roles; let i=index">
+            <div *ngFor="let role of role; let i=index">
                 <label>
                     <input type="checkbox" [value]="role.value" (change)="onCheckboxChange($event)" />
                     {{role.name}}
@@ -99,7 +99,7 @@
             </div>
         </div>
         <div>
-            <button class="btn btn-outline-secondary">submit</button>
+            <button class="btn btn-outline-secondary" >submit</button>
         </div>
         <div>
             <a routerLink="/login">registered user?</a>

@@ -2,13 +2,13 @@
  
 
 
-<div style="margin-bottom:20px;border-right: 2px solid grey;border-bottom: 2px solid grey;">
-  <div style="margin-left:20px;height: 30px;margin-bottom: 30px;height: 10px;width: 200px;float:right">
-  <button *ngIf="Admin==true" class="addEmployeeButton form-control" (click)="addEmployeeModal()">Add
+<div style="margin-bottom:20px;">
+  <div class="addEmployeeDiv">
+  <button  class="addEmployeeButton form-control" (click)="addEmployeeModal()">Add
     Employee</button>
   </div>
-  <div class="prefix-css" style="width: 100%;">
-  <ngx-datatable class="material container" [columns]="columns" [rows]="rows" [count]=8 [limit]="7" [headerHeight]="60"
+  <div class="prefix-css" >
+  <ngx-datatable style="border-color:#600080;border-radius:10px;" class="material container" [columns]="columns" [rows]="rows" [count]=8 [limit]="7" [headerHeight]="60"
     [rowHeight]="50"  [footerHeight]="50" [sortType]="SortType.multi" [columnMode]="ColumnMode.force"
     [selected]="selected" [selectionType]="SelectionType.checkbox" [selectAllRowsOnPage]="false"
     [displayCheck]="displayCheck" (activate)="onActivate($event)" (select)="onSelect($event)">
@@ -24,7 +24,7 @@
           [value]="value" />
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="userName" [width]="200" [resizeable]="false">
+    <ngx-datatable-column name="USERNAME" [width]="200" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
         <span title="Double click to edit" (dblclick)="editing[rowIndex + '-userName'] = true"
           *ngIf="!editing[rowIndex + '-userName']">
@@ -35,7 +35,7 @@
       </ng-template>
     </ngx-datatable-column>
     
-    <ngx-datatable-column name="phoneNumber" [width]="200"[resizeable]="false">
+    <ngx-datatable-column name="PHONENUMBER" [width]="200"[resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
         <span title="Double click to edit" (dblclick)="editing[rowIndex + '-phoneNumber'] = true"
           *ngIf="!editing[rowIndex + '-phoneNumber']">
@@ -45,7 +45,7 @@
           *ngIf="editing[rowIndex + '-phoneNumber']" type="text" [value]="value" />
         </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="gender" [resizeable]="false">
+    <ngx-datatable-column name="GENDER" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
         <span title="Double click to edit" (dblclick)="editing[rowIndex + '-gender'] = true"
           *ngIf="!editing[rowIndex + '-gender']">
@@ -58,7 +58,7 @@
         </select>
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column  name="age" [width]="200" [resizeable]="false">
+    <ngx-datatable-column  name="AGE" [width]="200" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
         <span title="Double click to edit" (dblclick)="editing[rowIndex + '-age'] = true"
           *ngIf="!editing[rowIndex + '-age']">
@@ -69,26 +69,26 @@
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="rolesArray" [width]="200" [resizeable]="false">
+    <ngx-datatable-column name="ROLE" [width]="200" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-rolesArray'] = true"
-          *ngIf="!editing[rowIndex + '-rolesArray']">
+        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-role'] = true"
+          *ngIf="!editing[rowIndex + '-role']">
           {{ value }}
         </span>
-        <input autofocus (blur)="updateValue($event, 'rolesArray', rowIndex)" *ngIf="editing[rowIndex + '-rolesArray']"
+        <input autofocus (blur)="updateValue($event, 'role', rowIndex)" *ngIf="editing[rowIndex + '-role']"
           type="text" [value]="value" />
       </ng-template>
     </ngx-datatable-column>
        
 
-    <ngx-datatable-column name="Actions" [width]="200" [resizeable]="false">
+    <ngx-datatable-column name="ACTIONS" [width]="200" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-row="row">
         <div style="display:flex;margin:2px">
         <div style="height:20px;width:20px;margin:2px">
-        <i class="bi-person-lines-fill" style="font-size: 2rem;margin:80px" (click)="editEmployee(row)" ></i>
+        <i class="bi-person-lines-fill" style="font-size: 2rem;margin:80px;margin-bottom:20px" (click)="editEmployee(row)" ></i>
         </div>
         <div>
-       <i class="bi-person-x icon" style="font-size: 2rem;" (click)="deleteEmployee(row.id)"></i>
+       <i class="bi-trash" style="font-size: 1.8rem;margin-bottom:20px" (click)="deleteEmployee(row.id)"></i>
         </div>
         </div>
       </ng-template>
@@ -143,7 +143,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> User : {{editEmployeeFormdata.userName}}</h5>
+          <h5 class="modal-title" id="exampleModalLabel"> User : {{editEmployeeFormdata.username}}</h5>
           <button type="button" class="close" data-dismiss="modal" (click)="closeEditEmployeeModalDisplay()"
             aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -165,4 +165,3 @@
     </div>
   </div>
 </div>
-<!-- </div> -->

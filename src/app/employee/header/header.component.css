@@ -1,10 +1,10 @@
 .headerContent{
     display: flex;
     justify-content: end;
-    height: 110px;
+    height: 20vh;
     align-items: baseline;
-    border-bottom:2px solid grey
     
+    background-color:#e6e6e6;
 }
 .profilePic{
     margin-top: 3px;
@@ -15,6 +15,12 @@
 .dropdown-menu{
     display: block;
 }
-.pictureDiv{
-    
+.showProfile{
+    margin-top:50px;margin-left: 40px;
+}
+.usernameDropdown{
+    align-content: center;margin-right: 60px;
+}
+.profilePicDive{
+    display: block;
 }

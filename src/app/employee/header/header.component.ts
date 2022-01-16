@@ -8,14 +8,17 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 })
 export class HeaderComponent implements OnInit {
   showProfileOptions:boolean=false
+  userName:any
   constructor(public dashboard:DashboardComponent) {
-    this.userLogged=this.dashboard.loggedPerson?.userName
-    console.log(this.dashboard.loggedPerson?.userName,"is this received")
+    
    }
   userLogged:any
   @Input() username: any
   ngOnInit(): void {
-    
+    let fetchedData = sessionStorage.getItem('userLogged')
+    let userLoggedData = JSON.parse(atob(fetchedData));
+    this.userName=userLoggedData.username
+    console.log(this.userName,'username received')
   }
   profileOptions(){
     this.showProfileOptions=!this.showProfileOptions

@@ -41,16 +41,7 @@ singleEmployeeSubject=new Subject<any>()
   
   putEmployeeFormData(editEmployeeFormData,id){
     let url=this.baseurl+id
-    return this.http.put<any>(url,editEmployeeFormData).subscribe(
-      data => {
-        console.log('POST Request is successful ', data);
-        Swal.fire('successful')
-      },
-      error => {
-        console.log('Error', error);
-        Swal.fire('unsuccessful')
-      }
-    );
+    return this.http.put<any>(url,editEmployeeFormData)
   }
   UpdateEmployeeData(id,dataObject){
     const employeeId=id

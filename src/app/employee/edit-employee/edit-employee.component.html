@@ -36,32 +36,20 @@
         <div *ngIf="editEmployeeForm.get('gender')?.hasError('required')">
             this is required feild
         </div>
-        <!-- <div>
-            <label for="password">password </label>
-            <input type="password" class="form-control" name="password" formControlName="password">
-        </div>
-        <div
-            *ngIf="editEmployeeForm.get('password')?.touched && editEmployeeForm.get('password')?.hasError('required')">
-            this feild is required
-        </div>
-
-        <div *ngIf="editEmployeeForm.get('password')?.hasError('pattern')">
-            invalid name
-        </div> -->
         <div>
             <label for="phoneNumber">phoneNumber </label>
-            <input type="text" class="form-control" name="phoneNumber" formControlName="phoneNumber">
+            <input type="text" class="form-control" name="phoneNumber" formControlName="phonenumber">
             <div
-                *ngIf="editEmployeeForm.get('phoneNumber')?.touched && editEmployeeForm.get('phoneNumber')?.hasError('required')">
+                *ngIf="editEmployeeForm.get('phonenumber')?.touched && editEmployeeForm.get('phonenumber')?.hasError('required')">
                 this is required feild
             </div>
-            <div *ngIf="editEmployeeForm.get('phoneNumber')?.hasError('pattern')">
+            <div *ngIf="editEmployeeForm.get('phonenumber')?.hasError('pattern')">
                 invalid number
             </div>
-            <div *ngIf="editEmployeeForm.get('phoneNumber')?.hasError('maxlength')">
+            <div *ngIf="editEmployeeForm.get('phonenumber')?.hasError('maxlength')">
                 length is high
             </div>
-            <div *ngIf="editEmployeeForm.get('phoneNumber')?.hasError('minlength')">
+            <div *ngIf="editEmployeeForm.get('phonenumber')?.hasError('minlength')">
                 length is low
             </div>
             <div>
@@ -71,7 +59,7 @@
             </div>
             <div *ngFor="let role of roles; let i=index">
                 <label>
-                    <input type="checkbox" [value]="role.value" (change)="onCheckboxChange($event)" />
+                    <input type="checkbox" [value]="role.value" [checked]="this.editEmployeeFormData.role.includes(role.value)" (change)="onCheckboxChange($event)" />
                     {{role.name}}
                 </label>
             </div>

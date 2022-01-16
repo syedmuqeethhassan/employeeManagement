@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class AddEmployeeComponent implements OnInit {
   
-  roles: Array<any> = [
+  role: Array<any> = [
     { name: 'admin', value: 'Admin' },
     { name: 'manager', value: 'Manager' },
     { name: 'developer', value: 'Developer' }
@@ -24,7 +24,7 @@ export class AddEmployeeComponent implements OnInit {
   
   addEmployeeForm: FormGroup;
   addEmployeeFormData:any
-  userName:string
+  username:string
   password:string
   url='http://localhost:3000/employees'
   constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public apicallservice:ApiCallsService,public dashboardcomponent:DashboardComponent) {
@@ -34,20 +34,20 @@ export class AddEmployeeComponent implements OnInit {
   }
   createForm(){
     this.addEmployeeForm = this.formbuilder.group({
-      userName: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
+      username: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
       password:  ['', [Validators.required]],
-      phoneNumber:['',[Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern("[0-9]*")]],
+      phonenumber:['',[Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern("[0-9]*")]],
       name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
       gender:['',[Validators.required]],
       id: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
       age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
-      rolesArray: this.formbuilder.array([])
+      role: this.formbuilder.array([])
     })
   }
 async onSubmit (){
   this.http.get<any>(this.url).subscribe(async result=>{
       const user=result.find((a:any)=>{
-        return a.userName === this.addEmployeeForm.value.userName
+        return a.username === this.addEmployeeForm.value.username
       })
       if(user){
         Swal.fire("username already exists") 
@@ -60,15 +60,15 @@ async onSubmit (){
     
 }
 onCheckboxChange(e) {
-  const rolesArray: FormArray = this.addEmployeeForm.get('rolesArray') as FormArray;
+  const role: FormArray = this.addEmployeeForm.get('role') as FormArray;
 
   if (e.target.checked) {
-    rolesArray.push(new FormControl(e.target.value));
+    role.push(new FormControl(e.target.value));
   } else {
     let i: number = 0;
-    rolesArray.controls.forEach((item: FormControl) => {
+    role.controls.forEach((item: FormControl) => {
       if (item.value == e.target.value) {
-        rolesArray.removeAt(i);
+        role.removeAt(i);
         return;
       }
       i++;
@@ -87,14 +87,15 @@ alertConfirmationAdd(addEmployeeForm){
     confirmButtonText: 'Yes, go ahead.',
     cancelButtonText: 'No, let me think'
   }).then(async(result) => {
-    console.log("ADD EMPLOYEE OWRKING")
+    
+       
+    if (result.value) {
+      console.log("ADD EMPLOYEE OWRKING")
         this.addEmployeeFormData = {...this.addEmployeeForm.value}
         console.log(this.addEmployeeFormData)
         await this.apicallservice.postAddEmployeeFormData(this.addEmployeeFormData)
         this.dashboardcomponent.loadData()
         this.dashboardcomponent.addEmployeeModalDisplay=false
-       
-    if (result.value) {
       Swal.fire(
         'done!',
         'Employee added successfully.',
@@ -103,7 +104,7 @@ alertConfirmationAdd(addEmployeeForm){
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       Swal.fire(
         'Cancelled',
-        'Employee not added.)',
+        'Employee not added.',
         
       )
     }

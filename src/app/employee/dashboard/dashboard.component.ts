@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   select:any
   selected = [];
   editing = {};
-  columns = [{ name: 'userName' ,}, { prop: 'password' }, { prop: 'phoneNumber' },{ prop: 'name' },{ prop: 'gender' },{ prop: 'id' },{ prop: 'age' },{ prop: 'rolesArray' }];
+  columns = [{ name: 'userName' }, { prop: 'password' }, { prop: 'phoneNumber' },{ prop: 'name' },{ prop: 'gender' },{ prop: 'id' },{ prop: 'age' },{ prop: 'role' }];
   addEmployeeModalDisplay:boolean=false
   jsonServerData:any
   data:any
@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
   name:any
   age:any
   gender:any
-  rolesArray:any
+  role:any
   selectedIds=[]
   username:any
   phonenumber:any
@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
       let userLoggedData = JSON.parse(atob(fetchedData));
       this.loggedPerson=userLoggedData
       console.log(userLoggedData,'this is userlogged data');
-      if (userLoggedData.rolesArray?.includes('Admin')) {
+      if (userLoggedData.role?.includes('Admin')) {
         this.data = this.retrievedData
         console.log('admin')
         console.log(this.data.length)
@@ -109,8 +109,8 @@ export class DashboardComponent implements OnInit {
         this.rows = this.data
         console.log(this.data)
       }
-      else if (userLoggedData.rolesArray?.includes('Manager')) {
-        const managerData = this.retrievedData?.filter(x => (x.rolesArray.includes('Developer') || x.rolesArray.includes('Manager')) && !x.rolesArray.includes('Admin'))
+      else if (userLoggedData.role?.includes('Manager')) {
+        const managerData = this.retrievedData?.filter(x => (x.role.includes('Developer') || x.role.includes('Manager')) && !x.role.includes('Admin'))
         console.log("is this working", managerData)
         this.data = managerData
         for (let i = 0; i < this.data?.length; i++) {
@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit {
         this.rows = this.data
         console.log(' is this it')
       }
-      else if (userLoggedData.rolesArray?.includes('Developer')) {
+      else if (userLoggedData.role?.includes('Developer')) {
         this.data = [userLoggedData]
         for (let i = 0; i < this.data.length; i++) {
           delete (this.data[i].password)
@@ -213,11 +213,11 @@ export class DashboardComponent implements OnInit {
     this.showEditEmployeeModal = false
   }
   checkDesignation() {
-    if (this.data?.data?.rolesArray.includes('Admin')) {
+    if (this.data?.data?.role.includes('Admin')) {
       this.Admin = true
     }
     else {
-      if (this.data?.data?.rolesArray.includes('Manager') && !(this.data.data.rolesArray.includes('Admin'))) {
+      if (this.data?.data?.role.includes('Manager') && !(this.data.data.role.includes('Admin'))) {
         this.Manager = true
       }
       else {

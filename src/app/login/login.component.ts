@@ -15,14 +15,14 @@ import { DashboardComponent } from '../employee/dashboard/dashboard.component';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  userName:string
+  username:string
   password:string
   url='http://localhost:3000/employees'
   userLogged:string='userLogged'
   constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public dashboardcomponent:DashboardComponent) {
 
     this.loginForm = this.formbuilder.group({
-      userName: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
+      username: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
       password:  ['', [Validators.required]],
     })
 
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     this.http.get<any>(this.url).subscribe(result=>{
       const user=result.find((a:any)=>{
-        return a.userName === this.loginForm.value.userName && a.password === this.loginForm.value.password
+        return a.username === this.loginForm.value.username && a.password === this.loginForm.value.password
       })
       if(user){
         // this.dashboardcomponent.checkDesignation()

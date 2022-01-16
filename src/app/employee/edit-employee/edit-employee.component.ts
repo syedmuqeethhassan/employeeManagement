@@ -13,62 +13,90 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 })
 export class EditEmployeeComponent implements OnInit {
   @Input() editEmployeeFormData: any
+  FormArr: FormArray
   roles: Array<any> = [
     { name: 'admin', value: 'Admin' },
     { name: 'manager', value: 'Manager' },
     { name: 'developer', value: 'Developer' }
   ];
   editEmployeeForm: FormGroup;
-  constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public apicallservice:ApiCallsService,public dashboardcomponent:DashboardComponent) {
+
+  constructor(public formbuilder: FormBuilder, private router: Router, public http: HttpClient, public apicallservice: ApiCallsService, public dashboardcomponent: DashboardComponent) {
     this.createForm()
-   }
+  }
+
   ngOnInit(): void {
+    this.FormArr = this.editEmployeeForm.get('role') as FormArray;
+    console.log(this.FormArr)
+
     this.editEmployeeForm.patchValue(
       {
-        userName: this.editEmployeeFormData.userName,
-         id:this.editEmployeeFormData.id,
-        name:this.editEmployeeFormData.name,
-        age:this.editEmployeeFormData.age,
-        gender:this.editEmployeeFormData.gender,
-        phoneNumber: this.editEmployeeFormData.phoneNumber,
-    })
+        username: this.editEmployeeFormData.username,
+        id: this.editEmployeeFormData.id,
+        name: this.editEmployeeFormData.name,
+        age: this.editEmployeeFormData.age,
+        gender: this.editEmployeeFormData.gender,
+        phonenumber: this.editEmployeeFormData.phonenumber,
+        role: this.editEmployeeFormData.role
+      })
+    console.log('Form value after patch', this.editEmployeeForm.value)
     console.log(this.editEmployeeFormData.password)
-    console.log(this.editEmployeeFormData.userName)
+    console.log(this.editEmployeeFormData.username)
+    console.log(this.editEmployeeFormData.role?.includes('Developer'))
   }
-  createForm(){
+  createForm() {
     this.editEmployeeForm = this.formbuilder.group({
-      userName: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
-      password:  ['', [Validators.required]],
-      phoneNumber:['',[Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern("[0-9]*")]],
+      username: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
+      password: ['', [Validators.required]],
+      phonenumber: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]*")]],
       name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
-      gender:['',[Validators.required]],
-      id: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
-      age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
-      rolesArray: this.formbuilder.array([])
+      gender: ['', [Validators.required]],
+      id: ['', [Validators.required, Validators.maxLength(2), Validators.minLength(1), Validators.pattern("[0-9]*")]],
+      age: ['', [Validators.required, Validators.maxLength(2), Validators.minLength(1), Validators.pattern("[0-9]*")]],
+      role: [[], Validators.required]
     })
   }
-onSubmit(){
-  console.log("Edit EMPLOYEE OWRKING")
-  this.editEmployeeFormData = {...this.editEmployeeForm.value}
-  console.log(this.editEmployeeFormData)
-  this.apicallservice.putEmployeeFormData(this.editEmployeeFormData,this.editEmployeeFormData.id)
-  this.dashboardcomponent.showEditEmployeeModal=false
-  Swal.fire('Employee Edited')
-}
-onCheckboxChange(e) {
-  const rolesArray: FormArray = this.editEmployeeForm.get('rolesArray') as FormArray;
 
-  if (e.target.checked) {
-    rolesArray.push(new FormControl(e.target.value));
-  } else {
-    let i: number = 0;
-    rolesArray.controls.forEach((item: FormControl) => {
-      if (item.value == e.target.value) {
-        rolesArray.removeAt(i);
-        return;
+  async onSubmit() {
+
+    console.log("Edit EMPLOYEE WORKING")
+    const updatedFormData = { ...this.editEmployeeForm.value }
+    console.log(updatedFormData)
+    await (this.apicallservice.putEmployeeFormData(updatedFormData, updatedFormData.id).subscribe(
+      data => {
+        console.log('POST Request is successful ', data);
+        Swal.fire('successful')
+        this.dashboardcomponent.loadData
+      },
+      error => {
+        console.log('Error', error);
+        Swal.fire('unsuccessful')
       }
-      i++;
-    });
+    ));
+    this.dashboardcomponent.loadData()
+    this.dashboardcomponent.showEditEmployeeModal = false
+    Swal.fire('Employee Edited')
   }
-}
+
+  onCheckboxChange(e) {
+    const currentRoles: FormArray = this.editEmployeeForm.get('role') as FormArray;
+    if (e.target.checked) {
+      currentRoles.value.push(e.target.value);
+    } else {
+      // currentRoles: current selected roles
+      // e.target.value: the value of the checkbox which we clicked on
+      currentRoles.value.forEach((item: string, i: number) => {
+        // item: the current element in the currentRoles array
+        if (item == e.target.value) {
+          // if the role we unchecked is present in the currentRoles, then remove it
+          currentRoles.value.splice(i, 1);
+          return;
+        }
+      })
+    }
+    // update the new roles value in the form
+    this.editEmployeeForm.patchValue({
+      role: currentRoles.value
+    })
+  }
 }
