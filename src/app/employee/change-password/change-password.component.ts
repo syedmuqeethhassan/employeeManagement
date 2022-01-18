@@ -55,7 +55,12 @@ export class ChangePasswordComponent implements OnInit {
         }
         else{
           console.log('not changed password')
+          Swal.fire("unsuccessful-changed passwords dont match")
         }
+    }
+    else{
+      console.log('not changed password')
+      Swal.fire("unsuccessful-wrong password entered")
     }
       },
       error => {

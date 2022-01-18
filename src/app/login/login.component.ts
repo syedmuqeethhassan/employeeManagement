@@ -49,8 +49,14 @@ export class LoginComponent implements OnInit {
        
         // sessionStorage.setItem(this.userLogged, JSON.stringify(user));
         Swal.fire("logged in")
+        if(user.role=="Developer"){
+          console.log('user is developer only')
+          this.router.navigate(['/employee/tasks']);
+          // this.router.navigate(['/employee/myProfile']);
+        }else{
         this.router.navigate(['/employee/dashboard']);
         this.loginForm.reset()
+        }
       }
       else{
        Swal.fire("incorrect credentials")

@@ -14,6 +14,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeComponent } from './employee.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 
 // const routes: Routes = [
@@ -32,7 +33,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     SideNavComponent,
     EditEmployeeComponent,
     EmployeeComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    MyProfileComponent
   ],
   imports: [
     CommonModule,

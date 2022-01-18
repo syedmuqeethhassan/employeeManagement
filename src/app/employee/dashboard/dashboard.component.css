@@ -8,7 +8,8 @@
     width:50px
 }
 .addEmployeeButton{
-    width: 500px;
+    width: 100px;
+   
 }
 .addEmployeeModal{
     display: block;
@@ -31,7 +32,7 @@
 .addEmployeeStyling{
     
     width:90px;
-    height:30px
+    height:30px;
     
 }
 .employeeTableFeild{
@@ -49,8 +50,7 @@ display: block;
 }
 .addEmployeeButton{
     height: 50px;
-    width: 150px;
-
+    width: 100px;
 }
 .selected-column{
     margin-left: 200px;
@@ -63,5 +63,6 @@ display: block;
     width: 100%;
 }
 .addEmployeeDiv{
-    margin-left:20px;height: 30px;margin-bottom: 30px;height: 10px;width: 200px;float:right
+    margin-left:20px;height: 30px;margin-bottom: 30px;
+   
 }

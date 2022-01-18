@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit {
   developerData:any
   editRow:any
   retrievedData:any
+  developer:any
   constructor(public apicallservice: ApiCallsService, private zone: NgZone) { }
 
   ngOnInit(): void {
@@ -104,7 +105,10 @@ export class DashboardComponent implements OnInit {
         console.log(this.data.length)
         for (let i = 0; i < this.data.length; i++) {
           delete (this.data[i].password)
-        }
+            if(this.data[i].id==this.loggedPerson.id){
+              this.data.splice(i,1)
+          
+        }}
         this.Admin = true
         this.rows = this.data
         console.log(this.data)
@@ -115,16 +119,25 @@ export class DashboardComponent implements OnInit {
         this.data = managerData
         for (let i = 0; i < this.data?.length; i++) {
           delete (this.data[i].password)
-        }
+          if(this.data[i].id==this.loggedPerson.id){
+            this.data.splice(i,1)
+          }
+         
+      }
         this.rows = this.data
         console.log(' is this it')
-      }
+      
+    }
       else if (userLoggedData.role?.includes('Developer')) {
         this.data = [userLoggedData]
         for (let i = 0; i < this.data.length; i++) {
           delete (this.data[i].password)
+            if(this.data[i].id==this.loggedPerson.id){
+              this.data.splice(i,1)
+          }
         }
         this.rows = this.data
+        this.developer=true
         console.log('only developer')
       }
     }

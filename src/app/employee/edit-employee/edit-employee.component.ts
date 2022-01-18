@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import Swal from 'sweetalert2';
 import { ApiCallsService } from '../../api-calls.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
@@ -19,6 +20,7 @@ export class EditEmployeeComponent implements OnInit {
     { name: 'manager', value: 'Manager' },
     { name: 'developer', value: 'Developer' }
   ];
+  password:any
   editEmployeeForm: FormGroup;
 
   constructor(public formbuilder: FormBuilder, private router: Router, public http: HttpClient, public apicallservice: ApiCallsService, public dashboardcomponent: DashboardComponent) {
@@ -26,21 +28,37 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dashboardcomponent.loadData()
+    console.log(this.editEmployeeFormData.id,'id of person logged')
+    this.apicallservice.getLoggedData(this.editEmployeeFormData.id).subscribe(
+      data => {
+        console.log('logged user data recevived from api ', data);
+        this.password=data.password
+        console.log(this.password,'this is password')
+        this.editEmployeeForm.patchValue(
+          {
+            username: this.editEmployeeFormData.username,
+            password:this.password,
+            id: this.editEmployeeFormData.id,
+            name: this.editEmployeeFormData.name,
+            age: this.editEmployeeFormData.age,
+            gender: this.editEmployeeFormData.gender,
+            phonenumber: this.editEmployeeFormData.phonenumber,
+            role: this.editEmployeeFormData.role
+          })
+        
+      },
+      error => {
+        console.log('logged users data not recevived from api ', error);
+        
+      }
+    );
     this.FormArr = this.editEmployeeForm.get('role') as FormArray;
     console.log(this.FormArr)
-
-    this.editEmployeeForm.patchValue(
-      {
-        username: this.editEmployeeFormData.username,
-        id: this.editEmployeeFormData.id,
-        name: this.editEmployeeFormData.name,
-        age: this.editEmployeeFormData.age,
-        gender: this.editEmployeeFormData.gender,
-        phonenumber: this.editEmployeeFormData.phonenumber,
-        role: this.editEmployeeFormData.role
-      })
+    console.log(this.editEmployeeFormData,'form value')
+    
     console.log('Form value after patch', this.editEmployeeForm.value)
-    console.log(this.editEmployeeFormData.password)
+   
     console.log(this.editEmployeeFormData.username)
     console.log(this.editEmployeeFormData.role?.includes('Developer'))
   }
@@ -66,7 +84,7 @@ export class EditEmployeeComponent implements OnInit {
       data => {
         console.log('POST Request is successful ', data);
         Swal.fire('successful')
-        this.dashboardcomponent.loadData
+        this.dashboardcomponent.loadData()
       },
       error => {
         console.log('Error', error);
@@ -74,8 +92,8 @@ export class EditEmployeeComponent implements OnInit {
       }
     ));
     this.dashboardcomponent.loadData()
+
     this.dashboardcomponent.showEditEmployeeModal = false
-    Swal.fire('Employee Edited')
   }
 
   onCheckboxChange(e) {
