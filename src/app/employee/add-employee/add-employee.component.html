@@ -2,15 +2,15 @@
     <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
 
         <div>
-            <label for="username">username </label>
-            <input type="text" class="form-control" name="username" formControlName="username">
+            <label for="username">User Name </label>
+            <input type="text" autocomplete="off" class="form-control" name="username" formControlName="username">
         </div>
 
-        <div *ngIf="addEmployeeForm.get('username')?.touched && addEmployeeForm.get('username')?.hasError('required')">
+        <div class="errorMessage" *ngIf="addEmployeeForm.get('username')?.touched && addEmployeeForm.get('username')?.hasError('required')">
             this feild is required
         </div>
 
-        <div *ngIf="addEmployeeForm.get('username')?.hasError('pattern')">
+        <div class="errorMessage" *ngIf="addEmployeeForm.get('username')?.hasError('pattern')">
             invalid name
         </div>
 
@@ -23,86 +23,87 @@
             <input type="text" class="form-control" name="name" formControlName="name">
         </div>
 
-        <div *ngIf="addEmployeeForm.get('name')?.touched && addEmployeeForm.get('name')?.hasError('required')">
+        <div class="errorMessage" *ngIf="addEmployeeForm.get('name')?.touched && addEmployeeForm.get('name')?.hasError('required')">
             this feild is required
         </div>
 
-        <div *ngIf="addEmployeeForm.get('name')?.hasError('pattern')">
+        <div class="errorMessage" *ngIf="addEmployeeForm.get('name')?.hasError('pattern')">
             invalid name
         </div>
 
 
         <div>
-            <label for="age">age </label>
+            <label for="age">Age </label>
             <input type="text" class="form-control" name="age" formControlName="age">
 
 
-            <div *ngIf="addEmployeeForm.get('age')?.touched && addEmployeeForm.get('age')?.hasError('required')">
+            <div class="errorMessage" *ngIf="addEmployeeForm.get('age')?.touched && addEmployeeForm.get('age')?.hasError('required')">
                 this is required feild
             </div>
-            <div *ngIf="addEmployeeForm.get('age')?.hasError('pattern')">
+            <div class="errorMessage" *ngIf="addEmployeeForm.get('age')?.hasError('pattern')">
                 invalid number
             </div>
-            <div *ngIf="addEmployeeForm.get('age')?.hasError('maxlength')">
+            <div class="errorMessage" *ngIf="addEmployeeForm.get('age')?.hasError('maxlength')">
                 length is high
             </div>
-            <div *ngIf="addEmployeeForm.get('age')?.hasError('minlength')">
+            <div class="errorMessage" *ngIf="addEmployeeForm.get('age')?.hasError('minlength')">
                 length is low
             </div>
         </div>
 
-        <div class="form-control">
-            <label for="gender">gender</label><br>
-            <input type="radio" name='gender' value='Male' formControlName='gender'>Male
-            <input type="radio" name='gender' value='Female' formControlName='gender'>Female
-        </div>
+        
+            <label for="gender">Gender</label><br>
+            <input style="margin-right: 5px;" type="radio" name='gender' value='Male' formControlName='gender'><span style="margin-left: 1px;"> Male</span> &nbsp;
+            <input style="margin-right: 5px;" type="radio" name='gender' value='Female' formControlName='gender'><span style="margin-left: 1px;margin-right: 1px;"> Female</span>
+        
 
 
-        <div *ngIf="addEmployeeForm.get('gender').touched && addEmployeeForm.get('gender')?.hasError('required')">
+        <div class="errorMessage"*ngIf="addEmployeeForm.get('gender').touched && addEmployeeForm.get('gender')?.hasError('required')">
             this is required feild
         </div>
 
 
         <div>
-            <label for="password">password </label>
+            <label for="password">Password </label>
             <input type="password" class="form-control" name="password" formControlName="password">
         </div>
 
-        <div *ngIf="addEmployeeForm.get('password')?.touched && addEmployeeForm.get('password')?.hasError('required')">
+        <div class="errorMessage" *ngIf="addEmployeeForm.get('password')?.touched && addEmployeeForm.get('password')?.hasError('required')">
             this feild is required
         </div>
 
-        <div *ngIf="addEmployeeForm.get('password')?.hasError('pattern')">
+        <div class="errorMessage" *ngIf="addEmployeeForm.get('password')?.hasError('pattern')">
             invalid name
         </div>
         <div>
-            <label for="phonenumber">phonenumber </label>
+            <label for="phonenumber">Phone Number </label>
             <input type="text" class="form-control" name="phonenumber" formControlName="phonenumber">
-            <div
+            <div class="errorMessage"
                 *ngIf="addEmployeeForm.get('phonenumber')?.touched && addEmployeeForm.get('phonenumber')?.hasError('required')">
                 this is required feild
             </div>
-            <div *ngIf="addEmployeeForm.get('phonenumber')?.hasError('pattern')">
+            <div class="errorMessage" *ngIf="addEmployeeForm.get('phonenumber')?.hasError('pattern')">
                 invalid number
             </div>
-            <div *ngIf="addEmployeeForm.get('phonenumber')?.hasError('maxlength')">
+            <div class="errorMessage" *ngIf="addEmployeeForm.get('phonenumber')?.hasError('maxlength')">
                 length is high
             </div>
-            <div *ngIf="addEmployeeForm.get('phonenumber')?.hasError('minlength')">
+            <div class="errorMessage" *ngIf="addEmployeeForm.get('phonenumber')?.hasError('minlength')">
                 length is low
             </div>
-            <div *ngFor="let role of role; let i=index">
+            <div>
+                Role
+            </div>
+            <div  *ngFor="let role of role; let i=index">
                 <label>
                     <input type="checkbox" [value]="role.value" (change)="onCheckboxChange($event)" />
                     {{role.name}}
                 </label>
             </div>
         </div>
-        <div>
-            <button class="btn btn-outline-secondary" >submit</button>
+        <div >
+            <button class="btn btn-outline-secondary" [disabled]="!addEmployeeForm.valid">submit</button>
         </div>
-        <div>
-            <a routerLink="/login">registered user?</a>
-        </div>
+        
     </form>
 </div>

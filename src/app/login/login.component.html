@@ -5,11 +5,11 @@
         <input type="text" class="form-control" name="username" formControlName="username">
     </div>
         
-        <div *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.hasError('required')">
+        <div class="errorMessage" *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.hasError('required')">
             this feild is required
         </div>
 
-        <div *ngIf="loginForm.get('username')?.hasError('pattern')">
+        <div class="errorMessage" *ngIf="loginForm.get('username')?.hasError('pattern')">
             invalid name
         </div>
 
@@ -18,21 +18,18 @@
             <input type="text" class="form-control" name="password" formControlName="password">
         </div>
             
-            <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')">
+            <div class="errorMessage" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')">
                 this feild is required
             </div>
 
-            <div *ngIf="loginForm.get('password')?.hasError('pattern')">
+            <div class="errorMessage" *ngIf="loginForm.get('password')?.hasError('pattern')">
                 invalid name
             </div>
 
 
             <div class="submitLoginForm">
                 <button type="button"  (click)="onSubmit()" class="btn btn-outline-secondary" [disabled]="!loginForm.valid">submit</button>
-                
             </div>
-            <div>
-                <a routerLink="/signup">not a registered user</a>
-            </div>
+            
         </form>
 </div>

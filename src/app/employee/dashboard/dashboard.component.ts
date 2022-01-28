@@ -81,11 +81,7 @@ export class DashboardComponent implements OnInit {
     if (event.target.value) {
       if (this.rows[rowIndex][cell] != '') {
         this.rows[rowIndex][cell] = event.target.value;
-        console.log(this.rows[rowIndex], 'is this row object')
-        console.log(this.rows[rowIndex].id)
         this.rows = [...this.rows];
-        console.log(this.rows, 'this.rows')
-        console.log('UPDATED!', this.rows[rowIndex][cell]);
         this.apicallservice.UpdateEmployeeData(this.rows[rowIndex].id, this.rows[rowIndex])
       }
     }
@@ -98,15 +94,12 @@ export class DashboardComponent implements OnInit {
       this.retrievedData=receivedData
       let allUsers=btoa(JSON.stringify(this.retrievedData));
       sessionStorage.setItem(this.users,allUsers)
-      console.log(receivedData)
+      
       let fetchedData = sessionStorage.getItem('userLogged')
       let userLoggedData = JSON.parse(atob(fetchedData));
       this.loggedPerson=userLoggedData
-      console.log(userLoggedData,'this is userlogged data');
       if (userLoggedData.role?.includes('Admin')) {
         this.data = this.retrievedData
-        console.log('admin')
-        console.log(this.data.length)
         for (let i = 0; i < this.data.length; i++) {
           delete (this.data[i].password)
             if(this.data[i].id==this.loggedPerson.id){
@@ -118,11 +111,10 @@ export class DashboardComponent implements OnInit {
         let encodedStr = btoa(JSON.stringify(this.rows));
 
         sessionStorage.setItem(this.logged, encodedStr);
-        console.log(this.data)
+        
       }
       else if (userLoggedData.role?.includes('Manager')) {
         const managerData = this.retrievedData?.filter(x => (x.role.includes('Developer') || x.role.includes('Manager')) && !x.role.includes('Admin'))
-        console.log("is this working", managerData)
         this.data = managerData
         for (let i = 0; i < this.data?.length; i++) {
           delete (this.data[i].password)
@@ -135,8 +127,6 @@ export class DashboardComponent implements OnInit {
         let encodedStr = btoa(JSON.stringify(this.rows));
 
         sessionStorage.setItem(this.logged, encodedStr);
-        console.log(' is this it')
-      
     }
       else if (userLoggedData.role?.includes('Developer')) {
         this.data = [userLoggedData]
@@ -151,7 +141,6 @@ export class DashboardComponent implements OnInit {
 
         sessionStorage.setItem(this.logged, encodedStr);
         this.developer=true
-        console.log('only developer')
       }
     }
     )

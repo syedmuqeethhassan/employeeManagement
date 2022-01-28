@@ -76,10 +76,7 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   async onSubmit() {
-
-    console.log("Edit EMPLOYEE WORKING")
     const updatedFormData = { ...this.editEmployeeForm.value }
-    console.log(updatedFormData)
     await (this.apicallservice.putEmployeeFormData(updatedFormData, updatedFormData.id).subscribe(
       data => {
         console.log('POST Request is successful ', data);
@@ -92,7 +89,6 @@ export class EditEmployeeComponent implements OnInit {
       }
     ));
     this.dashboardcomponent.loadData()
-
     this.dashboardcomponent.showEditEmployeeModal = false
   }
 

@@ -17,11 +17,11 @@
 
 <label for="taskstatus" style="margin-left: 10px;">Task Status</label><br>
 <div class="form-control">
-    <input type="radio" name='taskstatus' value='Todo' formControlName='taskstatus'>to do<br>
-    <input type="radio" name='taskstatus' value='inprogress' formControlName='taskstatus'>in progress<br>
-    <input type="radio" name='taskstatus' value='pending' formControlName='taskstatus'>pending<br>
-    <input type="radio" name='taskstatus' value='completed' formControlName='taskstatus'>completed<br>
-    <input type="radio" name='taskstatus' value='blocked' formControlName='taskstatus'>blocked<br>
+    <input style="margin-right: 5px;" type="radio" name='taskstatus' value='Todo' formControlName='taskstatus'>To Do<br>
+    <input style="margin-right: 5px;" type="radio" name='taskstatus' value='inprogress' formControlName='taskstatus'>In Progress<br>
+    <input style="margin-right: 5px;" type="radio" name='taskstatus' value='pending' formControlName='taskstatus'>Pending<br>
+    <input style="margin-right: 5px;" type="radio" name='taskstatus' value='completed' formControlName='taskstatus'>Completed<br>
+    <input style="margin-right: 5px;" type="radio" name='taskstatus' value='blocked' formControlName='taskstatus'>Blocked<br>
 </div>
 
 
@@ -43,7 +43,7 @@
     </div>
 </div>
 <div>
-<button class="form-control">{{formAction}}</button>
+<button class="form-control" [disabled]="!taskForm.valid">{{formAction}}</button>
 </div>
     </form>
     <button style="padding-right: 10px;" class="form-control" (click)="deleteTask()" *ngIf="formEdit">delete task</button>

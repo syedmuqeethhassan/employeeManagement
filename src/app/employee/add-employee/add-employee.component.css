@@ -2,3 +2,6 @@
     margin:5px;
     margin-left:0px
 }
+.modal-lg{
+    max-width: 600px;
+}

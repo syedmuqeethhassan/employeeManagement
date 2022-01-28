@@ -7,7 +7,7 @@ import { CreateTaskComponent } from './create-task/create-task.component';
 import { FormBuilderModule } from  'nz-form-builder';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { AngularResizeEventModule } from 'angular-resize-event';
 const routes: Routes = [
   {
     path: '',
@@ -30,7 +30,8 @@ const routes: Routes = [
     FormBuilderModule,
     RouterModule.forChild(routes),
     NgxDatatableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularResizeEventModule 
   ],
    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

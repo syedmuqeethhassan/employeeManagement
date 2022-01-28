@@ -15,17 +15,14 @@ showForm:boolean
   constructor() { }
 
   ngOnInit(): void {
-    console.log('task component works')
+    
   }
   
   onRowReceive(row){
     this.rows=row;
-    console.log('row receievd in tasks ie parent',row)
-  
     }
   
   formStatus(event){
-      console.log(event,"parent componenet received showform variable")
       this.showForm=!this.showForm
     }
 

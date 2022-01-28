@@ -17,10 +17,11 @@
     display: block;
 }
 .showProfile{
-    margin-top:50px;margin-left: 40px;
+    /* margin-top:30px; */
+    width:50px;
 }
 .usernameDropdown{
-    align-content: center;margin-right: 60px;
+    align-content: center;margin-right: 80px;
 }
 .profilePicDive{
     display: block;

@@ -39,7 +39,7 @@ export class AddEmployeeComponent implements OnInit {
       phonenumber:['',[Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern("[0-9]*")]],
       name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
       gender:['',[Validators.required]],
-      id: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
+      id: [''],
       age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
       role: this.formbuilder.array([])
     })
@@ -81,11 +81,9 @@ onCheckboxChange(e) {
 alertConfirmationAdd(addEmployeeForm){
   Swal.fire({
     title: 'Are you sure?',
-    text: 'This process is irreversible.',
-    icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Yes, go ahead.',
-    cancelButtonText: 'No, let me think'
+    cancelButtonText: 'No'
   }).then(async(result) => {
     
        
@@ -105,7 +103,6 @@ alertConfirmationAdd(addEmployeeForm){
       Swal.fire(
         'Cancelled',
         'Employee not added.',
-        
       )
     }
   })

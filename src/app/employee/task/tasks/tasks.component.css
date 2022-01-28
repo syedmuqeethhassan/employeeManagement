@@ -3,6 +3,8 @@
 }
 .notFullView{
     width:70%;
+    padding-right: 5px;
+    margin-right: 10px;
     
 }
 .showCreateTask{

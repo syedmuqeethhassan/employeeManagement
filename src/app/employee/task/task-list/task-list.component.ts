@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { SortType  } from '@swimlane/ngx-datatable'
-import{ColumnMode} from '@swimlane/ngx-datatable'
+import { ResizedEvent } from 'angular-resize-event';
 import { ApiCallsService } from 'src/app/api-calls.service';
 import Swal from 'sweetalert2';
 import { CreateTaskComponent } from '../create-task/create-task.component';
@@ -26,6 +26,8 @@ export class TaskListComponent implements OnInit {
   userLogged: any;
   taskUsers: any;
   formEdit: boolean;
+  width=0;
+  height=0;
   constructor(public apicallsservice:ApiCallsService) { }
 
   ngOnInit(): void {
@@ -59,6 +61,10 @@ export class TaskListComponent implements OnInit {
     console.log("data is emitted")
     
     
+  }
+  onResized(event: ResizedEvent) {
+    this.width = event.newRect.width;
+    this.height = event.newRect.height;
   }
   showFormFunction(){
     this.showForm=!this.showForm

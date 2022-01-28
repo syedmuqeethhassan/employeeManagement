@@ -15,9 +15,8 @@ export class CreateTaskComponent implements OnInit {
   taskForm: FormGroup;
   date: Date;
   datepipe: any;
-  currentDate=new Date();
-  @Input() formEdit:boolean=false
   taskID:number
+  @Input() formEdit:boolean=false
   @Input() id
   @Output() formEvent = new EventEmitter<boolean>();
 
@@ -29,18 +28,18 @@ export class CreateTaskComponent implements OnInit {
   showForm: boolean;
   user:any
   name: any;
+  userDropdown: any;
+  taskData:any
   constructor(public dashboardcomponent:DashboardComponent,public apicallsservice:ApiCallsService,private formbuilder:FormBuilder,public zone:NgZone) {
     this.createForm()
    }
   users:any
-  userDropdownList=['user1']
+  userDropdownList=[]
   ngOnInit(): void {
   console.log(this.receivedrow,'this is the receivedrow')
   this.getUser()
   this.createForm()
   this.initData()
- 
- 
 }
 createForm(){
   this.taskForm = this.formbuilder.group({
@@ -59,50 +58,45 @@ getUser(){
   let fetchedData = sessionStorage.getItem('userLogged')
   this.user = JSON.parse(atob(fetchedData));
   this.id=this.user.id;
-  console.log('id in create task',this.id)
   this.name=this.user.name
-  console.log('name in create task',this.name)
-  
 }
 
 initData(){
-  this.apicallsservice.getAllTask().subscribe(
+  this.apicallsservice.getAllData().subscribe(
     data => {
-      console.log('all tasks receievd in create task component ', data);
-      this.users=data
-      this.userDropdownList=this.users?.filter(x=>!(x.role?.includes('Admin')))
-  console.log(this.userDropdownList)
-  this.userDropdownList=this.users?.map(x=>(x.username))
-  console.log(this.userDropdownList,'userdroplist')
-  this.date=new Date();
-  console.log(this.currentDate);
- this.taskForm.controls.createdby.setValue(this.user.name)
- this.taskForm.value
- if(this.formEdit==true){
-  this.taskID=this.receivedrow.id;
-   this.formPurpose="Edit Task"
-   this.formAction="Update"
-  this.taskForm.patchValue(
-    {
-      taskname:this.receivedrow?.taskname,
-      taskstatus:this.receivedrow?.taskstatus,
-      assignto:this.receivedrow?.assignto,
-      taskdescription:this.receivedrow?.taskdescription
-    }
-  )
- }
- else{
-   this.taskForm.reset()
- }
+      console.log('all employees in create task component ', data);
+      this.users = data
+      this.userDropdown = this.users?.filter(x => !(x.role?.includes('Admin')))
+      this.userDropdown= this.users?.map(x => (x.name))
+      this.userDropdownList=this.userDropdown
+      this.date = new Date();
+      this.taskForm.controls.createdby.setValue(this.user.name)
+      this.taskForm.value
+      if (this.formEdit == true) {
+        this.taskID = this.receivedrow.id;
+        this.formPurpose = "Edit Task"
+        this.formAction = "Update"
+        this.taskForm.patchValue(
+          {
+            taskname: this.receivedrow?.taskname,
+            taskstatus: this.receivedrow?.taskstatus,
+            assignto: this.receivedrow?.assignto,
+            taskdescription: this.receivedrow?.taskdescription,
+            date:this.receivedrow.date
+          }
+        )
+      }
+      else {
+        this.taskForm.reset()
+      }
     },
     error => {
       console.log('update task is not successful-error', error);
-    
     }
   );
-  
-  
-  
+
+
+
 }
 closeTaskForm(){
   this.formEdit=false
@@ -144,7 +138,7 @@ deleteTask(){
 onSubmit(){
   if(this.formAction=="Update"){
     this.taskForm.controls.createdby.setValue(this.user.name)
-    this.taskForm.controls.date.setValue(new Date)
+    this.taskForm.controls.updateddate.setValue(new Date)
   this.apicallsservice.updateTaskData(this.taskID,this.taskForm.value).subscribe(
     data => {
       console.log('create task is successful ', data);
@@ -160,7 +154,7 @@ onSubmit(){
   else{
     this.taskForm.controls.createdby.setValue(this.user.name)
     this.taskForm.controls.date.setValue(new Date)
- this.taskForm.value
+    this.taskForm.value
     this.apicallsservice.postTask(this.taskForm.value).subscribe(
       data => {
         console.log('create task is successful ', data);
@@ -172,11 +166,6 @@ onSubmit(){
         Swal.fire('unsuccessful')
       }
     );
-
   }
-
-
-
-
 }
 }

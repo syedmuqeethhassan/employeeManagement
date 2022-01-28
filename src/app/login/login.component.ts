@@ -25,43 +25,30 @@ export class LoginComponent implements OnInit {
       username: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
       password:  ['', [Validators.required]],
     })
-
-
    }
-
   ngOnInit(): void {
-    
   }
- 
-  
   onSubmit(){
     this.http.get<any>(this.url).subscribe(result=>{
       const user=result.find((a:any)=>{
         return a.username === this.loginForm.value.username && a.password === this.loginForm.value.password
       })
       if(user){
-        // this.dashboardcomponent.checkDesignation()
         delete(user.password);
         let encodedStr = btoa(JSON.stringify(user));
-
         sessionStorage.setItem(this.userLogged, encodedStr);
-        // const userEncodedData=window.btoa(user)
-       
-        // sessionStorage.setItem(this.userLogged, JSON.stringify(user));
         Swal.fire("logged in")
         if(user.role=="Developer"){
           console.log('user is developer only')
           this.router.navigate(['/employee/tasks']);
-          // this.router.navigate(['/employee/myProfile']);
         }else{
         this.router.navigate(['/employee/dashboard']);
         this.loginForm.reset()
         }
       }
       else{
-       Swal.fire("incorrect credentials")
+       Swal.fire("Incorrect Credentials")
       }
     })
-  }
-  
+  } 
 }

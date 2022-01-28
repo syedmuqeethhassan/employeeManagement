@@ -4,7 +4,7 @@
 
 <div style="margin-bottom:20px;">
   <div *ngIf="Admin" class="addEmployeeDiv" style="width: 200px;float:right;margin-right: 20px;">
-  <button  class="addEmployeeButton form-control" style="margin:10px" (click)="addEmployeeModal()">Add
+  <button  class="addEmployeeButton form-control btn-primary" style="margin:10px" (click)="addEmployeeModal()">Add
     Employee</button>
   </div>
   <div *ngIf="!developer" class="prefix-css" >
@@ -37,12 +37,12 @@
     
     <ngx-datatable-column name="PHONENUMBER" [width]="200"[resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-phoneNumber'] = true"
-          *ngIf="!editing[rowIndex + '-phoneNumber']">
+        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-phonenumber'] = true"
+          *ngIf="!editing[rowIndex + '-phonenumber']">
           {{ value }}
         </span>
-        <input style="width: 120px;" autofocus (blur)="updateValue($event, 'phoneNumber', rowIndex)"
-          *ngIf="editing[rowIndex + '-phoneNumber']" type="text" [value]="value" />
+        <input style="width: 120px;" autofocus (blur)="updateValue($event, 'phonenumber', rowIndex)"
+          *ngIf="editing[rowIndex + '-phonenumber']" type="text" [value]="value" />
         </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column name="GENDER" [resizeable]="false">
@@ -85,10 +85,10 @@
       <ng-template ngx-datatable-cell-template let-row="row">
         <div style="display:flex;">
         <div style="margin-right: 8px;margin-left: 15px;">
-        <i class="bi-pen" style="font-size: 1.7rem;" (click)="editEmployee(row)" ></i>
+        <i class="bi-pen" style="font-size: 1.2rem;" (click)="editEmployee(row)" ></i>
         </div>
         <div style="margin-left: 8px;">
-       <i class="bi-trash" style="font-size: 1.7rem;" (click)="deleteEmployee(row.id)"></i>
+       <i class="bi-trash" style="font-size: 1.2rem;" (click)="deleteEmployee(row.id)"></i>
         </div>
         </div>
       </ng-template>
@@ -130,9 +130,6 @@
 
 
           </div>
-        </div>
-        <div class="modal-footer">
-
         </div>
       </div>
     </div>
