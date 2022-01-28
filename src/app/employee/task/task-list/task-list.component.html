@@ -1,0 +1,66 @@
+
+<div style="display: flex; width: 100%;">
+<div  class="prefix-css"  style="margin-left:20px;margin:5px;margin-top:10px;width: inherit;">
+  <button (click)="showFormFunction() " class="form-control" style="float: right;width: 200px;margin:10px;" [disabled]="this.showForm">Create Task</button>
+    <ngx-datatable style="border-color:#600080;border-radius:10px;" class="material container" [columns]="columns" [rows]="rows" [count]=8 [limit]="7" [headerHeight]="60"
+      [rowHeight]="50"  [footerHeight]="50" [sortType]="SortType.multi" [columnMode]="'force'"
+      [selectAllRowsOnPage]="false">
+      
+      <ngx-datatable-column  name="taskname"  >
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="taskstatus"  [resizeable]="false">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+          <span title="Double click to edit" (dblclick)="editing[rowIndex + '-taskstatus'] = true"
+            *ngIf="!editing[rowIndex + '-taskstatus']">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ value }}</button>
+            <!-- <i class="bi-chevron-down" style="font-size: 1rem;float:right;padding-right: 50px;"></i> -->
+          </span>
+          <select *ngIf="editing[rowIndex + '-taskstatus']" (blur)="editing[rowIndex + '-taskstatus'] = false"
+            (change)="updateValue($event, 'taskstatus', rowIndex)" [value]="value">
+            <option value="todo">To Do</option>
+            <option value="inprogress">In Progress</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+            <option value="blocked">Blocked</option>
+          </select>
+         
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column  name="assignto"   >
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column  name="createdby"   >
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column  name="date"  >
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            {{value| date:'short'}}
+        </ng-template>
+      </ngx-datatable-column>
+
+
+
+      <ngx-datatable-column name="ACTIONS" [resizeable]="false">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <div style="display:flex;">
+          <div style="margin-right: 8px;margin-left: 15px;">
+          <i class="bi-pen" style="font-size: 1.7rem;" (click)="editEmployee(row)" ></i>
+          </div>
+          <div style="margin-left: 8px;">
+         <i class="bi-trash" style="font-size: 1.7rem;" (click)="deleteTask(row.id)"></i>
+          </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+

@@ -15,6 +15,7 @@ import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeComponent } from './employee.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { TaskModule } from './task/task.module';
 
 
 // const routes: Routes = [
@@ -44,6 +45,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     EmployeeRoutingModule,
     FormsModule,
      RouterModule,
+     TaskModule
     // RouterModule.forChild(routes)
   ],
   exports: [],

@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root'
 })
 export class ApiCallsService {
+  taskurl='http://localhost:3000/tasks'
  baseurl='http://localhost:3000/employees/'
 allData:any
 allDataSubject = new Subject<any>();
@@ -58,5 +59,19 @@ singleEmployeeSubject=new Subject<any>()
           }
         );
   }
-  
+  postTask(value){
+    return this.http.post(this.taskurl,value)
+  }
+  getAllTask(){
+    return this.http.get(this.taskurl)
+  }
+  deleteTask(rowid){
+    let url=this.taskurl+'/'+rowid
+return this.http.delete(url)
+  }
+
+  updateTaskData(id,obj){
+    let url=this.taskurl+'/'+id
+    return this.http.put(url,obj)
+  }
 }

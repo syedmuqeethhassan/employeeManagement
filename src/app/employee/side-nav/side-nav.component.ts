@@ -8,9 +8,15 @@ import { Router } from '@angular/router';
 })
 export class SideNavComponent implements OnInit {
   highlightTab
+  Developer:boolean
   constructor( private router: Router) { }
 
   ngOnInit(): void {
+    let fetchedData = sessionStorage.getItem('userLogged')
+    let userLoggedData = JSON.parse(atob(fetchedData));
+    if(userLoggedData.role=='Developer'){
+      this.Developer=true
+    }
   }
   highlight(){
     if(this.router.url === "/employee/dashboard"){

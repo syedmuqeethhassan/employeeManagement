@@ -1,15 +1,16 @@
 .headerContent{
     display: flex;
     justify-content: end;
-    height: 20vh;
-    align-items: baseline;
+    height: 98px;
+    align-items: center;
     
-    background-color:#e6e6e6;
+    background-color:#a4a3aa;
 }
 .profilePic{
-    
-    height:inherit;
-    width: 100px;
+   
+    margin-right: 10px;
+    height:40px;
+    width: 40px;
     border-radius: 50%;
 }
 .dropdown-menu{

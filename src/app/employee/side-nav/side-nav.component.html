@@ -1,6 +1,6 @@
 <div class="side-bar" >
-    <ul class="nav flex-column nav-tabs ">
-        <li class="nav-item" routerLinkActive="active-link">
+    <ul class="nav flex-column  ">
+        <li *ngIf="!Developer" class="nav-item" routerLinkActive="active-link">
           <a class="nav-link " routerLink="/employee/dashboard" aria-current="page" href="#">Dashboard</a>
         </li>
         <li class="nav-item" routerLinkActive="active-link">

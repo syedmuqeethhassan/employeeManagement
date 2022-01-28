@@ -15,7 +15,10 @@ export class ChangePasswordComponent implements OnInit {
   changedPassword:any
   oldPassword:any
   newPassword:any
-  confirmPassword;any
+  confirmPassword:any
+  currentPasswordFlag:any
+  newPasswordFlag:any
+
   user:any
   id:any
   baseurl='http://localhost:3000/employees/'
@@ -55,12 +58,17 @@ export class ChangePasswordComponent implements OnInit {
         }
         else{
           console.log('not changed password')
-          Swal.fire("unsuccessful-changed passwords dont match")
+          
+          this.newPasswordFlag=1
+          this.currentPasswordFlag=0
+
         }
     }
     else{
       console.log('not changed password')
-      Swal.fire("unsuccessful-wrong password entered")
+     
+      this.currentPasswordFlag=1
+      this.newPasswordFlag=0
     }
       },
       error => {

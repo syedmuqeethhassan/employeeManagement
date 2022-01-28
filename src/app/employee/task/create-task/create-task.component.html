@@ -1,0 +1,51 @@
+<div style="width: 100%;border:1px solid grey;">
+<div style="text-align:center;font-weight: bold;">
+    {{formPurpose}}
+    <i style="float: right;font-size: 1.5rem;color: red;" (click)="closeTaskForm()"class="bi-x-circle"></i><br><br>
+</div>
+<div class="taskFormStyle">
+    <form [formGroup]="taskForm" style="padding-right: 10px;" (ngSubmit)="onSubmit()">
+        
+<div>
+    <label for="taskname" style="margin-left: 10px;padding-right: 10px;">Task Name </label>
+    <input type="text" style="margin-right: 10px;" class="form-control" name="taskname" formControlName="taskname">
+</div>
+
+<div *ngIf="taskForm.get('taskname')?.touched && taskForm.get('taskname')?.hasError('required')">
+    this feild is required
+</div>
+
+<label for="taskstatus" style="margin-left: 10px;">Task Status</label><br>
+<div class="form-control">
+    <input type="radio" name='taskstatus' value='Todo' formControlName='taskstatus'>to do<br>
+    <input type="radio" name='taskstatus' value='inprogress' formControlName='taskstatus'>in progress<br>
+    <input type="radio" name='taskstatus' value='pending' formControlName='taskstatus'>pending<br>
+    <input type="radio" name='taskstatus' value='completed' formControlName='taskstatus'>completed<br>
+    <input type="radio" name='taskstatus' value='blocked' formControlName='taskstatus'>blocked<br>
+</div>
+
+
+<div *ngIf="taskForm.get('taskstatus').touched && taskForm.get('taskstatus')?.hasError('required')">
+    this is required feild
+</div>
+
+
+<label for="assignto" style="margin-left: 10px;">Assign To</label><br>
+<select class="form-control" formControlName="assignto">
+    <option  *ngFor="let user of userDropdownList" [value]="user">{{user}}</option>
+ </select>
+
+ <div>
+    <label for="taskdescription" style="margin-left: 10px;">Task Description</label><br>
+    <textarea class="form-control" cols="35" rows="3" m required name="taskdescription" maxlength="25" formControlName="taskdescription" id="taskdescription" placeholder="Task Description"></textarea>
+    <div *ngIf="taskForm.controls['taskdescription'].errors && taskForm.controls['taskdescription'].dirty &&  taskForm.controls['taskdescription'].errors.required">
+        place is required
+    </div>
+</div>
+<div>
+<button class="form-control">{{formAction}}</button>
+</div>
+    </form>
+    <button style="padding-right: 10px;" class="form-control" (click)="deleteTask()" *ngIf="formEdit">delete task</button>
+</div>
+</div>

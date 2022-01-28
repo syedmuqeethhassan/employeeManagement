@@ -9,7 +9,7 @@
 }
 .addEmployeeButton{
     width: 100px;
-   
+   margin:10px
 }
 .addEmployeeModal{
     display: block;
@@ -48,10 +48,10 @@ display: block;
 .optionsFeild{
     width:300px
 }
-.addEmployeeButton{
+/* .addEmployeeButton{
     height: 50px;
     width: 100px;
-}
+} */
 .selected-column{
     margin-left: 200px;
     margin-top:50px;

@@ -1,0 +1,17 @@
+.prefix-css{
+    width: 90%;
+    margin: 10px;
+}
+.datatable-header-cell{
+    font-size: large !important;
+    color: rgb(54, 38, 148)  !important;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+}
+.datatable-header {
+    min-width: 100%;
+}
+
+.datatable-body {
+    min-width: 100%;
+}

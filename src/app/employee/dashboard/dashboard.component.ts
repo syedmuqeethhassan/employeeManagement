@@ -50,6 +50,8 @@ export class DashboardComponent implements OnInit {
   editRow:any
   retrievedData:any
   developer:any
+  users='users'
+  logged:string='usersList'
   constructor(public apicallservice: ApiCallsService, private zone: NgZone) { }
 
   ngOnInit(): void {
@@ -94,6 +96,8 @@ export class DashboardComponent implements OnInit {
   loadData() {
     this.apicallservice.getAllData().subscribe((receivedData) => {
       this.retrievedData=receivedData
+      let allUsers=btoa(JSON.stringify(this.retrievedData));
+      sessionStorage.setItem(this.users,allUsers)
       console.log(receivedData)
       let fetchedData = sessionStorage.getItem('userLogged')
       let userLoggedData = JSON.parse(atob(fetchedData));
@@ -111,6 +115,9 @@ export class DashboardComponent implements OnInit {
         }}
         this.Admin = true
         this.rows = this.data
+        let encodedStr = btoa(JSON.stringify(this.rows));
+
+        sessionStorage.setItem(this.logged, encodedStr);
         console.log(this.data)
       }
       else if (userLoggedData.role?.includes('Manager')) {
@@ -125,6 +132,9 @@ export class DashboardComponent implements OnInit {
          
       }
         this.rows = this.data
+        let encodedStr = btoa(JSON.stringify(this.rows));
+
+        sessionStorage.setItem(this.logged, encodedStr);
         console.log(' is this it')
       
     }
@@ -137,6 +147,9 @@ export class DashboardComponent implements OnInit {
           }
         }
         this.rows = this.data
+        let encodedStr = btoa(JSON.stringify(this.rows));
+
+        sessionStorage.setItem(this.logged, encodedStr);
         this.developer=true
         console.log('only developer')
       }
