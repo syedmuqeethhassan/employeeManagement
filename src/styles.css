@@ -33,3 +33,6 @@
     font-size: 12px;
     color: #e12e2e;
 }
+.form-control{
+    box-shadow: none !important;
+}

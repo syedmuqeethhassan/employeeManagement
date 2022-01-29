@@ -1,8 +1,8 @@
-<div style="display: flex;height: 80vh;width: 100%;">
+<div style="display: flex;height: 100%;">
     <div [ngClass]="showForm == true ? 'notFullView' : 'fullView'">
         <app-task-list (dataEvent)="onRowReceive($event)" (formEvent)="formStatus($event)" (formPurpose)="formAction($event)" [showForm]="this.showForm" ></app-task-list>
     </div>
-    <div *ngIf="showForm" [ngClass]="showForm == true ? 'showCreateTask' : 'notShowCreateTask'">
-        <app-create-task [receivedrow]="rows" [formEdit]="formEdit"(formEvent)="formStatus($event)"  ></app-create-task>
+    <div style="height: 100%;" *ngIf="showForm" [ngClass]="showForm == true ? 'showCreateTask' : 'notShowCreateTask'">
+        <app-create-task style="height: 100%;" [receivedrow]="rows" [formEdit]="formEdit"(formEvent)="formStatus($event)"  ></app-create-task>
     </div>
 </div>

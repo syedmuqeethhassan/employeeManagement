@@ -1,4 +1,4 @@
-<div style="width: 100%;border:1px solid grey;">
+<div style="width: 100%;border-left:1px solid grey;height: 100%;">
 <div style="text-align:center;font-weight: bold;">
     {{formPurpose}}
     <i style="float: right;font-size: 1.5rem;color: red;" (click)="closeTaskForm()"class="bi-x-circle"></i><br><br>
@@ -7,26 +7,37 @@
     <form [formGroup]="taskForm" style="padding-right: 10px;" (ngSubmit)="onSubmit()">
         
 <div>
-    <label for="taskname" style="margin-left: 10px;padding-right: 10px;">Task Name </label>
+    <label for="taskname" style="margin-left: 10px;padding-right: 10px; width: 15px;">Task Name </label>
     <input type="text" style="margin-right: 10px;" class="form-control" name="taskname" formControlName="taskname">
 </div>
 
 <div *ngIf="taskForm.get('taskname')?.touched && taskForm.get('taskname')?.hasError('required')">
-    this feild is required
+    This feild is required
 </div>
 
 <label for="taskstatus" style="margin-left: 10px;">Task Status</label><br>
 <div class="form-control">
-    <input style="margin-right: 5px;" type="radio" name='taskstatus' value='Todo' formControlName='taskstatus'>To Do<br>
-    <input style="margin-right: 5px;" type="radio" name='taskstatus' value='inprogress' formControlName='taskstatus'>In Progress<br>
-    <input style="margin-right: 5px;" type="radio" name='taskstatus' value='pending' formControlName='taskstatus'>Pending<br>
-    <input style="margin-right: 5px;" type="radio" name='taskstatus' value='completed' formControlName='taskstatus'>Completed<br>
-    <input style="margin-right: 5px;" type="radio" name='taskstatus' value='blocked' formControlName='taskstatus'>Blocked<br>
+    <div style="display: flex;">
+    <div style="display: block;">
+        <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus' value='Todo'
+            formControlName='taskstatus'>To Do<br>
+        <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus'
+            value='inprogress' formControlName='taskstatus'>In Progress<br>
+        <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus' value='pending'
+            formControlName='taskstatus'>Pending<br>
+    </div>
+    <div style="display: block;margin-left: 10px;">
+        <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus' value='completed'
+            formControlName='taskstatus'>Completed<br>
+        <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus' value='blocked'
+            formControlName='taskstatus'>Blocked<br>
+    </div>
+</div>
 </div>
 
 
 <div *ngIf="taskForm.get('taskstatus').touched && taskForm.get('taskstatus')?.hasError('required')">
-    this is required feild
+    This is required feild
 </div>
 
 
@@ -39,13 +50,13 @@
     <label for="taskdescription" style="margin-left: 10px;">Task Description</label><br>
     <textarea class="form-control" cols="35" rows="3" m required name="taskdescription" maxlength="25" formControlName="taskdescription" id="taskdescription" placeholder="Task Description"></textarea>
     <div *ngIf="taskForm.controls['taskdescription'].errors && taskForm.controls['taskdescription'].dirty &&  taskForm.controls['taskdescription'].errors.required">
-        place is required
+        Task Description is required
     </div>
 </div>
 <div>
-<button class="form-control" [disabled]="!taskForm.valid">{{formAction}}</button>
+<button class="form-control btn-primary" [disabled]="!taskForm.valid">{{formAction}}</button>
 </div>
     </form>
-    <button style="padding-right: 10px;" class="form-control" (click)="deleteTask()" *ngIf="formEdit">delete task</button>
+    <button style="padding-right: 10px;" class="form-control btn-danger" (click)="deleteTask()" *ngIf="formEdit">delete task</button>
 </div>
 </div>

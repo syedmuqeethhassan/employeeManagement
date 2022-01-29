@@ -117,10 +117,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
-          <button type="button" class="close" data-dismiss="modal" (click)="closeAddEmployeeModalDisplay()"
-            aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <i style="float: right;font-size: 1.5rem;color: red;margin-left: 280px;" class="bi-x-circle"(click)="closeAddEmployeeModalDisplay()" ></i><br><br>
+            <!-- <span aria-hidden="true">&times;</span> -->
+         
         </div>
         <div class="modal-body">
           <div>
@@ -141,10 +140,8 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel"> Edit : {{editEmployeeFormdata.username}}</h5>
-          <button type="button" class="close" data-dismiss="modal" (click)="closeEditEmployeeModalDisplay()"
-            aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <i style="float: right;font-size: 1.5rem;color: red;margin-left: 280px;" class="bi-x-circle"(click)="closeEditEmployeeModalDisplay()"></i><br><br>
+         
         </div>
         <div class="modal-body">
           <div>
@@ -154,9 +151,6 @@
 
 
           </div>
-        </div>
-        <div class="modal-footer">
-
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@
     height: 98px;
     align-items: center;
     
-    background-color:#a4a3aa;
+    background-color:#1350aa6e 
 }
 .profilePic{
    
@@ -17,7 +17,7 @@
     display: block;
 }
 .showProfile{
-    /* margin-top:30px; */
+    
     width:50px;
 }
 .usernameDropdown{

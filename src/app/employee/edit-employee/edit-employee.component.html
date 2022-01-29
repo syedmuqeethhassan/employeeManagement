@@ -6,22 +6,22 @@
             <input type="text" class="form-control" name="name" formControlName="name">
         </div>
         <div class="errorMessage" *ngIf="editEmployeeForm.get('name')?.touched && editEmployeeForm.get('name')?.hasError('required')">
-            this feild is required
+            This feild is required
         </div>
         <div class="errorMessage" *ngIf="editEmployeeForm.get('name')?.hasError('pattern')">
-            invalid name
+            Invalid name
         </div>
         <div>
             <label for="age">Age </label>
             <input type="text" class="form-control" name="age" formControlName="age">
             <div *ngIf="editEmployeeForm.get('age')?.touched && editEmployeeForm.get('age')?.hasError('required')">
-                this is required feild
+                This is required feild
             </div>
             <div class="errorMessage" *ngIf="editEmployeeForm.get('age')?.hasError('pattern')">
-                invalid number
+                Invalid number
             </div>
             <div class="errorMessage" *ngIf="editEmployeeForm.get('age')?.hasError('maxlength')">
-                length is high
+                Length is high
             </div>
             <div class="errorMessage" *ngIf="editEmployeeForm.get('age')?.hasError('minlength')">
                 length is low
@@ -34,38 +34,40 @@
             <input type="radio" name='gender' value='Female' formControlName='gender'><span style="margin-left: 1px;margin-right: 1px;"> Female</span>
         
         <div class="errorMessage" *ngIf="editEmployeeForm.get('gender')?.hasError('required')">
-            this is required feild
+            This is required feild
         </div>
         <div>
             <label for="phoneNumber">Phone Number </label>
             <input type="text" class="form-control" name="phoneNumber" formControlName="phonenumber">
             <div class="errorMessage"
                 *ngIf="editEmployeeForm.get('phonenumber')?.touched && editEmployeeForm.get('phonenumber')?.hasError('required')">
-                this is required feild
+                This is required feild
             </div>
             <div class="errorMessage" *ngIf="editEmployeeForm.get('phonenumber')?.hasError('pattern')">
-                invalid number
+                Invalid number
             </div>
             <div class="errorMessage" *ngIf="editEmployeeForm.get('phonenumber')?.hasError('maxlength')">
-                length is high
+                Length is high
             </div>
             <div class="errorMessage" *ngIf="editEmployeeForm.get('phonenumber')?.hasError('minlength')">
-                length is low
+                Length is low
             </div>
             <div>
                 <h6>
                     Current Roles: {{editEmployeeFormData.rolesArray}}
                 </h6>
             </div>
+            <div style="display: flex;" >
             <div *ngFor="let role of roles; let i=index">
                 <label>
-                    <input type="checkbox" [value]="role.value" [checked]="this.editEmployeeFormData.role.includes(role.value)" (change)="onCheckboxChange($event)" />
+                    <input style="margin-left: 10px;" type="checkbox" [value]="role.value" [checked]="this.editEmployeeFormData.role.includes(role.value)" (change)="onCheckboxChange($event)" />
                     {{role.name}}
                 </label>
             </div>
+            </div>
         </div>
         <div>
-            <button class="form-control">submit</button>
+            <button class="form-control btn btn-primary">submit</button>
         </div>
     </form>
 </div>
