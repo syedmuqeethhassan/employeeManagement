@@ -73,9 +73,8 @@ export class TaskListComponent implements OnInit {
     this.formPurpose.emit(this.formEdit)
     
   }
-  deleteTask(rowid){
+  async deleteTask(rowid){
     console.log("delete task",rowid)
-    
       Swal.fire({
         title: 'Are you sure?',
         text: 'This process is irreversible.',
@@ -91,6 +90,7 @@ export class TaskListComponent implements OnInit {
             'Task removed successfully.',
             'success'
           )
+          this.gettaskdata()
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire(
             'process aborted',

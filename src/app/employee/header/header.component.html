@@ -1,7 +1,7 @@
 <div class="headerContent" style="border-bottom: 1px solid #0a196175;" >
    
     <div class="usernameDropdown">
-        <h6>{{userName}}</h6>
+       <span> {{userName}}</span> 
         <div *ngIf="showProfileOptions" class="showProfile" (blur)="profileOptions()">
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" routerLink="/login" (click)="logout()">Logout</a>

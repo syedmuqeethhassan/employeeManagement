@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
@@ -9,6 +9,8 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 export class HeaderComponent implements OnInit {
   showProfileOptions:boolean=false
   userName:any
+  @Output() dropdownEvent = new EventEmitter<boolean>();
+  dropdownShow:boolean=false
   constructor(public dashboard:DashboardComponent) {
     
    }
@@ -21,6 +23,7 @@ export class HeaderComponent implements OnInit {
     console.log(this.userName,'username received')
   }
   profileOptions(){
+    this.dropdownEvent.emit(this.dropdownShow)
     this.showProfileOptions=!this.showProfileOptions
   }
   logout(){

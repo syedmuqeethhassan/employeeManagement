@@ -1,5 +1,5 @@
 
-<app-header [userLogged]="userLogged"></app-header>
+<app-header [userLogged]="userLogged" (dropdownEvent)="dropdownEvent($event)" ></app-header>
 <div style="display: flex;height:calc(100vh - 98px);">
 <app-side-nav style="background-color:#1350aa6e ;border-right:1px solid #0a196175;"></app-side-nav>
 <div style="width: calc(100% - 218px);height:100%">

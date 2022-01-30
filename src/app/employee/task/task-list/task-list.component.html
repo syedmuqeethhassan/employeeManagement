@@ -7,7 +7,7 @@
       [selectAllRowsOnPage]="false">
       
       <ngx-datatable-column    name="taskname"  >
-        <ng-template style="border:1px solid black" ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+        <ng-template style="padding-bottom:5px;" ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value}}
         </ng-template>
       </ngx-datatable-column>
@@ -20,11 +20,11 @@
           </span>
           <select  *ngIf="editing[rowIndex + '-taskstatus']" (blur)="editing[rowIndex + '-taskstatus'] = false"
             (change)="updateValue($event, 'taskstatus', rowIndex)" [value]="value">
-            <option value="todo">To Do</option>
-            <option value="inprogress">In Progress</option>
-            <option value="pending">Pending</option>
-            <option value="completed">Completed</option>
-            <option value="blocked">Blocked</option>
+            <option value="To Do">To Do</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Blocked">Blocked</option>
           </select>
          
         </ng-template>
@@ -42,6 +42,12 @@
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column  name="date"  >
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            {{value| date:'short'}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column  name="updateddate"  >
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value| date:'short'}}
         </ng-template>

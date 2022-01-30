@@ -3,6 +3,6 @@
         <app-task-list (dataEvent)="onRowReceive($event)" (formEvent)="formStatus($event)" (formPurpose)="formAction($event)" [showForm]="this.showForm" ></app-task-list>
     </div>
     <div style="height: 100%;" *ngIf="showForm" [ngClass]="showForm == true ? 'showCreateTask' : 'notShowCreateTask'">
-        <app-create-task style="height: 100%;" [receivedrow]="rows" [formEdit]="formEdit"(formEvent)="formStatus($event)"  ></app-create-task>
+        <app-create-task style="height: 100%;" [receivedrow]="rows" [formEdit]="formEdit"(formEvent)="formStatus($event)" ></app-create-task>
     </div>
 </div>

@@ -15,6 +15,11 @@ userLogged:any
     console.log('inside inde compo')
     this.userLogged=this.dashboard?.loggedPerson?.userName
   }
+  dropdownEvent(event){
+    if(event==true){
+      
+    }
+  }
 
   onRouteChange() {
 

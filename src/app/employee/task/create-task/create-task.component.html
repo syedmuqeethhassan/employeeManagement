@@ -22,14 +22,14 @@
         <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus' value='Todo'
             formControlName='taskstatus'>To Do<br>
         <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus'
-            value='inprogress' formControlName='taskstatus'>In Progress<br>
+            value='In Progress' formControlName='taskstatus'>In Progress<br>
         <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus' value='pending'
             formControlName='taskstatus'>Pending<br>
     </div>
     <div style="display: block;margin-left: 10px;">
-        <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus' value='completed'
+        <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus' value='Completed'
             formControlName='taskstatus'>Completed<br>
-        <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus' value='blocked'
+        <input style="margin-right: 5px;margin-top: 4px;" type="radio" name='taskstatus' value='Blocked'
             formControlName='taskstatus'>Blocked<br>
     </div>
 </div>
@@ -55,8 +55,9 @@
 </div>
 <div>
 <button class="form-control btn-primary" [disabled]="!taskForm.valid">{{formAction}}</button>
+<button type="button" style="padding-right: 10px;" class="form-control btn-danger" (click)="deleteTask()" *ngIf="formEdit">delete task</button>
 </div>
     </form>
-    <button style="padding-right: 10px;" class="form-control btn-danger" (click)="deleteTask()" *ngIf="formEdit">delete task</button>
+    
 </div>
 </div>

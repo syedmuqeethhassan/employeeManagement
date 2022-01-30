@@ -71,6 +71,7 @@ return this.http.delete(url)
   }
 
   updateTaskData(id,obj){
+    obj.updateddate=new Date
     let url=this.taskurl+'/'+id
     return this.http.put(url,obj)
   }

@@ -72,6 +72,7 @@ initData(){
       this.date = new Date();
       this.taskForm.controls.createdby.setValue(this.user.name)
       this.taskForm.value
+      console.log(this.receivedrow)
       if (this.formEdit == true) {
         this.taskID = this.receivedrow.id;
         this.formPurpose = "Edit Task"
@@ -107,14 +108,6 @@ closeTaskForm(){
   console.log("close forms")
   this.showForm=false
   this.formEvent.emit(this.showForm)
-  this.taskForm.patchValue(
-    {
-      taskname:'',
-      taskstatus:'',
-      assignto:'',
-      taskdescription:','
-    }
-  )
 }
 ngOnChanges(changes: SimpleChanges) {
   console.log('OnChanges');
@@ -150,6 +143,7 @@ onSubmit(){
       Swal.fire('unsuccessful')
     }
   );
+  this.closeTaskForm()
 }
   else{
     this.taskForm.controls.createdby.setValue(this.user.name)
