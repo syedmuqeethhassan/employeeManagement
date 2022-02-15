@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   username:string
   password:string
-  url='http://localhost:3000/employees'
+  url='http://localhost:3500/users/login'
   userLogged:string='userLogged'
   constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public dashboardcomponent:DashboardComponent) {
 
@@ -28,11 +28,15 @@ export class LoginComponent implements OnInit {
    }
   ngOnInit(): void {
   }
+
+  
   onSubmit(){
-    this.http.get<any>(this.url).subscribe(result=>{
-      const user=result.find((a:any)=>{
-        return a.username === this.loginForm.value.username && a.password === this.loginForm.value.password
-      })
+    console.log(this.loginForm.value)
+    // this.apiCall().subscribe(data => console.log(data))
+    let loginForm={...this.loginForm.value}
+    this.http.post<any>(this.url,loginForm).subscribe(result=>{
+      let user=result
+      console.log(result)
       if(user){
         delete(user.password);
         let encodedStr = btoa(JSON.stringify(user));

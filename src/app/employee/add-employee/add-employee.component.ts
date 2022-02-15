@@ -26,7 +26,7 @@ export class AddEmployeeComponent implements OnInit {
   addEmployeeFormData:any
   username:string
   password:string
-  url='http://localhost:3000/employees'
+  url='http://localhost:3500/users'
   constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public apicallservice:ApiCallsService,public dashboardcomponent:DashboardComponent) {
     this.createForm()
    }
@@ -88,9 +88,7 @@ alertConfirmationAdd(addEmployeeForm){
     
        
     if (result.value) {
-      console.log("ADD EMPLOYEE OWRKING")
         this.addEmployeeFormData = {...this.addEmployeeForm.value}
-        console.log(this.addEmployeeFormData)
         await this.apicallservice.postAddEmployeeFormData(this.addEmployeeFormData)
         this.dashboardcomponent.loadData()
         this.dashboardcomponent.addEmployeeModalDisplay=false

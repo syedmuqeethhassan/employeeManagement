@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 })
 export class ApiCallsService {
   taskurl='http://localhost:3000/tasks'
- baseurl='http://localhost:3000/employees/'
+ baseurl='http://localhost:3500/users/'
 allData:any
 allDataSubject = new Subject<any>();
 singleEmployeeSubject=new Subject<any>()
@@ -18,30 +18,34 @@ singleEmployeeSubject=new Subject<any>()
   }
 
   getLoggedData(id): Observable<any>{
-    return this.http.get(this.baseurl+id)
+    return this.http.get(this.baseurl)
   }
   
   postAddEmployeeFormData(receivedForm:any){
     console.log("post form data is executing")
-    return this.http.post<any>(this.baseurl,receivedForm).subscribe(
+    let url=this.baseurl+'add-user'
+    return this.http.post<any>(url,receivedForm).subscribe(
       data => {
         console.log('POST Request is successful ', data);
         Swal.fire('successful')
       },
       error => {
         console.log('Error', error);
-        Swal.fire('unsuccessful')
+        Swal.fire('unsuccessful in api call service')
       }
     );
   }
   deletePost(id) {
     let employeeid=id
-    let url=this.baseurl+employeeid
+    let url=this.baseurl+'delete/'+employeeid
     return this.http.delete(url)
   }
-  
-  putEmployeeFormData(editEmployeeFormData,id){
+  getUser(id){
     let url=this.baseurl+id
+    return this.http.get(url)
+  }
+  putEmployeeFormData(editEmployeeFormData,id){
+    let url=this.baseurl+'update'
     return this.http.put<any>(url,editEmployeeFormData)
   }
   UpdateEmployeeData(id,dataObject){

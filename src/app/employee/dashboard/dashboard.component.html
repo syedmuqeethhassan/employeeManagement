@@ -3,12 +3,12 @@
 
 
 <div style="margin-bottom:20px;">
-  <div *ngIf="Admin" class="addEmployeeDiv" style="width: 200px;float:right;margin-right: 20px;">
+  <div class="addEmployeeDiv" style="width: 200px;float:right;margin-right: 20px;">
   <button  class="addEmployeeButton form-control btn-primary" style="margin:10px" (click)="addEmployeeModal()">Add
     Employee</button>
   </div>
   <div *ngIf="!developer" class="prefix-css" >
-  <ngx-datatable style="border-color:#600080;border-radius:10px;" class="material container" [columns]="columns" [rows]="rows" [count]=8 [limit]="7" [headerHeight]="60"
+  <ngx-datatable style="border-color:#600080;border-radius:10px;" class="material container" [columns]="columns" [rows]="rows" [count]=8 [limit]="5" [headerHeight]="60"
     [rowHeight]="50"  [footerHeight]="50" [sortType]="SortType.multi" [columnMode]="ColumnMode.force"
     [selected]="selected" [selectionType]="SelectionType.checkbox" [selectAllRowsOnPage]="false"
     [displayCheck]="displayCheck" (activate)="onActivate($event)" (select)="onSelect($event)">
@@ -88,7 +88,7 @@
         <i class="bi-pen" style="font-size: 1.2rem;" (click)="editEmployee(row)" ></i>
         </div>
         <div style="margin-left: 8px;">
-       <i class="bi-trash" style="font-size: 1.2rem;" (click)="deleteEmployee(row.id)"></i>
+       <i class="bi-trash" style="font-size: 1.2rem;" (click)="deleteEmployee(row._id)"></i>
         </div>
         </div>
       </ng-template>
@@ -118,7 +118,6 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
             <i style="float: right;font-size: 1.5rem;color: red;margin-left: 280px;" class="bi-x-circle"(click)="closeAddEmployeeModalDisplay()" ></i><br><br>
-            <!-- <span aria-hidden="true">&times;</span> -->
          
         </div>
         <div class="modal-body">

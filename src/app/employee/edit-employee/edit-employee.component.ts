@@ -24,13 +24,15 @@ export class EditEmployeeComponent implements OnInit {
   editEmployeeForm: FormGroup;
 
   constructor(public formbuilder: FormBuilder, private router: Router, public http: HttpClient, public apicallservice: ApiCallsService, public dashboardcomponent: DashboardComponent) {
-    this.createForm()
+   
   }
 
   ngOnInit(): void {
+    this.createForm()
+    console.log(this.editEmployeeFormData,'edit employee form data')
     this.dashboardcomponent.loadData()
     console.log(this.editEmployeeFormData.id,'id of person logged')
-    this.apicallservice.getLoggedData(this.editEmployeeFormData.id).subscribe(
+    this.apicallservice.getLoggedData(this.editEmployeeFormData._id).subscribe(
       data => {
         console.log('logged user data recevived from api ', data);
         this.password=data.password
@@ -39,7 +41,7 @@ export class EditEmployeeComponent implements OnInit {
           {
             username: this.editEmployeeFormData.username,
             password:this.password,
-            id: this.editEmployeeFormData.id,
+            id: this.editEmployeeFormData._id,
             name: this.editEmployeeFormData.name,
             age: this.editEmployeeFormData.age,
             gender: this.editEmployeeFormData.gender,
@@ -50,7 +52,6 @@ export class EditEmployeeComponent implements OnInit {
       },
       error => {
         console.log('logged users data not recevived from api ', error);
-        
       }
     );
     this.FormArr = this.editEmployeeForm.get('role') as FormArray;
@@ -62,22 +63,30 @@ export class EditEmployeeComponent implements OnInit {
     console.log(this.editEmployeeFormData.username)
     console.log(this.editEmployeeFormData.role?.includes('Developer'))
   }
+  // this.apicallservice.getUser(id).subscribe(
+  //     data => {
+  //       console.log('getting user', data);
+  //     },
+  //     error => {
+  //       console.log('Error', error);
+  //     }
+  //   )
   createForm() {
     this.editEmployeeForm = this.formbuilder.group({
-      username: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
-      password: ['', [Validators.required]],
+      username: ['', [Validators.pattern(/^[0-9a-zA-Z]+$/)]],
+      password: [''],
       phonenumber: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]*")]],
       name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
       gender: ['', [Validators.required]],
-      id: ['', [Validators.required, Validators.maxLength(2), Validators.minLength(1), Validators.pattern("[0-9]*")]],
+      id: [''],
       age: ['', [Validators.required, Validators.maxLength(2), Validators.minLength(1), Validators.pattern("[0-9]*")]],
-      role: [[], Validators.required]
+      role: ['']
     })
   }
 
   async onSubmit() {
     const updatedFormData = { ...this.editEmployeeForm.value }
-    await (this.apicallservice.putEmployeeFormData(updatedFormData, updatedFormData.id).subscribe(
+    await (this.apicallservice.putEmployeeFormData(updatedFormData, this.editEmployeeFormData._id).subscribe(
       data => {
         console.log('POST Request is successful ', data);
         Swal.fire('successful')

@@ -20,7 +20,7 @@
 
         <div>
             <label for="name">Name </label>
-            <input type="text" class="form-control" name="name" formControlName="name">
+            <input type="text" autocomplete="off" class="form-control" name="name" formControlName="name">
         </div>
 
         <div class="errorMessage" *ngIf="addEmployeeForm.get('name')?.touched && addEmployeeForm.get('name')?.hasError('required')">
@@ -34,7 +34,7 @@
 
         <div>
             <label for="age">Age </label>
-            <input type="text" class="form-control" name="age" formControlName="age">
+            <input type="text" autocomplete="off" class="form-control" name="age" formControlName="age">
 
 
             <div class="errorMessage" *ngIf="addEmployeeForm.get('age')?.touched && addEmployeeForm.get('age')?.hasError('required')">
@@ -65,7 +65,7 @@
 
         <div>
             <label for="password">Password </label>
-            <input type="password" class="form-control" name="password" formControlName="password">
+            <input type="password" autocomplete="off" class="form-control" name="password" formControlName="password">
         </div>
 
         <div class="errorMessage" *ngIf="addEmployeeForm.get('password')?.touched && addEmployeeForm.get('password')?.hasError('required')">
@@ -77,7 +77,7 @@
         </div>
         <div>
             <label for="phonenumber">Phone Number </label>
-            <input type="text" class="form-control" name="phonenumber" formControlName="phonenumber">
+            <input type="text" class="form-control" autocomplete="off" name="phonenumber" formControlName="phonenumber">
             <div class="errorMessage"
                 *ngIf="addEmployeeForm.get('phonenumber')?.touched && addEmployeeForm.get('phonenumber')?.hasError('required')">
                 This is required feild
@@ -104,7 +104,7 @@
         </div>
         </div>
         <div style="display: flex;justify-content: center;" >
-            <button class="btn btn-primary"  [disabled]="!addEmployeeForm.valid">submit</button>
+            <button style="width: 100%;margin-top: 5px;" class="btn btn-primary"  [disabled]="!addEmployeeForm.valid">submit</button>
         </div>
         
     </form>

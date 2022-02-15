@@ -2,7 +2,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div>
         <label for="username">User Name </label>
-        <input type="text" class="form-control" name="username" formControlName="username">
+        <input type="text" autocomplete="off" class="form-control" name="username" formControlName="username">
     </div>
         
         <div class="errorMessage" *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.hasError('required')">
@@ -15,7 +15,7 @@
 
         <div>
             <label for="password">Password </label>
-            <input type="text" class="form-control" name="password" formControlName="password">
+            <input type="password" autocomplete="off" class="form-control" name="password" formControlName="password">
         </div>
             
             <div class="errorMessage" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')">

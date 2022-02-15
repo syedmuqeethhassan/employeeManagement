@@ -39,18 +39,13 @@ export class ChangePasswordComponent implements OnInit {
     let fetchedData = sessionStorage.getItem('userLogged')
     let userLoggedData = JSON.parse(atob(fetchedData));
     console.log(userLoggedData.id)
-   
     this.oldPassword=this.changePasswordForm.get('currentPassword').value
-    
     this.newPassword=this.changePasswordForm.get('newPassword').value
-    
     this.confirmPassword=this.changePasswordForm.get('confirmPassword').value
     this.id=userLoggedData.id
     this.apicallservice.getLoggedData(userLoggedData.id).subscribe(
       data => {
-        console.log('get Request is successful ', data);
         this.user=data
-       
         if(this.oldPassword == this.user?.password) {
         if(this.newPassword == this.confirmPassword){
         this.changedPassword=this.confirmPassword
@@ -58,25 +53,19 @@ export class ChangePasswordComponent implements OnInit {
         }
         else{
           console.log('not changed password')
-          
           this.newPasswordFlag=1
           this.currentPasswordFlag=0
-
         }
     }
     else{
-      console.log('not changed password')
-     
       this.currentPasswordFlag=1
       this.newPasswordFlag=0
     }
       },
       error => {
         console.log('Error', error);
-       
       }
     );
-    
   }
   changePassword(){
     if( this.user.password){

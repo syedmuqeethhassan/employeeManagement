@@ -128,15 +128,16 @@ deleteTask(){
   );
 }
 
-onSubmit(){
+async onSubmit(){
   if(this.formAction=="Update"){
     this.taskForm.controls.createdby.setValue(this.user.name)
     this.taskForm.controls.updateddate.setValue(new Date)
-  this.apicallsservice.updateTaskData(this.taskID,this.taskForm.value).subscribe(
+  await this.apicallsservice.updateTaskData(this.taskID,this.taskForm.value).subscribe(
     data => {
       console.log('create task is successful ', data);
       Swal.fire('successful')
       this.taskForm.reset()
+      this.initData()
     },
     error => {
       console.log('create task', error);

@@ -92,6 +92,7 @@ export class DashboardComponent implements OnInit {
   loadData() {
     this.apicallservice.getAllData().subscribe((receivedData) => {
       this.retrievedData=receivedData
+      console.log(receivedData)
       let allUsers=btoa(JSON.stringify(this.retrievedData));
       sessionStorage.setItem(this.users,allUsers)
       
@@ -159,7 +160,8 @@ export class DashboardComponent implements OnInit {
   }
   deleteSelected() {
     for (let i = 0; i < this.selected.length; i++) {
-      this.selectedIds.push(this.selected[i].id)
+      this.selectedIds.push(this.selected[i]._id)
+      console.log(this.selectedIds,'selected IDs')
     }
     this.alertConfirmationForAll(this.selectedIds)
   }
@@ -189,7 +191,7 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-  alertConfirmationForAll(employeeids: any[]) {
+  async alertConfirmationForAll(employeeids: any[]) {
     Swal.fire({
       title: 'Are you sure you want to delete all selected?',
       text: 'This process is irreversible.',
@@ -220,9 +222,10 @@ export class DashboardComponent implements OnInit {
   editEmployee(row) {
     this.editEmployeeFormdata = row
     this.showEditEmployeeModal = true
-    console.log(row.id)
+    console.log(row)
+    console.log(row._id,'this is mongo id')
     this.loadData()
-    console.log(this.editEmployeeFormdata)
+    console.log(this.editEmployeeFormdata,'this is form data')
   }
   closeEditEmployeeModalDisplay() {
     this.showEditEmployeeModal = false
