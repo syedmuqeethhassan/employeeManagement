@@ -103,7 +103,7 @@ export class DashboardComponent implements OnInit {
         this.data = this.retrievedData
         for (let i = 0; i < this.data.length; i++) {
           delete (this.data[i].password)
-            if(this.data[i].id==this.loggedPerson.id){
+            if(this.data[i]._id==this.loggedPerson._id){
               this.data.splice(i,1)
           
         }}
@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit {
         this.data = managerData
         for (let i = 0; i < this.data?.length; i++) {
           delete (this.data[i].password)
-          if(this.data[i].id==this.loggedPerson.id){
+          if(this.data[i]._id==this.loggedPerson._id){
             this.data.splice(i,1)
           }
          
@@ -133,7 +133,7 @@ export class DashboardComponent implements OnInit {
         this.data = [userLoggedData]
         for (let i = 0; i < this.data.length; i++) {
           delete (this.data[i].password)
-            if(this.data[i].id==this.loggedPerson.id){
+            if(this.data[i]._id==this.loggedPerson._id){
               this.data.splice(i,1)
           }
         }
