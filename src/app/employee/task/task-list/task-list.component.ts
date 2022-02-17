@@ -73,8 +73,8 @@ export class TaskListComponent implements OnInit {
     this.formPurpose.emit(this.formEdit)
     
   }
-  async deleteTask(rowid){
-    console.log("delete task",rowid)
+  async deleteTask(row_id){
+    console.log("delete task",row_id)
       Swal.fire({
         title: 'Are you sure?',
         text: 'This process is irreversible.',
@@ -84,7 +84,7 @@ export class TaskListComponent implements OnInit {
         cancelButtonText: 'No, let me think'
       }).then(async (result) => {
         if (result.value) {
-          await this.apicallsservice.deleteTask(rowid).subscribe(data => console.log('deleted task ', ))
+          await this.apicallsservice.deleteTask(row_id).subscribe(data => console.log('deleted task ', ))
           Swal.fire(
             'Removed!',
             'Task removed successfully.',
@@ -115,11 +115,12 @@ export class TaskListComponent implements OnInit {
         this.rows[rowIndex][cell] = event.target.value;
         console.log(this.rows[rowIndex], 'is this row object')
         console.log(this.rows[rowIndex].id)
+        this.rows[rowIndex].id=this.rows[rowIndex]._id
         this.rows = [...this.rows];
         console.log(this.rows, 'this.rows')
         console.log("row index is",this.rows[rowIndex])
         console.log('UPDATED!', this.rows[rowIndex][cell]);
-        this.apicallsservice.updateTaskData(this.rows[rowIndex].id, this.rows[rowIndex]).subscribe(
+        this.apicallsservice.updateTaskData( this.rows[rowIndex]).subscribe(
           data => {
             console.log('Update task is successful ', data);
             Swal.fire('update successful')

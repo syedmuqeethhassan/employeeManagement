@@ -49,7 +49,8 @@ createForm(){
     taskdescription: ['', [Validators.required]],
     createdby:[],
     date:[],
-    updateddate:['']
+    updateddate:[''],
+    id:['']
   })
   this.formPurpose="Create Task"
   this.formAction="submit"
@@ -83,7 +84,8 @@ initData(){
             taskstatus: this.receivedrow?.taskstatus,
             assignto: this.receivedrow?.assignto,
             taskdescription: this.receivedrow?.taskdescription,
-            date:this.receivedrow.date
+            date:this.receivedrow.date,
+            id:this.receivedrow._id
           }
         )
       }
@@ -132,9 +134,9 @@ async onSubmit(){
   if(this.formAction=="Update"){
     this.taskForm.controls.createdby.setValue(this.user.name)
     this.taskForm.controls.updateddate.setValue(new Date)
-  await this.apicallsservice.updateTaskData(this.taskID,this.taskForm.value).subscribe(
+  await this.apicallsservice.updateTaskData(this.taskForm.value).subscribe(
     data => {
-      console.log('create task is successful ', data);
+      console.log('update task is successful ', data);
       Swal.fire('successful')
       this.taskForm.reset()
       this.initData()

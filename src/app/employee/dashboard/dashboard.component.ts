@@ -82,7 +82,18 @@ export class DashboardComponent implements OnInit {
       if (this.rows[rowIndex][cell] != '') {
         this.rows[rowIndex][cell] = event.target.value;
         this.rows = [...this.rows];
-        this.apicallservice.UpdateEmployeeData(this.rows[rowIndex].id, this.rows[rowIndex])
+        this.rows[rowIndex]['id']=this.rows[rowIndex]._id
+        this.apicallservice.putEmployeeFormData(this.rows[rowIndex],this.rows[rowIndex]._id).subscribe(
+          data => {
+            console.log('POST Request is successful ', data);
+            Swal.fire('successful')
+            this.dashboardcomponent.loadData()
+          },
+          error => {
+            console.log('Error', error);
+            Swal.fire('unsuccessful')
+          }
+        );
       }
     }
     else {
