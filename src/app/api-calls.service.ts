@@ -62,4 +62,9 @@ return this.http.delete(url)
     let url=this.taskurl+'update-task/'+id
     return this.http.put(url,obj)
   }
+
+  getUsers(){
+    let url=this.baseurl+'get-users'
+    return this.http.get(url)
+  }
 }

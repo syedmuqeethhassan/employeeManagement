@@ -51,7 +51,7 @@ export class TaskListComponent implements OnInit {
     );
   }
  
-  editEmployee(row){
+  editTask(row){
     console.log('edit employee row data',row)
     this.formEdit=true
     this.dataEvent.emit(row);
@@ -84,13 +84,15 @@ export class TaskListComponent implements OnInit {
         cancelButtonText: 'No, let me think'
       }).then(async (result) => {
         if (result.value) {
-          await this.apicallsservice.deleteTask(row_id).subscribe(data => console.log('deleted task ', ))
-          Swal.fire(
-            'Removed!',
-            'Task removed successfully.',
-            'success'
-          )
-          this.gettaskdata()
+          this.apicallsservice.deleteTask(row_id).subscribe(data => {
+            console.log('deleted task ' )
+            Swal.fire(
+              'Removed!',
+              'Task removed successfully.',
+              'success'
+            )
+            this.gettaskdata()
+          })
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire(
             'process aborted',
@@ -106,24 +108,21 @@ export class TaskListComponent implements OnInit {
   displayCheck(row) {
     return row.name;
   }
-  updateValue(event, cell, rowIndex) {
+  async updateValue(event, cell, rowIndex) {
     console.log('inline editing rowIndex', rowIndex);
     this.editing[rowIndex + '-' + cell] = false;
     console.log(event.target.value, 'this is event value')
     if (event.target.value) {
       if (this.rows[rowIndex][cell] != '') {
         this.rows[rowIndex][cell] = event.target.value;
-        console.log(this.rows[rowIndex], 'is this row object')
-        console.log(this.rows[rowIndex].id)
         this.rows[rowIndex].id=this.rows[rowIndex]._id
         this.rows = [...this.rows];
-        console.log(this.rows, 'this.rows')
-        console.log("row index is",this.rows[rowIndex])
-        console.log('UPDATED!', this.rows[rowIndex][cell]);
         this.apicallsservice.updateTaskData( this.rows[rowIndex],this.rows[rowIndex]._id).subscribe(
           data => {
-            console.log('Update task is successful ', data);
-            Swal.fire('update successful')
+            console.log('Update task is successful ');
+            this.gettaskdata()
+            Swal.fire(data)
+           
           },
           error => {
             console.log('update task is not successful-error', error);

@@ -75,9 +75,7 @@ export class DashboardComponent implements OnInit {
     return row.name;
   }
   updateValue(event, cell, rowIndex) {
-    console.log('inline editing rowIndex', rowIndex);
     this.editing[rowIndex + '-' + cell] = false;
-    console.log(event.target.value, 'this is event value')
     if (event.target.value) {
       if (this.rows[rowIndex][cell] != '') {
         this.rows[rowIndex][cell] = event.target.value;
@@ -104,8 +102,6 @@ export class DashboardComponent implements OnInit {
     this.apicallservice.getAllData().subscribe((receivedData) => {
       this.retrievedData=receivedData
       console.log(receivedData)
-      // let allUsers=btoa(JSON.stringify(this.retrievedData));
-      // sessionStorage.setItem(this.users,allUsers)
       let fetchedData = sessionStorage.getItem('userLogged')
       let userLoggedData = JSON.parse(atob(fetchedData));
       this.loggedPerson=userLoggedData
@@ -115,14 +111,9 @@ export class DashboardComponent implements OnInit {
           delete (this.data[i].password)
             if(this.data[i]._id==this.loggedPerson._id){
               this.data.splice(i,1)
-          
         }}
         this.Admin = true
         this.rows = this.data
-        // let encodedStr = btoa(JSON.stringify(this.rows));
-
-        // sessionStorage.setItem(this.logged, encodedStr);
-        
       }
       else if (userLoggedData.role?.includes('Manager')) {
         const managerData = this.retrievedData?.filter(x => (x.role.includes('Developer') || x.role.includes('Manager')) && !x.role.includes('Admin'))
@@ -132,12 +123,8 @@ export class DashboardComponent implements OnInit {
           if(this.data[i]._id==this.loggedPerson._id){
             this.data.splice(i,1)
           }
-         
       }
         this.rows = this.data
-        // let encodedStr = btoa(JSON.stringify(this.rows));
-
-        // sessionStorage.setItem(this.logged, encodedStr);
     }
       else if (userLoggedData.role?.includes('Developer')) {
         this.data = [userLoggedData]
@@ -148,9 +135,6 @@ export class DashboardComponent implements OnInit {
           }
         }
         this.rows = this.data
-        // let encodedStr = btoa(JSON.stringify(this.rows));
-
-        // sessionStorage.setItem(this.logged, encodedStr);
         this.developer=true
       }
     }
@@ -183,10 +167,12 @@ export class DashboardComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Yes, go ahead.',
       cancelButtonText: 'No, let me think'
-    }).then(result => {
+    }).then(async(result) => {
       if (result.value) {
-        this.apicallservice.deletePost(employeeid).subscribe(data => console.log('deleted: ', employeeid))
-        this.loadData()
+       this.apicallservice.deletePost(employeeid).subscribe(
+          data => {console.log('deleted: ', employeeid)
+          this.loadData()
+        })
         Swal.fire(
           'Removed!',
           'Employee removed successfully.',

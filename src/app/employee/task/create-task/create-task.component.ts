@@ -50,7 +50,6 @@ createForm(){
     createdby:[],
     date:[],
     updateddate:[''],
-    id:['']
   })
   this.formPurpose="Create Task"
   this.formAction="submit"
@@ -58,18 +57,15 @@ createForm(){
 getUser(){
   let fetchedData = sessionStorage.getItem('userLogged')
   this.user = JSON.parse(atob(fetchedData));
-  this.id=this.user.id;
   this.name=this.user.name
 }
 
 initData(){
-  this.apicallsservice.getAllData().subscribe(
+  this.apicallsservice.getUsers().subscribe(
     data => {
       console.log('all employees in create task component ', data);
       this.users = data
-      this.userDropdown = this.users?.filter(x => !(x.role?.includes('Admin')))
-      this.userDropdown= this.users?.map(x => (x.name))
-      this.userDropdownList=this.userDropdown
+      this.userDropdownList=this.users
       this.date = new Date();
       this.taskForm.controls.createdby.setValue(this.user.name)
       this.taskForm.value
@@ -119,7 +115,7 @@ deleteTask(){
   this.apicallsservice.deleteTask(this.taskID).subscribe(
     data => {
       console.log('delete task is successful ', data);
-      Swal.fire('deleted')
+      Swal.fire(data)
       this.taskForm.reset()
     },
     error => {
@@ -135,14 +131,13 @@ async onSubmit(){
     this.taskForm.controls.updateddate.setValue(new Date)
   this.apicallsservice.updateTaskData(this.taskForm.value,this.receivedrow._id).subscribe(
     data => {
-      console.log('update task is successful ', data);
-      Swal.fire('successful')
+      Swal.fire(data)
       this.taskForm.reset()
       this.initData()
     },
     error => {
       console.log('create task', error);
-      Swal.fire('unsuccessful')
+      Swal.fire(error.message)
     }
   );
   this.closeTaskForm()
@@ -154,12 +149,12 @@ async onSubmit(){
     this.apicallsservice.postTask(this.taskForm.value).subscribe(
       data => {
         console.log('create task is successful ', data);
-        Swal.fire('successful')
+        Swal.fire(data)
         this.taskForm.reset()
       },
       error => {
         console.log('create task', error);
-        Swal.fire('unsuccessful')
+        Swal.fire(error.message)
       }
     );
   }
