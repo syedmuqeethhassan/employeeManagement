@@ -15,16 +15,16 @@ loggedPerson:any
     let fetchedData = sessionStorage.getItem('userLogged')
     let userLoggedData = JSON.parse(atob(fetchedData));
     this.loggedPerson=userLoggedData
-    this.apiservice.getLoggedData(this.loggedPerson.id).subscribe(
-      data => {
-        console.log('POST Request is successful ', data);
+    // this.apiservice.getLoggedData(this.loggedPerson._id).subscribe(
+    //   data => {
+    //     console.log('POST Request is successful ', data);
         
-      },
-      error => {
-        console.log('Error', error);
-        Swal.fire('unsuccessful')
-      }
-    );
+    //   },
+    //   error => {
+    //     console.log('Error', error);
+    //     Swal.fire('unsuccessful')
+    //   }
+    // );
   }
 
 }

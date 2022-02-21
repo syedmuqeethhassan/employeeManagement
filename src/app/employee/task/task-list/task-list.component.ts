@@ -120,7 +120,7 @@ export class TaskListComponent implements OnInit {
         console.log(this.rows, 'this.rows')
         console.log("row index is",this.rows[rowIndex])
         console.log('UPDATED!', this.rows[rowIndex][cell]);
-        this.apicallsservice.updateTaskData( this.rows[rowIndex]).subscribe(
+        this.apicallsservice.updateTaskData( this.rows[rowIndex],this.rows[rowIndex]._id).subscribe(
           data => {
             console.log('Update task is successful ', data);
             Swal.fire('update successful')

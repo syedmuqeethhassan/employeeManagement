@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
   
   onSubmit(){
     console.log(this.loginForm.value)
-    // this.apiCall().subscribe(data => console.log(data))
     let loginForm={...this.loginForm.value}
     this.http.post<any>(this.url,loginForm).subscribe(result=>{
       let user=result

@@ -43,7 +43,7 @@ export class ChangePasswordComponent implements OnInit {
     this.newPassword=this.changePasswordForm.get('newPassword').value
     this.confirmPassword=this.changePasswordForm.get('confirmPassword').value
     this.id=userLoggedData.id
-    this.apicallservice.getLoggedData(userLoggedData.id).subscribe(
+    this.apicallservice.getLoggedData(userLoggedData._id).subscribe(
       data => {
         this.user=data
         if(this.oldPassword == this.user?.password) {

@@ -104,9 +104,8 @@ export class DashboardComponent implements OnInit {
     this.apicallservice.getAllData().subscribe((receivedData) => {
       this.retrievedData=receivedData
       console.log(receivedData)
-      let allUsers=btoa(JSON.stringify(this.retrievedData));
-      sessionStorage.setItem(this.users,allUsers)
-      
+      // let allUsers=btoa(JSON.stringify(this.retrievedData));
+      // sessionStorage.setItem(this.users,allUsers)
       let fetchedData = sessionStorage.getItem('userLogged')
       let userLoggedData = JSON.parse(atob(fetchedData));
       this.loggedPerson=userLoggedData
@@ -120,9 +119,9 @@ export class DashboardComponent implements OnInit {
         }}
         this.Admin = true
         this.rows = this.data
-        let encodedStr = btoa(JSON.stringify(this.rows));
+        // let encodedStr = btoa(JSON.stringify(this.rows));
 
-        sessionStorage.setItem(this.logged, encodedStr);
+        // sessionStorage.setItem(this.logged, encodedStr);
         
       }
       else if (userLoggedData.role?.includes('Manager')) {
@@ -136,9 +135,9 @@ export class DashboardComponent implements OnInit {
          
       }
         this.rows = this.data
-        let encodedStr = btoa(JSON.stringify(this.rows));
+        // let encodedStr = btoa(JSON.stringify(this.rows));
 
-        sessionStorage.setItem(this.logged, encodedStr);
+        // sessionStorage.setItem(this.logged, encodedStr);
     }
       else if (userLoggedData.role?.includes('Developer')) {
         this.data = [userLoggedData]
@@ -149,9 +148,9 @@ export class DashboardComponent implements OnInit {
           }
         }
         this.rows = this.data
-        let encodedStr = btoa(JSON.stringify(this.rows));
+        // let encodedStr = btoa(JSON.stringify(this.rows));
 
-        sessionStorage.setItem(this.logged, encodedStr);
+        // sessionStorage.setItem(this.logged, encodedStr);
         this.developer=true
       }
     }
@@ -184,9 +183,9 @@ export class DashboardComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Yes, go ahead.',
       cancelButtonText: 'No, let me think'
-    }).then(async (result) => {
+    }).then(result => {
       if (result.value) {
-        await this.apicallservice.deletePost(employeeid).subscribe(data => console.log('deleted: ', employeeid))
+        this.apicallservice.deletePost(employeeid).subscribe(data => console.log('deleted: ', employeeid))
         this.loadData()
         Swal.fire(
           'Removed!',
@@ -214,7 +213,7 @@ export class DashboardComponent implements OnInit {
       if (result.value) {
         for (let i = 0; i < employeeids.length; i++) {
           console.log(employeeids, 'selected ids')
-          await this.apicallservice.deletePost(employeeids[i]).subscribe(data => console.log('deleted: ', employeeids[i]))
+          this.apicallservice.deletePost(employeeids[i]).subscribe(data => console.log('deleted: ', employeeids[i]))
         }
         Swal.fire(
           'Removed!',
@@ -233,10 +232,6 @@ export class DashboardComponent implements OnInit {
   editEmployee(row) {
     this.editEmployeeFormdata = row
     this.showEditEmployeeModal = true
-    console.log(row)
-    console.log(row._id,'this is mongo id')
-    this.loadData()
-    console.log(this.editEmployeeFormdata,'this is form data')
   }
   closeEditEmployeeModalDisplay() {
     this.showEditEmployeeModal = false

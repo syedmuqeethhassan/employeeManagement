@@ -30,47 +30,19 @@ export class EditEmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.createForm()
     console.log(this.editEmployeeFormData,'edit employee form data')
-    this.dashboardcomponent.loadData()
     console.log(this.editEmployeeFormData.id,'id of person logged')
-    this.apicallservice.getLoggedData(this.editEmployeeFormData._id).subscribe(
-      data => {
-        console.log('logged user data recevived from api ', data);
-        this.password=data.password
-        console.log(this.password,'this is password')
         this.editEmployeeForm.patchValue(
           {
             username: this.editEmployeeFormData.username,
-            password:this.password,
-            id: this.editEmployeeFormData._id,
             name: this.editEmployeeFormData.name,
             age: this.editEmployeeFormData.age,
             gender: this.editEmployeeFormData.gender,
             phonenumber: this.editEmployeeFormData.phonenumber,
             role: this.editEmployeeFormData.role
           })
-        
-      },
-      error => {
-        console.log('logged users data not recevived from api ', error);
-      }
-    );
-    this.FormArr = this.editEmployeeForm.get('role') as FormArray;
-    console.log(this.FormArr)
-    console.log(this.editEmployeeFormData,'form value')
-    
-    console.log('Form value after patch', this.editEmployeeForm.value)
    
-    console.log(this.editEmployeeFormData.username)
-    console.log(this.editEmployeeFormData.role?.includes('Developer'))
+    this.FormArr = this.editEmployeeForm.get('role') as FormArray;
   }
-  // this.apicallservice.getUser(id).subscribe(
-  //     data => {
-  //       console.log('getting user', data);
-  //     },
-  //     error => {
-  //       console.log('Error', error);
-  //     }
-  //   )
   createForm() {
     this.editEmployeeForm = this.formbuilder.group({
       username: ['', [Validators.pattern(/^[0-9a-zA-Z]+$/)]],
@@ -78,7 +50,6 @@ export class EditEmployeeComponent implements OnInit {
       phonenumber: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]*")]],
       name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
       gender: ['', [Validators.required]],
-      id: [''],
       age: ['', [Validators.required, Validators.maxLength(2), Validators.minLength(1), Validators.pattern("[0-9]*")]],
       role: ['']
     })
@@ -86,19 +57,18 @@ export class EditEmployeeComponent implements OnInit {
 
   async onSubmit() {
     const updatedFormData = { ...this.editEmployeeForm.value }
-    await (this.apicallservice.putEmployeeFormData(updatedFormData, this.editEmployeeFormData._id).subscribe(
+    this.apicallservice.putEmployeeFormData(updatedFormData, this.editEmployeeFormData._id).subscribe(
       data => {
-        console.log('POST Request is successful ', data);
         Swal.fire('successful')
         this.dashboardcomponent.loadData()
+        this.dashboardcomponent.showEditEmployeeModal = false
       },
       error => {
-        console.log('Error', error);
         Swal.fire('unsuccessful')
+        this.dashboardcomponent.showEditEmployeeModal = false
       }
-    ));
-    this.dashboardcomponent.loadData()
-    this.dashboardcomponent.showEditEmployeeModal = false
+    );
+    
   }
 
   onCheckboxChange(e) {

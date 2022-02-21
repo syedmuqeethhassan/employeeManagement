@@ -85,7 +85,6 @@ initData(){
             assignto: this.receivedrow?.assignto,
             taskdescription: this.receivedrow?.taskdescription,
             date:this.receivedrow.date,
-            id:this.receivedrow._id
           }
         )
       }
@@ -134,7 +133,7 @@ async onSubmit(){
   if(this.formAction=="Update"){
     this.taskForm.controls.createdby.setValue(this.user.name)
     this.taskForm.controls.updateddate.setValue(new Date)
-  await this.apicallsservice.updateTaskData(this.taskForm.value).subscribe(
+  this.apicallsservice.updateTaskData(this.taskForm.value,this.receivedrow._id).subscribe(
     data => {
       console.log('update task is successful ', data);
       Swal.fire('successful')

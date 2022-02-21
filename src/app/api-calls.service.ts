@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { NgZone } from '@angular/core';
-import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,26 +12,19 @@ allDataSubject = new Subject<any>();
 singleEmployeeSubject=new Subject<any>()
   constructor(private http:HttpClient) { }
   getAllData() : Observable<any>{
-    return this.http.get(this.baseurl)
+    let url=this.baseurl+'users'
+    return this.http.get(url)
   }
 
   getLoggedData(id): Observable<any>{
-    return this.http.get(this.baseurl)
+    let url=this.baseurl+'users'
+    return this.http.get(url)
   }
   
   postAddEmployeeFormData(receivedForm:any){
     console.log("post form data is executing")
     let url=this.baseurl+'add-user'
-    return this.http.post<any>(url,receivedForm).subscribe(
-      data => {
-        console.log('POST Request is successful ', data);
-        Swal.fire('successful')
-      },
-      error => {
-        console.log('Error', error);
-        Swal.fire('unsuccessful in api call service')
-      }
-    );
+    return this.http.post<any>(url,receivedForm)
   }
   deletePost(id) {
     let employeeid=id
@@ -45,24 +36,15 @@ singleEmployeeSubject=new Subject<any>()
     return this.http.get(url)
   }
   putEmployeeFormData(editEmployeeFormData,id){
-    let url=this.baseurl+'update'
+    let url=this.baseurl+'update/'+ id ;
     return this.http.put<any>(url,editEmployeeFormData)
   }
-  UpdateEmployeeData(id,dataObject){
-    const employeeId=id
-    let url=this.baseurl+employeeId
-    this.http.put(url,dataObject)
-        .subscribe(
-          data => {
-            console.log('Update Request is successful ', data);
-            Swal.fire('update successful')
-          },
-          error => {
-            console.log('Error', error);
-            Swal.fire('update unsuccessful')
-          }
-        );
-  }
+  // UpdateEmployeeData(id,dataObject){
+  //   const employeeId=id
+  //   let url=this.baseurl+employeeId
+  //   return this.http.put(url,dataObject)
+        
+  // }
   postTask(value){
     let url=this.taskurl+'add-task'
     return this.http.post(url,value)
@@ -75,9 +57,9 @@ singleEmployeeSubject=new Subject<any>()
 return this.http.delete(url)
   }
 
-  updateTaskData(obj){
+  updateTaskData(obj,id){
     obj.updateddate=new Date
-    let url=this.taskurl+'update-task'
+    let url=this.taskurl+'update-task/'+id
     return this.http.put(url,obj)
   }
 }

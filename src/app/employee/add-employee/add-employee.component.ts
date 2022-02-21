@@ -26,7 +26,6 @@ export class AddEmployeeComponent implements OnInit {
   addEmployeeFormData:any
   username:string
   password:string
-  url='http://localhost:3500/users'
   constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public apicallservice:ApiCallsService,public dashboardcomponent:DashboardComponent) {
     this.createForm()
    }
@@ -39,64 +38,66 @@ export class AddEmployeeComponent implements OnInit {
       phonenumber:['',[Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern("[0-9]*")]],
       name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
       gender:['',[Validators.required]],
-      id: [''],
       age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
       role: this.formbuilder.array([])
     })
   }
 async onSubmit (){
-  this.http.get<any>(this.url).subscribe(async result=>{
-      const user=result.find((a:any)=>{
-        return a.username === this.addEmployeeForm.value.username
-      })
-      if(user){
-        Swal.fire("username already exists") 
-      }
-      else{
-        this.alertConfirmationAdd(this.addEmployeeForm.value)
-        
-      }
-    })
+  this.alertConfirmationAdd(this.addEmployeeForm.value)
     
 }
+
+// .subscribe(async result=>{
+//   const user=result.find((a:any)=>{
+//     return a.username === this.addEmployeeForm.value.username
+//   })
+//   if(user){
+//     Swal.fire("username already exists") 
+//   }
+//   else{
+//     this.alertConfirmationAdd(this.addEmployeeForm.value)
+    
+//   }
+// })
+
+
 onCheckboxChange(e) {
   const role: FormArray = this.addEmployeeForm.get('role') as FormArray;
 
   if (e.target.checked) {
     role.push(new FormControl(e.target.value));
   } else {
-    let i: number = 0;
-    role.controls.forEach((item: FormControl) => {
+    
+    role.controls.forEach((item: FormControl, i: number) => {
       if (item.value == e.target.value) {
         role.removeAt(i);
         return;
       }
-      i++;
     });
   }
 }
 
 
 
-alertConfirmationAdd(addEmployeeForm){
+alertConfirmationAdd(addEmployeeFormValue){
   Swal.fire({
     title: 'Are you sure?',
     showCancelButton: true,
     confirmButtonText: 'Yes, go ahead.',
     cancelButtonText: 'No'
-  }).then(async(result) => {
-    
-       
+  }).then(result => {
     if (result.value) {
-        this.addEmployeeFormData = {...this.addEmployeeForm.value}
-        await this.apicallservice.postAddEmployeeFormData(this.addEmployeeFormData)
-        this.dashboardcomponent.loadData()
-        this.dashboardcomponent.addEmployeeModalDisplay=false
-      Swal.fire(
-        'done!',
-        'Employee added successfully.',
-        'success'
-      )
+       this.apicallservice.postAddEmployeeFormData(addEmployeeFormValue).subscribe(
+        data => {
+          Swal.fire(data.message)
+          this.dashboardcomponent.loadData()
+          this.dashboardcomponent.addEmployeeModalDisplay=false
+        },
+        error => {
+          Swal.fire(error.message)
+          this.dashboardcomponent.showEditEmployeeModal = false
+        }
+      );
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       Swal.fire(
         'Cancelled',
