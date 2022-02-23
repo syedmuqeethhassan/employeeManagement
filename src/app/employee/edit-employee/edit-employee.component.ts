@@ -51,7 +51,7 @@ export class EditEmployeeComponent implements OnInit {
       name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
       gender: ['', [Validators.required]],
       age: ['', [Validators.required, Validators.maxLength(2), Validators.minLength(1), Validators.pattern("[0-9]*")]],
-      role: ['']
+      role: ['',[Validators.required]]
     })
   }
 

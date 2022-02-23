@@ -3,6 +3,9 @@
 
 
 <div style="margin-bottom:20px;">
+  
+  <input style="margin-left:50px ;margin-top: 10px;width: 500px;border:1px solid rgb(111, 111, 134);" type="text" [(ngModel)]="searchText" (ngModelChange)="search($event)"   placeholder="Search" />
+
   <div class="addEmployeeDiv" style="width: 200px;float:right;margin-right: 20px;">
   <button  class="addEmployeeButton form-control btn-primary" style="margin:10px" (click)="addEmployeeModal()">Add
     Employee</button>

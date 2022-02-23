@@ -46,7 +46,6 @@ import { TaskModule } from './task/task.module';
     FormsModule,
      RouterModule,
      TaskModule
-    // RouterModule.forChild(routes)
   ],
   exports: [],
   providers: [ApiCallsService],

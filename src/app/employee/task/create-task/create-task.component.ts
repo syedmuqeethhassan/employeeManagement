@@ -130,8 +130,8 @@ async onSubmit(){
     this.taskForm.controls.createdby.setValue(this.user.name)
     this.taskForm.controls.updateddate.setValue(new Date)
   this.apicallsservice.updateTaskData(this.taskForm.value,this.receivedrow._id).subscribe(
-    data => {
-      Swal.fire(data)
+    (data: any) => {
+      Swal.fire(data.message)
       this.taskForm.reset()
       this.initData()
     },

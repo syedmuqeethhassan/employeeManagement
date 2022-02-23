@@ -10,12 +10,14 @@ import { EmployeeModule } from './employee/employee.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ApiCallsService } from './api-calls.service';
 import { DashboardComponent } from './employee/dashboard/dashboard.component';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    SearchFilterPipe,
     
     
   ],

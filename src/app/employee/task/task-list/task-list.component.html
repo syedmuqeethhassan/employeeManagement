@@ -6,12 +6,12 @@
       [rowHeight]="50"  [footerHeight]="50" [sortType]="SortType.multi" [columnMode]="'force'"
       [selectAllRowsOnPage]="false" [displayCheck]="displayCheck">
       
-      <ngx-datatable-column    name="taskname"  >
+      <ngx-datatable-column    name="TASKNAME"  >
         <ng-template style="padding-bottom:5px;" ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column  name="taskstatus"  [resizeable]="false">
+      <ngx-datatable-column  name="TASKSTATUS"  [resizeable]="false">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
           <span title="Double click to edit" (dblclick)="editing[rowIndex + '-taskstatus'] = true"
             *ngIf="!editing[rowIndex + '-taskstatus']">
@@ -29,24 +29,24 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column  name="assignto"   >
+      <ngx-datatable-column  name="ASSIGNTO"   >
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value}}
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column  name="createdby"   >
+      <ngx-datatable-column  name="CREATEDBY"   >
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column  name="date"  >
+      <ngx-datatable-column  name="DATE"  >
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value| date:'short'}}
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column  name="updateddate"  >
+      <ngx-datatable-column  name="UPDATEDDATE"  >
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value| date:'short'}}
         </ng-template>

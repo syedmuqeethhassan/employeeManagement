@@ -67,4 +67,8 @@ return this.http.delete(url)
     let url=this.baseurl+'get-users'
     return this.http.get(url)
   }
+  changePassword(id,passwordObject){
+    let url=this.baseurl+'change-password/'+id
+    return this.http.post(url,passwordObject)
+  }
 }

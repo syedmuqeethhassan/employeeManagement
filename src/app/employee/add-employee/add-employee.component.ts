@@ -39,7 +39,7 @@ export class AddEmployeeComponent implements OnInit {
       name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
       gender:['',[Validators.required]],
       age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
-      role: this.formbuilder.array([])
+      role: this.formbuilder.array([],[Validators.required])
     })
   }
 async onSubmit (){
@@ -88,7 +88,7 @@ alertConfirmationAdd(addEmployeeFormValue){
   }).then(result => {
     if (result.value) {
        this.apicallservice.postAddEmployeeFormData(addEmployeeFormValue).subscribe(
-        data => {
+        (data: any) => {
           Swal.fire(data.message)
           this.dashboardcomponent.loadData()
           this.dashboardcomponent.addEmployeeModalDisplay=false

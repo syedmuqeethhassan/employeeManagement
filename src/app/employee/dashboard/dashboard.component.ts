@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ApiCallsService } from 'src/app/api-calls.service';
 import { from, Observable, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
-import { SortType, SelectionType  } from '@swimlane/ngx-datatable'
-import{ColumnMode} from '@swimlane/ngx-datatable'
+import { SortType, SelectionType } from '@swimlane/ngx-datatable'
+import { ColumnMode } from '@swimlane/ngx-datatable'
 import { NgZone } from '@angular/core';
+import { SearchFilterPipe } from 'src/app/search-filter.pipe';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: [
-],
+  ],
 
 })
 export class DashboardComponent implements OnInit {
@@ -18,40 +19,41 @@ export class DashboardComponent implements OnInit {
   SelectionType = SelectionType;
   SortType = SortType;
   ColumnMode = ColumnMode;
-  loggedPerson:any
-  rows:any
-  select:any
+  loggedPerson: any
+  rows: any;
+  tempRows:any[];
+  select: any
   selected = [];
   editing = {};
-  columns = [{ name: 'userName' }, { prop: 'password' }, { prop: 'phoneNumber' },{ prop: 'name' },{ prop: 'gender' },{ prop: 'id' },{ prop: 'age' },{ prop: 'role' }];
-  addEmployeeModalDisplay:boolean=false
-  jsonServerData:any
-  data:any
-  id:any
-  name:any
-  age:any
-  gender:any
-  role:any
-  selectedIds=[]
-  username:any
-  phonenumber:any
+  columns = [{ name: 'userName' }, { prop: 'password' }, { prop: 'phoneNumber' }, { prop: 'name' }, { prop: 'gender' }, { prop: 'id' }, { prop: 'age' }, { prop: 'role' }];
+  addEmployeeModalDisplay: boolean = false
+  jsonServerData: any
+  data: any
+  id: any
+  name: any
+  age: any
+  gender: any
+  role: any
+  selectedIds = []
+  username: any
+  phonenumber: any
   allDataSubject = new Subject<any>();
   changeDataSubject = new Subject<any>();
-  showViewEmployeeModal=false
-  closeViewEmployeeModal=false
-  showEditEmployeeModal=false
-  editEmployeeFormdata:any
-  Manager:boolean=false
-  Developer:boolean=false
-  Admin:boolean=false
-  adminData:any
-  managerData:any
-  developerData:any
-  editRow:any
-  retrievedData:any
-  developer:any
-  users='users'
-  logged:string='usersList'
+  showViewEmployeeModal = false
+  closeViewEmployeeModal = false
+  showEditEmployeeModal = false
+  editEmployeeFormdata: any
+  Manager: boolean = false
+  Developer: boolean = false
+  Admin: boolean = false
+  adminData: any
+  managerData: any
+  developerData: any
+  editRow: any
+  retrievedData: any
+  developer: any
+  users = 'users'
+  logged: string = 'usersList'
   constructor(public apicallservice: ApiCallsService, private zone: NgZone) { }
 
   ngOnInit(): void {
@@ -80,8 +82,8 @@ export class DashboardComponent implements OnInit {
       if (this.rows[rowIndex][cell] != '') {
         this.rows[rowIndex][cell] = event.target.value;
         this.rows = [...this.rows];
-        this.rows[rowIndex]['id']=this.rows[rowIndex]._id
-        this.apicallservice.putEmployeeFormData(this.rows[rowIndex],this.rows[rowIndex]._id).subscribe(
+        this.rows[rowIndex]['id'] = this.rows[rowIndex]._id
+        this.apicallservice.putEmployeeFormData(this.rows[rowIndex], this.rows[rowIndex]._id).subscribe(
           data => {
             console.log('POST Request is successful ', data);
             Swal.fire('successful')
@@ -100,42 +102,46 @@ export class DashboardComponent implements OnInit {
   }
   loadData() {
     this.apicallservice.getAllData().subscribe((receivedData) => {
-      this.retrievedData=receivedData
+      this.retrievedData = receivedData
       console.log(receivedData)
       let fetchedData = sessionStorage.getItem('userLogged')
       let userLoggedData = JSON.parse(atob(fetchedData));
-      this.loggedPerson=userLoggedData
+      this.loggedPerson = userLoggedData
       if (userLoggedData.role?.includes('Admin')) {
         this.data = this.retrievedData
         for (let i = 0; i < this.data.length; i++) {
           delete (this.data[i].password)
-            if(this.data[i]._id==this.loggedPerson._id){
-              this.data.splice(i,1)
-        }}
+          if (this.data[i]._id == this.loggedPerson._id) {
+            this.data.splice(i, 1)
+          }
+        }
         this.Admin = true
-        this.rows = this.data
+        this.rows = this.data;
+        this.tempRows = JSON.parse(JSON.stringify(this.data));
       }
       else if (userLoggedData.role?.includes('Manager')) {
         const managerData = this.retrievedData?.filter(x => (x.role.includes('Developer') || x.role.includes('Manager')) && !x.role.includes('Admin'))
         this.data = managerData
         for (let i = 0; i < this.data?.length; i++) {
           delete (this.data[i].password)
-          if(this.data[i]._id==this.loggedPerson._id){
-            this.data.splice(i,1)
+          if (this.data[i]._id == this.loggedPerson._id) {
+            this.data.splice(i, 1)
           }
+        }
+        this.rows = this.data;
+        this.tempRows = JSON.parse(JSON.stringify(this.data));
       }
-        this.rows = this.data
-    }
       else if (userLoggedData.role?.includes('Developer')) {
         this.data = [userLoggedData]
         for (let i = 0; i < this.data.length; i++) {
           delete (this.data[i].password)
-            if(this.data[i]._id==this.loggedPerson._id){
-              this.data.splice(i,1)
+          if (this.data[i]._id == this.loggedPerson._id) {
+            this.data.splice(i, 1)
           }
         }
-        this.rows = this.data
-        this.developer=true
+        this.rows = this.data;
+        this.tempRows = JSON.parse(JSON.stringify(this.data));
+        this.developer = true
       }
     }
     )
@@ -155,7 +161,7 @@ export class DashboardComponent implements OnInit {
   deleteSelected() {
     for (let i = 0; i < this.selected.length; i++) {
       this.selectedIds.push(this.selected[i]._id)
-      console.log(this.selectedIds,'selected IDs')
+      console.log(this.selectedIds, 'selected IDs')
     }
     this.alertConfirmationForAll(this.selectedIds)
   }
@@ -167,17 +173,14 @@ export class DashboardComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Yes, go ahead.',
       cancelButtonText: 'No, let me think'
-    }).then(async(result) => {
+    }).then(async (result) => {
       if (result.value) {
-       this.apicallservice.deletePost(employeeid).subscribe(
-          data => {console.log('deleted: ', employeeid)
-          this.loadData()
-        })
-        Swal.fire(
-          'Removed!',
-          'Employee removed successfully.',
-          'success'
-        )
+        this.apicallservice.deletePost(employeeid).subscribe(
+          data => {
+            console.log('deleted: ', data)
+            Swal.fire(data)
+            this.loadData()
+          })
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
@@ -234,5 +237,17 @@ export class DashboardComponent implements OnInit {
         this.Developer = true
       }
     }
+  }
+  search(searchText?: any): any {
+    this.rows = this.tempRows;
+    if (!searchText) {
+      this.rows = this.tempRows;
+    }
+    
+    const finalArr = this.rows.filter((val) => {
+      return val.username.toLocaleLowerCase().includes(searchText) ||
+      val.phonenumber.toString().includes(searchText);
+    });
+    this.rows = finalArr;
   }
 }
