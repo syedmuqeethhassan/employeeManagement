@@ -49,14 +49,14 @@ export class ChangePasswordComponent implements OnInit {
   } 
   changePassword(id){
     this.apicallservice.changePassword(this.id,this.changePasswordForm.value).subscribe(
-      data => {
+      (data:any) => {
         console.log('change password is successful ', data);
-        Swal.fire(data)
+        Swal.fire(data.message)
         this.changePasswordForm.reset()
       },
       error => {
         console.log('Error', error);
-        Swal.fire(error)
+        Swal.fire(error.message)
       }
     )
     this.router.navigate(['/employee/dashboard']);

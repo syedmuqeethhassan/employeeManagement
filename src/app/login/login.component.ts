@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { DashboardComponent } from '../employee/dashboard/dashboard.component';
+import { ApiCallsService } from '../api-calls.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   password:string
   url='http://localhost:3500/users/login'
   userLogged:string='userLogged'
-  constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public dashboardcomponent:DashboardComponent) {
+  constructor(public formbuilder:FormBuilder, private router: Router,public http:HttpClient,public dashboardcomponent:DashboardComponent,public apicallservice:ApiCallsService) {
 
     this.loginForm = this.formbuilder.group({
       username: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
@@ -33,14 +34,16 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     console.log(this.loginForm.value)
     let loginForm={...this.loginForm.value}
-    this.http.post<any>(this.url,loginForm).subscribe(result=>{
-      let user=result
+    this.apicallservice.login(loginForm).subscribe((result:any)=>{
+      let user=result.data
+      if(result.code==200){
       console.log(result)
       if(user){
         delete(user.password);
         let encodedStr = btoa(JSON.stringify(user));
         sessionStorage.setItem(this.userLogged, encodedStr);
-        Swal.fire("logged in")
+        console.log(result,'result')
+        Swal.fire(result.message)
         if(user.role=="Developer"){
           console.log('user is developer only')
           this.router.navigate(['/employee/tasks']);
@@ -49,9 +52,12 @@ export class LoginComponent implements OnInit {
         this.loginForm.reset()
         }
       }
-      else{
-       Swal.fire("Incorrect Credentials")
-      }
+    }
+  else{
+    Swal.fire(result.message)
+  }},
+    (err:any)=>{
+      Swal.fire(err.message)
     })
   } 
 }

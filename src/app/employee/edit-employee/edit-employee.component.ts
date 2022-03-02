@@ -48,7 +48,7 @@ export class EditEmployeeComponent implements OnInit {
       username: ['', [Validators.pattern(/^[0-9a-zA-Z]+$/)]],
       password: [''],
       phonenumber: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]*")]],
-      name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA ]*$/)]],
       gender: ['', [Validators.required]],
       age: ['', [Validators.required, Validators.maxLength(2), Validators.minLength(1), Validators.pattern("[0-9]*")]],
       role: ['',[Validators.required]]
@@ -58,13 +58,18 @@ export class EditEmployeeComponent implements OnInit {
   async onSubmit() {
     const updatedFormData = { ...this.editEmployeeForm.value }
     this.apicallservice.putEmployeeFormData(updatedFormData, this.editEmployeeFormData._id).subscribe(
-      data => {
-        Swal.fire('successful')
+      (data:any) => {
+        console.log(data)
+        // let newArr=this.dashboardcomponent.rows.filter(x=>x._id!=this.editEmployeeFormData._id)
+        // this.dashboardcomponent.rows.length=0
+        // newArr.push(data.data)
+        // this.dashboardcomponent.rows=newArr
+        Swal.fire(data.message)
         this.dashboardcomponent.loadData()
         this.dashboardcomponent.showEditEmployeeModal = false
       },
       error => {
-        Swal.fire('unsuccessful')
+        Swal.fire(error.message)
         this.dashboardcomponent.showEditEmployeeModal = false
       }
     );

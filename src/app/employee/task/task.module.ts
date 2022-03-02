@@ -8,6 +8,8 @@ import { FormBuilderModule } from  'nz-form-builder';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularResizeEventModule } from 'angular-resize-event';
+import { FormsModule } from '@angular/forms'
+
 const routes: Routes = [
   {
     path: '',
@@ -31,7 +33,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     NgxDatatableModule,
     ReactiveFormsModule,
-    AngularResizeEventModule 
+    AngularResizeEventModule ,
+    FormsModule
   ],
    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

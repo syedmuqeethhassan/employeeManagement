@@ -3,7 +3,7 @@
     justify-content: end;
     height: 98px;
     align-items: center;
-    
+    position: relative;
     background-color:#1350aa6e 
 }
 .profilePic{
@@ -22,6 +22,7 @@
 }
 .usernameDropdown{
     align-content: center;margin-right: 80px;
+    width: 50px;
 }
 .profilePicDive{
     display: block;

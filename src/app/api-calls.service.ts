@@ -39,6 +39,10 @@ singleEmployeeSubject=new Subject<any>()
     let url=this.baseurl+'update/'+ id ;
     return this.http.put<any>(url,editEmployeeFormData)
   }
+  login(dataObject){
+    let url=this.baseurl+'login'
+    return this.http.post<any>(url,dataObject)
+  }
   // UpdateEmployeeData(id,dataObject){
   //   const employeeId=id
   //   let url=this.baseurl+employeeId

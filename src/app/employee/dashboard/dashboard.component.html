@@ -4,13 +4,13 @@
 
 <div style="margin-bottom:20px;">
   
-  <input style="margin-left:50px ;margin-top: 10px;width: 500px;border:1px solid rgb(111, 111, 134);" type="text" [(ngModel)]="searchText" (ngModelChange)="search($event)"   placeholder="Search" />
+  <input class="form-control" style="width: 400px;float: left;margin-top: 10px;margin-left: 10px;" type="text" [(ngModel)]="searchText" (ngModelChange)="search($event)"   placeholder="Search" />
 
   <div class="addEmployeeDiv" style="width: 200px;float:right;margin-right: 20px;">
   <button  class="addEmployeeButton form-control btn-primary" style="margin:10px" (click)="addEmployeeModal()">Add
     Employee</button>
   </div>
-  <div *ngIf="!developer" class="prefix-css" >
+  <div *ngIf="!developer" class="prefix-css" style="margin:5px">
   <ngx-datatable style="border-color:#600080;border-radius:10px;" class="material container" [columns]="columns" [rows]="rows" [count]=8 [limit]="5" [headerHeight]="60"
     [rowHeight]="50"  [footerHeight]="50" [sortType]="SortType.multi" [columnMode]="ColumnMode.force"
     [selected]="selected" [selectionType]="SelectionType.checkbox" [selectAllRowsOnPage]="false"
@@ -18,42 +18,42 @@
     
     <ngx-datatable-column  name="id" [width]="50" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-id'] = true"
-          *ngIf="!editing[rowIndex + '-id']">
+        <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-id'] = true"
+          *ngIf="!editing[rowIndex + '-id']"> -->
           {{ value }}
          
-        </span>
+        <!-- </span> -->
         <input autofocus (blur)="updateValue($event, 'id', rowIndex)" *ngIf="editing[rowIndex + '-id']" type="text"
           [value]="value" />
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="USERNAME" [width]="200" [resizeable]="false">
+    <ngx-datatable-column name="User Name" prop="username" [width]="200" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-userName'] = true"
-          *ngIf="!editing[rowIndex + '-userName']">
+        <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-userName'] = true"
+          *ngIf="!editing[rowIndex + '-userName']"> -->
           {{ value }}
-        </span>
+        <!-- </span> -->
         <input  autofocus (blur)="updateValue($event, 'userName', rowIndex)" *ngIf="editing[rowIndex + '-userName']"
           type="text" [value]="value" />
       </ng-template>
     </ngx-datatable-column>
     
-    <ngx-datatable-column name="PHONENUMBER" [width]="200"[resizeable]="false">
+    <ngx-datatable-column name="Phone Number" prop="phonenumber" [width]="200"[resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-phonenumber'] = true"
-          *ngIf="!editing[rowIndex + '-phonenumber']">
+        <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-phonenumber'] = true"
+          *ngIf="!editing[rowIndex + '-phonenumber']"> -->
           {{ value }}
-        </span>
+        <!-- </span> -->
         <input style="width: 120px;" autofocus (blur)="updateValue($event, 'phonenumber', rowIndex)"
           *ngIf="editing[rowIndex + '-phonenumber']" type="text" [value]="value" />
         </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="GENDER" [resizeable]="false">
+    <ngx-datatable-column name="Gender" prop="gender" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-gender'] = true"
-          *ngIf="!editing[rowIndex + '-gender']">
+        <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-gender'] = true"
+          *ngIf="!editing[rowIndex + '-gender']"> -->
           {{ value }}
-        </span>
+        <!-- </span> -->
         <select *ngIf="editing[rowIndex + '-gender']" (blur)="editing[rowIndex + '-gender'] = false"
           (change)="updateValue($event, 'gender', rowIndex)" [value]="value">
           <option value="male">Male</option>
@@ -61,30 +61,41 @@
         </select>
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column  name="AGE" [width]="200" [resizeable]="false">
+    <ngx-datatable-column  name="Age" prop="age" [width]="120" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-age'] = true"
-          *ngIf="!editing[rowIndex + '-age']">
+        <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-age'] = true"
+          *ngIf="!editing[rowIndex + '-age']"> -->
           {{ value }}
-        </span>
+        <!-- </span> -->
         <input style="width: 60px;" autofocus (blur)="updateValue($event, 'age', rowIndex)" *ngIf="editing[rowIndex + '-age']" type="text"
         [value]="value" />
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="ROLE" [width]="200" [resizeable]="false">
+    <ngx-datatable-column  name="Created Date" prop="createddate" [width]="200"  >
+      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+          {{value| date:'short'}}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Role" prop="role" [width]="200" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
         <span title="Double click to edit" (dblclick)="editing[rowIndex + '-role'] = true"
           *ngIf="!editing[rowIndex + '-role']">
           {{ value }}
         </span>
-        <input autofocus (blur)="updateValue($event, 'role', rowIndex)" *ngIf="editing[rowIndex + '-role']"
-          type="text" [value]="value" />
+        <select *ngIf="editing[rowIndex + '-role']" (blur)="editing[rowIndex + '-role'] = false"
+          (change)="updateValue($event, 'role', rowIndex)" [value]="value">
+          <option value="Admin">Admin</option>
+          <option value="Manager">Manager</option>
+          <option value="Developer">Developer</option>
+          
+        </select>
       </ng-template>
     </ngx-datatable-column>
        
 
-    <ngx-datatable-column name="ACTIONS" [width]="200" [resizeable]="false">
+    <ngx-datatable-column name="Actions" [width]="200" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-row="row">
         <div style="display:flex;">
         <div style="margin-right: 8px;margin-left: 15px;">

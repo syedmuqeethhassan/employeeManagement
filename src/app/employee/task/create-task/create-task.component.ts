@@ -66,12 +66,13 @@ initData(){
       console.log('all employees in create task component ', data);
       this.users = data
       this.userDropdownList=this.users
+      this.userDropdownList.splice(this.userDropdownList.indexOf('super user'), 1);
       this.date = new Date();
-      this.taskForm.controls.createdby.setValue(this.user.name)
+      // this.taskForm.controls.createdby.setValue(this.user.name)
       this.taskForm.value
       console.log(this.receivedrow)
       if (this.formEdit == true) {
-        this.taskID = this.receivedrow.id;
+        this.taskID = this.receivedrow._id;
         this.formPurpose = "Edit Task"
         this.formAction = "Update"
         this.taskForm.patchValue(
@@ -81,6 +82,7 @@ initData(){
             assignto: this.receivedrow?.assignto,
             taskdescription: this.receivedrow?.taskdescription,
             date:this.receivedrow.date,
+            createdby:this.receivedrow.createdby
           }
         )
       }
@@ -113,21 +115,21 @@ ngOnChanges(changes: SimpleChanges) {
 
 deleteTask(){
   this.apicallsservice.deleteTask(this.taskID).subscribe(
-    data => {
+    (data:any) => {
       console.log('delete task is successful ', data);
-      Swal.fire(data)
+      Swal.fire(data.message)
       this.taskForm.reset()
     },
-    error => {
+    (error:any) => {
       console.log('task not deleted', error);
-      Swal.fire('unsuccessful')
+      Swal.fire(error.message)
     }
   );
 }
 
 async onSubmit(){
   if(this.formAction=="Update"){
-    this.taskForm.controls.createdby.setValue(this.user.name)
+    // this.taskForm.controls.createdby.setValue(this.user.name)
     this.taskForm.controls.updateddate.setValue(new Date)
   this.apicallsservice.updateTaskData(this.taskForm.value,this.receivedrow._id).subscribe(
     (data: any) => {
@@ -147,9 +149,9 @@ async onSubmit(){
     this.taskForm.controls.date.setValue(new Date)
     this.taskForm.value
     this.apicallsservice.postTask(this.taskForm.value).subscribe(
-      data => {
+      (data:any) => {
         console.log('create task is successful ', data);
-        Swal.fire(data)
+        Swal.fire(data.message)
         this.taskForm.reset()
       },
       error => {

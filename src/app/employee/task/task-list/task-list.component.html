@@ -1,17 +1,18 @@
 
 <div style="display: flex; width: 100%;">
-<div  class="prefix-css"  style="margin-left:20px;margin:5px;margin-top:10px;width: inherit;">
-  <button (click)="showFormFunction() " class="form-control" style="float: right;width: 200px;margin:10px;" [disabled]="this.showForm">Create Task</button>
+<div  class="prefix-css"  style="margin-left:10px;margin:5px;width: inherit;">
+  <input class="form-control" style="width: 400px;float: left;margin-top: 10px;margin-left: 5px;" type="text" [(ngModel)]="searchText" (ngModelChange)="search($event)"   placeholder="Search" />
+  <button (click)="showFormFunction() " class="form-control btn-primary" style="float: right;width: 200px;margin:10px;" [disabled]="this.showForm">Create Task</button>
     <ngx-datatable (resized)="onResized($event)" [limit]="5" style="border-color:#600080;border-radius:10px;width: inherit;" class="material container" [columns]="columns" [rows]="rows" [count]=8 [limit]="7" [headerHeight]="60"
       [rowHeight]="50"  [footerHeight]="50" [sortType]="SortType.multi" [columnMode]="'force'"
       [selectAllRowsOnPage]="false" [displayCheck]="displayCheck">
       
-      <ngx-datatable-column    name="TASKNAME"  >
+      <ngx-datatable-column  name="Task Name"  prop="taskname" >
         <ng-template style="padding-bottom:5px;" ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column  name="TASKSTATUS"  [resizeable]="false">
+      <ngx-datatable-column  name="Task Status" prop="taskstatus" [resizeable]="false">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
           <span title="Double click to edit" (dblclick)="editing[rowIndex + '-taskstatus'] = true"
             *ngIf="!editing[rowIndex + '-taskstatus']">
@@ -29,32 +30,34 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column  name="ASSIGNTO"   >
+      <ngx-datatable-column  name="Assign To" prop="assignto"   >
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value}}
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column  name="CREATEDBY"   >
+      <ngx-datatable-column  name="Created By" prop="createdby"   >
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column  name="DATE"  >
+      <ngx-datatable-column  name="Created Date" prop="date"  >
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             {{value| date:'short'}}
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column  name="UPDATEDDATE"  >
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-            {{value| date:'short'}}
+      <ngx-datatable-column  name="Updated Date" prop="updateddate"  >
+        <ng-template  ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+          <div *ngIf="value != '-'">
+          {{value| date:'short'}}
+        </div>  
         </ng-template>
       </ngx-datatable-column>
 
 
 
-      <ngx-datatable-column name="ACTIONS" [resizeable]="false">
+      <ngx-datatable-column name="Actions" [resizeable]="false">
         <ng-template ngx-datatable-cell-template let-row="row">
           <div style="display:flex;">
           <div style="margin-right: 8px;margin-left: 15px;">

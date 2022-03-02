@@ -28,6 +28,8 @@ export class TaskListComponent implements OnInit {
   formEdit: boolean;
   width=0;
   height=0;
+  tempRows: any;
+  searchText:any
   constructor(public apicallsservice:ApiCallsService) { }
 
   ngOnInit(): void {
@@ -41,8 +43,20 @@ export class TaskListComponent implements OnInit {
       data => {
         console.log('get task Request is successful ', data);
         this.taskUsers=data
+        if(this.userLogged.username=='superuser'){
+          this.rows=this.taskUsers
+          this.tempRows=this.taskUsers
+          
+          this.rows.forEach(element => {if(element.updateddate==null){
+            element.updateddate='-'
+          }
+            
+          });
+        }
+        else{
         this.rows=this.taskUsers.filter(x=>(x.createdby==this.userLogged.name || x.assignto==this.userLogged.name))
-        
+        this.tempRows=this.rows
+        }
       },
       error => {
         console.log('get task unsuccessful-Error', error);
@@ -77,25 +91,26 @@ export class TaskListComponent implements OnInit {
     console.log("delete task",row_id)
       Swal.fire({
         title: 'Are you sure?',
-        text: 'This process is irreversible.',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, go ahead.',
-        cancelButtonText: 'No, let me think'
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
       }).then(async (result) => {
         if (result.value) {
-          this.apicallsservice.deleteTask(row_id).subscribe(data => {
+          this.apicallsservice.deleteTask(row_id).subscribe((data:any) => {
             console.log('deleted task ' )
-            Swal.fire(
-              'Removed!',
-              'Task removed successfully.',
-              'success'
+            Swal.fire(data.message
             )
             this.gettaskdata()
-          })
+          },
+          (error:any)=>{
+            Swal.fire(error.message)
+          }
+          
+          
+          )
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire(
-            'process aborted',
             'Task still in our database.)',
             'error'
           )
@@ -118,18 +133,32 @@ export class TaskListComponent implements OnInit {
         this.rows[rowIndex].id=this.rows[rowIndex]._id
         this.rows = [...this.rows];
         this.apicallsservice.updateTaskData( this.rows[rowIndex],this.rows[rowIndex]._id).subscribe(
-          data => {
+          (data:any) => {
             console.log('Update task is successful ');
             this.gettaskdata()
-            Swal.fire(data)
+            Swal.fire(data.message)
            
           },
-          error => {
+          (error:any) => {
             console.log('update task is not successful-error', error);
-            Swal.fire('update unsuccessful')
+            Swal.fire(error.message)
           }
         );
       }
     }
+}
+
+search(searchText?: any): any {
+  this.rows = this.tempRows;
+  if (!searchText) {
+    this.rows = this.tempRows;
+  }
+  
+  const finalArr = this.rows.filter((val) => {
+    return val.taskname.toLocaleLowerCase().includes(searchText) ||
+    val.assignto.toString().includes(searchText)||
+    val.createdby?.toString().includes(searchText)
+  });
+  this.rows = finalArr;
 }
 }

@@ -33,16 +33,20 @@ export class AddEmployeeComponent implements OnInit {
   }
   createForm(){
     this.addEmployeeForm = this.formbuilder.group({
-      username: ['', [Validators.required, Validators.pattern(/^[0-9a-zA-Z]+$/)]],
+      username: ['', [Validators.required, Validators.pattern("^[a-z]+$")]],
       password:  ['', [Validators.required]],
       phonenumber:['',[Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern("[0-9]*")]],
-      name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+$")]],
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       gender:['',[Validators.required]],
       age: ['',[Validators.required,Validators.maxLength(2),Validators.minLength(1),Validators.pattern("[0-9]*")]],
-      role: this.formbuilder.array([],[Validators.required])
+      role: this.formbuilder.array([],[Validators.required]),
+      createddate:[],
+      isdelete:[]
     })
   }
 async onSubmit (){
+  this.addEmployeeForm.controls.createddate.setValue(new Date)
+  this.addEmployeeForm.controls.isdelete.setValue(0)
   this.alertConfirmationAdd(this.addEmployeeForm.value)
     
 }
@@ -83,19 +87,23 @@ alertConfirmationAdd(addEmployeeFormValue){
   Swal.fire({
     title: 'Are you sure?',
     showCancelButton: true,
-    confirmButtonText: 'Yes, go ahead.',
+    confirmButtonText: 'Yes',
     cancelButtonText: 'No'
   }).then(result => {
     if (result.value) {
        this.apicallservice.postAddEmployeeFormData(addEmployeeFormValue).subscribe(
         (data: any) => {
+          if(data.code==200){
+            Swal.fire(data.message)
+            this.dashboardcomponent.loadData()
+            this.dashboardcomponent.addEmployeeModalDisplay=false
+          }
+          else{
           Swal.fire(data.message)
-          this.dashboardcomponent.loadData()
-          this.dashboardcomponent.addEmployeeModalDisplay=false
+          }
         },
         error => {
           Swal.fire(error.message)
-          this.dashboardcomponent.showEditEmployeeModal = false
         }
       );
     } else if (result.dismiss === Swal.DismissReason.cancel) {

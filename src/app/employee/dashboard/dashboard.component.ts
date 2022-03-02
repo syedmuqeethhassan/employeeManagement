@@ -84,14 +84,17 @@ export class DashboardComponent implements OnInit {
         this.rows = [...this.rows];
         this.rows[rowIndex]['id'] = this.rows[rowIndex]._id
         this.apicallservice.putEmployeeFormData(this.rows[rowIndex], this.rows[rowIndex]._id).subscribe(
-          data => {
-            console.log('POST Request is successful ', data);
-            Swal.fire('successful')
-            this.dashboardcomponent.loadData()
+          (data:any) => {
+            let newArr=this.dashboardcomponent.rows.filter(x=>x._id!=this.editEmployeeFormData._id)
+        this.dashboardcomponent.rows.length=0
+        newArr.push(data)
+        this.dashboardcomponent.rows=newArr
+        Swal.fire(data.message)
+        // this.dashboardcomponent.loadData()
           },
           error => {
             console.log('Error', error);
-            Swal.fire('unsuccessful')
+            Swal.fire(error.message)
           }
         );
       }
@@ -102,7 +105,7 @@ export class DashboardComponent implements OnInit {
   }
   loadData() {
     this.apicallservice.getAllData().subscribe((receivedData) => {
-      this.retrievedData = receivedData
+      this.retrievedData = receivedData.filter(x=>(x.isdelete!=1))
       console.log(receivedData)
       let fetchedData = sessionStorage.getItem('userLogged')
       let userLoggedData = JSON.parse(atob(fetchedData));
@@ -168,24 +171,24 @@ export class DashboardComponent implements OnInit {
   alertConfirmation(employeeid) {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'This process is irreversible.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, go ahead.',
-      cancelButtonText: 'No, let me think'
+      confirmButtonText: 'Yes.',
+      cancelButtonText: 'No'
     }).then(async (result) => {
       if (result.value) {
         this.apicallservice.deletePost(employeeid).subscribe(
-          data => {
+          (data:any) => {
             console.log('deleted: ', data)
-            Swal.fire(data)
+            Swal.fire(data.message)
             this.loadData()
+          },
+          (error:any)=>{
+            Swal.fire(error.message)
           })
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
-          'Cancelled',
-          'Employee still in our database.)',
-          'error'
+          'Cancelled'
         )
       }
     })
@@ -193,27 +196,26 @@ export class DashboardComponent implements OnInit {
   async alertConfirmationForAll(employeeids: any[]) {
     Swal.fire({
       title: 'Are you sure you want to delete all selected?',
-      text: 'This process is irreversible.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, go ahead.',
-      cancelButtonText: 'No, let me think'
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
     }).then(async (result) => {
       if (result.value) {
         for (let i = 0; i < employeeids.length; i++) {
           console.log(employeeids, 'selected ids')
-          this.apicallservice.deletePost(employeeids[i]).subscribe(data => console.log('deleted: ', employeeids[i]))
+          this.apicallservice.deletePost(employeeids[i]).subscribe(data =>
+            { console.log('deleted: ', employeeids[i])},
+            (error:any)=>{
+              Swal.fire(error.message)
+            }
+
+            )
         }
-        Swal.fire(
-          'Removed!',
-          'Employee removed successfully.',
-          'success'
-        )
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
           'Employee still in our database.)',
-          'error'
         )
       }
     })

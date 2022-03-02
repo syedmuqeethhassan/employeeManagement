@@ -47,10 +47,10 @@
                 Invalid number
             </div>
             <div class="errorMessage" *ngIf="editEmployeeForm.get('phonenumber')?.hasError('maxlength')">
-                Length is high
+                Incorrect number
             </div>
             <div class="errorMessage" *ngIf="editEmployeeForm.get('phonenumber')?.hasError('minlength')">
-                Length is low
+                Incorrect number
             </div>
             <div>
                 <h6>
