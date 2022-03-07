@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
 export class ApiCallsService {
   taskurl='http://localhost:3500/tasks/'
  baseurl='http://localhost:3500/users/'
+ leaveurl='http://localhost:3500/leaves/'
 allData:any
 allDataSubject = new Subject<any>();
 singleEmployeeSubject=new Subject<any>()
@@ -74,5 +75,13 @@ return this.http.delete(url)
   changePassword(id,passwordObject){
     let url=this.baseurl+'change-password/'+id
     return this.http.post(url,passwordObject)
+  }
+  addLeave(object){
+   let url = this.leaveurl+'/add-leave'
+   return this.http.post(url,object)
+  }
+  fetchLeaves(){
+    let url=this.leaveurl+'/leaves'
+    return this.http.get(url)
   }
 }

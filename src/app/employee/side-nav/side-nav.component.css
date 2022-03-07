@@ -38,3 +38,18 @@
 .nav{
     width:190px
 }
+.dropdown-container {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+  }
+  .dropdown-content a:hover {
+    background-color: #ddd;
+    display: block;
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .dropdown-content a {
+      display: block;
+  }

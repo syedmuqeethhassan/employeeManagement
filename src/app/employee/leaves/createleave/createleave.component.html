@@ -1,0 +1,82 @@
+
+<div style="display: flex;justify-content: center;">
+<div class="createLeave" style="position: relative;left: 250px;top: 50px;">
+    <form [formGroup]="createLeavesForm" style="width: 100%;border: 1px solid black;" (ngSubmit)="onSubmit()">
+<div style="display:flex;justify-content: space-between;">
+    <div>
+        <div class="inputField">
+            <label for="startDate">Leave Start Date </label>
+            <input type="date" min="{{limitDate}}" autocomplete="off" class="form-control" name="startDate" formControlName="startDate">
+        </div>
+
+        <div class="errorMessage" *ngIf="createLeavesForm.get('startDate')?.touched && createLeavesForm.get('startDate')?.hasError('required')">
+            This feild is required
+        </div>
+
+        <div class="errorMessage" *ngIf="createLeavesForm.get('startDate')?.hasError('pattern')">
+            Invalid name
+        </div>
+    </div>
+    <div>
+        <div class="inputField"> 
+            <label for="endDate"> Leave End Date </label>
+            <input type="date" min="{{maxDate}}" autocomplete="off" class="form-control" name="endDate" formControlName="endDate">
+        </div>
+
+        <div class="errorMessage" *ngIf="createLeavesForm.get('endDate')?.touched && createLeavesForm.get('endDate')?.hasError('required')">
+            This feild is required
+        </div>
+
+        <div class="errorMessage" *ngIf="createLeavesForm.get('endDate')?.hasError('pattern')">
+            Invalid name
+        </div>
+
+    </div>
+    <div>
+        <div class="inputField"> 
+            <!-- <label for="managerApproval">Manager </label>
+            <input  type="text" autocomplete="off" class="form-control" name="managerApproval" formControlName="managerApproval"> -->
+            <label for="manager" >Manager</label><br>
+            
+            <select class="form-control" formControlName="manager" aria-placeholder="select">
+                <option  *ngFor="let user of users" [value]="user">{{user}}</option>
+             </select>
+            
+        </div>
+
+
+        <div class="errorMessage" *ngIf="createLeavesForm.get('manager')?.touched && createLeavesForm.get('manager')?.hasError('required')">
+            This feild is required
+        </div>
+
+        <div class="errorMessage" *ngIf="createLeavesForm.get('manager')?.hasError('pattern')">
+            Invalid name
+        </div>
+    </div>
+</div>
+
+<br>
+<div style="display:flex ;">
+
+        <div style="margin:20px;width: 540px;margin-top: 0px;">
+            <label for="reason">Reason </label>
+            <textarea class="form-control" cols="50" rows="3" m required name="reason" maxlength="25" formControlName="reason" id="reason" placeholder="Reason for Leave"></textarea>
+        </div>
+
+        <div class="errorMessage" *ngIf="createLeavesForm.get('reason')?.touched && createLeavesForm.get('reason')?.hasError('required')">
+            This feild is required
+        </div>
+
+        <div class="errorMessage" *ngIf="createLeavesForm.get('reason')?.hasError('pattern')">
+            Invalid name
+        </div>
+    </div>
+    <div style="display: flex;justify-content: center;">
+        <button class="form-control submit-leave" (click)="onSubmit()">submit</button>
+    </div>
+    </form>
+</div>
+<div style="width: 50%;">
+
+</div>
+</div>

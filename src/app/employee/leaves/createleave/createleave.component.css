@@ -1,0 +1,12 @@
+.createLeave{
+    justify-content: center;
+}
+.inputField{
+    width: 165px;
+   margin: 5px;
+   margin-bottom: 10px;
+  
+}
+.submit-leave{
+    width: 100px;
+}

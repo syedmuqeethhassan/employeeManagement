@@ -1,0 +1,34 @@
+
+<table class="table">
+    <thead>
+      <tr>
+        
+        <th scope="col">Created by</th>
+        <th scope="col">Start date</th>
+        <th scope="col">End date</th>
+        <th scope="col">Approved</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let leave of leavesApplied">
+       
+        <td>{{leave.createdBy}}</td>
+        <td>{{leave.startDate}}</td>
+        <td>{{leave.endDate}}</td>
+        <td>{{leave.approved}}</td>
+        <td> <div style="display:flex;">
+            <div style="margin-right: 8px;margin-left: 15px;">
+            <i class="bi-pen" style="font-size: 1.2rem;" (click)="editLeave(leave._id)" ></i>
+            </div>
+            <div style="margin-left: 8px;">
+           <i class="bi-trash" style="font-size: 1.2rem;" (click)="deleteLeave(leave._id)"></i>
+            </div>
+            </div>
+        </td>
+      </tr>
+    
+    </tbody>
+</table>
+<router-outlet></router-outlet>

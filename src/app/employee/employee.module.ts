@@ -16,7 +16,7 @@ import { EmployeeComponent } from './employee.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { TaskModule } from './task/task.module';
-
+import { LeavesModule } from './leaves/leaves.module';
 
 // const routes: Routes = [
 //   {path:'feature', component:FeatureComponent},
@@ -45,7 +45,8 @@ import { TaskModule } from './task/task.module';
     EmployeeRoutingModule,
     FormsModule,
      RouterModule,
-     TaskModule
+     TaskModule,
+     LeavesModule
   ],
   exports: [],
   providers: [ApiCallsService],

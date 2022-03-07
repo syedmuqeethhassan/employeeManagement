@@ -80,17 +80,17 @@
 
     <ngx-datatable-column name="Role" prop="role" [width]="200" [resizeable]="false">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-        <span title="Double click to edit" (dblclick)="editing[rowIndex + '-role'] = true"
-          *ngIf="!editing[rowIndex + '-role']">
+        <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-role'] = true"
+          *ngIf="!editing[rowIndex + '-role']"> -->
           {{ value }}
-        </span>
-        <select *ngIf="editing[rowIndex + '-role']" (blur)="editing[rowIndex + '-role'] = false"
+        <!-- </span> -->
+        <!-- <select *ngIf="editing[rowIndex + '-role']" (blur)="editing[rowIndex + '-role'] = false"
           (change)="updateValue($event, 'role', rowIndex)" [value]="value">
           <option value="Admin">Admin</option>
           <option value="Manager">Manager</option>
           <option value="Developer">Developer</option>
           
-        </select>
+        </select> -->
       </ng-template>
     </ngx-datatable-column>
        
